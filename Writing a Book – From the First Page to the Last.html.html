@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>איך לכתוב ספר | קורס דיגיטלי מלא</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1208;
+  --parchment: #f5efe4;
+  --gold: #c9a84c;
+  --rust: #8b3a2a;
+  --cream: #fdf8f0;
+  --shadow: rgba(26,18,8,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--parchment); color:var(--ink); font-family:'Assistant',sans-serif; font-weight:300; overflow-x:hidden; }
+
+/* HERO */
+.hero { min-height:100vh; background:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; padding:2rem; text-align:center; }
+.hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(139,58,42,0.1) 0%, transparent 50%); }
+.hero-lines { position:absolute; inset:0; background-image:repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(201,168,76,0.04) 28px, rgba(201,168,76,0.04) 29px); }
+.hero-content { position:relative; z-index:2; max-width:700px; }
+.hero-badge { display:inline-block; border:1px solid var(--gold); color:var(--gold); font-size:0.7rem; letter-spacing:4px; padding:0.4rem 1.2rem; margin-bottom:2.5rem; opacity:0; animation:fadeUp 0.8s 0.2s forwards; }
+.hero-title { font-family:'Frank Ruhl Libre',serif; font-size:clamp(3rem,8vw,6rem); font-weight:900; color:var(--cream); line-height:1; margin-bottom:1rem; opacity:0; animation:fadeUp 0.8s 0.4s forwards; }
+.hero-title span { color:var(--gold); }
+.hero-sub { font-size:1.05rem; color:rgba(253,248,240,0.5); margin-bottom:3rem; opacity:0; animation:fadeUp 0.8s 0.6s forwards; }
+.hero-stats { display:flex; gap:3rem; justify-content:center; opacity:0; animation:fadeUp 0.8s 0.8s forwards; }
+.stat { text-align:center; }
+.stat-num { font-family:'Frank Ruhl Libre',serif; font-size:2rem; font-weight:700; color:var(--gold); display:block; }
+.stat-label { font-size:0.75rem; color:rgba(253,248,240,0.4); letter-spacing:2px; }
+.scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:rgba(253,248,240,0.3); font-size:0.7rem; letter-spacing:3px; animation:pulse 2s infinite; }
+
+/* NAV */
+nav { background:var(--ink); padding:0.8rem 2rem; display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(201,168,76,0.2); }
+nav a { color:rgba(253,248,240,0.5); text-decoration:none; font-size:0.78rem; letter-spacing:2px; transition:color 0.3s; }
+nav a:hover { color:var(--gold); }
+
+/* SHARED */
+.section-label { font-size:0.65rem; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.8rem; }
+.section-title { font-family:'Frank Ruhl Libre',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; line-height:1.1; margin-bottom:2rem; }
+.wrap { max-width:900px; margin:0 auto; padding:5rem 2rem; }
+
+/* INTRO */
+#intro { background:var(--cream); }
+.intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+.intro-text p { font-size:1rem; line-height:1.9; color:rgba(26,18,8,0.72); margin-bottom:1rem; }
+.quote-block { border-right:3px solid var(--gold); padding-right:2rem; font-family:'Frank Ruhl Libre',serif; font-size:1.3rem; font-style:italic; line-height:1.7; color:var(--rust); }
+
+/* MODULES */
+#modules { background:var(--parchment); }
+.modules-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+.module-card { background:white; border:1px solid rgba(26,18,8,0.08); padding:1.8rem; position:relative; transition:transform 0.3s,box-shadow 0.3s; }
+.module-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px var(--shadow); }
+.module-num { font-family:'Frank Ruhl Libre',serif; font-size:3rem; font-weight:900; color:rgba(26,18,8,0.05); position:absolute; top:1rem; left:1.5rem; line-height:1; }
+.module-icon { font-size:1.6rem; margin-bottom:0.8rem; }
+.module-title { font-family:'Frank Ruhl Libre',serif; font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; }
+.module-desc { font-size:0.85rem; line-height:1.7; color:rgba(26,18,8,0.55); margin-bottom:1rem; }
+.module-lessons { list-style:none; border-top:1px solid rgba(26,18,8,0.07); padding-top:0.8rem; }
+.module-lessons li { font-size:0.78rem; padding:0.3rem 0; color:rgba(26,18,8,0.5); display:flex; align-items:center; gap:0.5rem; }
+.module-lessons li::before { content:'›'; color:var(--gold); }
+
+/* LESSONS ACCORDION */
+#content { background:var(--ink); }
+#content .section-title { color:var(--cream); }
+.lessons-list { margin-top:2.5rem; }
+.acc-item { border-bottom:1px solid rgba(253,248,240,0.08); }
+.acc-header { padding:1.4rem 0; display:grid; grid-template-columns:2.5rem 1fr auto; gap:1.2rem; align-items:center; cursor:pointer; transition:opacity 0.2s; }
+.acc-header:hover { opacity:0.8; }
+.acc-num { font-family:'Frank Ruhl Libre',serif; font-size:0.8rem; color:var(--gold); font-weight:700; }
+.acc-name { font-size:0.95rem; color:rgba(253,248,240,0.85); margin-bottom:0.2rem; }
+.acc-sub { font-size:0.75rem; color:rgba(253,248,240,0.35); }
+.acc-arrow { color:var(--gold); font-size:0.9rem; transition:transform 0.3s; flex-shrink:0; }
+.acc-item.open .acc-arrow { transform:rotate(180deg); }
+.acc-body { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+.acc-item.open .acc-body { max-height:4000px; }
+.acc-inner { padding:0.5rem 0 2.5rem 3.5rem; }
+.acc-tag { display:inline-block; font-size:0.62rem; letter-spacing:3px; color:var(--gold); border:1px solid rgba(201,168,76,0.3); padding:0.2rem 0.7rem; margin-bottom:1.2rem; text-transform:uppercase; }
+.acc-inner h4 { font-family:'Frank Ruhl Libre',serif; font-size:1rem; color:var(--cream); margin:1.2rem 0 0.5rem; }
+.acc-inner p { font-size:0.88rem; line-height:1.9; color:rgba(253,248,240,0.6); margin-bottom:0.8rem; }
+.acc-inner ul { list-style:none; margin:0.5rem 0 1rem; }
+.acc-inner ul li { font-size:0.84rem; color:rgba(253,248,240,0.55); padding:0.35rem 0; display:flex; gap:0.6rem; }
+.acc-inner ul li::before { content:'›'; color:var(--gold); flex-shrink:0; }
+.acc-inner .highlight { background:rgba(201,168,76,0.08); border-right:2px solid var(--gold); padding:1rem 1.2rem; margin:1rem 0; font-size:0.85rem; color:rgba(253,248,240,0.7); line-height:1.8; font-style:italic; }
+.acc-inner .exercise { background:rgba(139,58,42,0.15); border:1px solid rgba(139,58,42,0.3); padding:1.2rem; margin-top:1.2rem; }
+.acc-inner .exercise strong { display:block; font-size:0.72rem; letter-spacing:3px; color:var(--rust); margin-bottom:0.5rem; }
+.acc-inner .exercise p { color:rgba(253,248,240,0.6); font-size:0.85rem; margin:0; }
+
+/* MODULE GROUPS */
+.module-group { margin-top:2.5rem; }
+.module-group-header { display:flex; align-items:center; gap:1rem; padding:1rem 0; border-top:1px solid rgba(201,168,76,0.25); margin-bottom:0.5rem; }
+.module-group-icon { font-size:1.2rem; }
+.module-group-num { font-family:'Frank Ruhl Libre',serif; font-size:0.65rem; color:var(--gold); letter-spacing:3px; text-transform:uppercase; }
+.module-group-title { font-family:'Frank Ruhl Libre',serif; font-size:1.1rem; font-weight:700; color:var(--cream); }
+.module-group .acc-item:last-child { border-bottom:none; }
+
+/* PROCESS */
+#process { background:var(--parchment); }
+.timeline { margin-top:2.5rem; position:relative; padding-right:2rem; }
+.timeline::before { content:''; position:absolute; right:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, var(--gold), transparent); }
+.t-item { position:relative; padding-right:2.5rem; padding-bottom:2.5rem; }
+.t-dot { position:absolute; right:-5px; top:5px; width:11px; height:11px; background:var(--gold); border-radius:50%; }
+.t-phase { font-size:0.62rem; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-bottom:0.3rem; }
+.t-title { font-family:'Frank Ruhl Libre',serif; font-size:1.2rem; font-weight:700; margin-bottom:0.5rem; }
+.t-text { font-size:0.87rem; line-height:1.85; color:rgba(26,18,8,0.62); }
+
+/* TIPS */
+#tips { background:var(--cream); }
+.tips-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+.tip-card { padding:1.8rem; background:white; border-bottom:3px solid var(--gold); }
+.tip-num { font-family:'Frank Ruhl Libre',serif; font-size:3.5rem; font-weight:900; color:rgba(201,168,76,0.1); line-height:1; margin-bottom:0.3rem; }
+.tip-title { font-family:'Frank Ruhl Libre',serif; font-size:1rem; font-weight:700; margin-bottom:0.5rem; }
+.tip-text { font-size:0.82rem; line-height:1.7; color:rgba(26,18,8,0.58); }
+
+/* EXERCISE */
+#exercise { background:var(--rust); }
+#exercise .section-label { color:rgba(253,248,240,0.45); }
+#exercise .section-title { color:var(--cream); }
+.exercise-box { background:rgba(253,248,240,0.07); border:1px solid rgba(253,248,240,0.14); padding:2.5rem; margin-top:1.5rem; }
+.exercise-prompt { font-family:'Frank Ruhl Libre',serif; font-size:1.2rem; font-style:italic; line-height:1.8; margin-bottom:2rem; color:rgba(253,248,240,0.88); }
+textarea { width:100%; min-height:180px; background:rgba(253,248,240,0.05); border:1px solid rgba(253,248,240,0.18); color:var(--cream); font-family:'Assistant',sans-serif; font-size:0.95rem; line-height:1.8; padding:1.2rem; resize:vertical; outline:none; transition:border 0.3s; }
+textarea::placeholder { color:rgba(253,248,240,0.28); }
+textarea:focus { border-color:rgba(253,248,240,0.45); }
+.btn { display:inline-block; margin-top:1rem; padding:0.75rem 2.2rem; background:var(--gold); color:var(--ink); font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; border:none; cursor:pointer; transition:opacity 0.3s; }
+.btn:hover { opacity:0.85; }
+
+/* FOOTER */
+footer { background:var(--ink); padding:4rem 2rem; text-align:center; color:rgba(253,248,240,0.28); }
+footer .logo { font-family:'Frank Ruhl Libre',serif; font-size:2rem; font-weight:900; color:var(--gold); margin-bottom:0.8rem; }
+footer p { font-size:0.78rem; line-height:2; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
+.fade-in { opacity:0; transform:translateY(28px); transition:opacity 0.7s,transform 0.7s; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:650px){
+  .intro-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:1.5rem;}
+  .acc-inner{padding-right:0; padding-left:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-badge">קורס דיגיטלי מלא</div>
+    <h1 class="hero-title">איך לכתוב<br><span>ספר</span></h1>
+    <p class="hero-sub">מהרעיון הראשון ועד לדף האחרון. המדריך המלא לכותב/ת</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">8</span><span class="stat-label">מודולים</span></div>
+      <div class="stat"><span class="stat-num">20</span><span class="stat-label">שיעורים</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">השראה</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">גלול למטה ▾</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#intro">על הקורס</a>
+  <a href="#modules">מודולים</a>
+  <a href="#content">שיעורים</a>
+  <a href="#process">תהליך</a>
+  <a href="#tips">טיפים</a>
+  <a href="#exercise">תרגיל</a>
+</nav>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="intro-text fade-in">
+        <div class="section-label">ברוכים הבאים</div>
+        <h2 class="section-title">כל סופר/ת גדול/ה<br>התחיל/ה מאיפשהו</h2>
+        <p>כתיבת ספר היא אחד המסעות האינטנסיביים, המאתגרים, והמשכרים שאדם יכול לצאת אליהם. זה לא דורש כישרון מיוחד. זה דורש שיטה, התמדה, ואמון בקול הפנימי שלך.</p>
+        <p>בקורס הזה תלמד/י את כל מה שצריך לדעת: איך לפתח רעיון, איך לבנות עלילה, איך לכתוב דמויות שנושמות, ואיך להגיע לדף האחרון גם כשנדמה שאין לך כוח.</p>
+        <p>כל שיעור מכיל הסבר מלא, טיפים מעשיים, ותרגיל. הקורס מיועד לכותב/ת שרוצה לממש חלום, ומוכן/ה להתחיל עכשיו.</p>
+      </div>
+      <div class="quote-block fade-in">
+        "סופר/ת הוא/היא לא מישהו שעומד לכתוב ספרים בעתיד. סופר/ת הוא/היא מישהו שכותב/ת עכשיו."
+        <br><br>
+        <small style="font-size:0.78rem;letter-spacing:2px;color:rgba(139,58,42,0.55)">— עיקרון הקורס</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div id="modules">
+  <div class="wrap">
+    <div class="fade-in">
+      <div class="section-label">מבנה הקורס</div>
+      <h2 class="section-title">8 מודולים.<br>מסע שלם.</h2>
+    </div>
+    <div class="modules-grid">
+      <div class="module-card fade-in"><div class="module-num">01</div><div class="module-icon">💡</div><div class="module-title">הרעיון והזרע</div><div class="module-desc">איך מוצאים ומפתחים רעיון ששווה ספר שלם.</div><ul class="module-lessons"><li>מה הופך רעיון לסיפור</li><li>מציאת הנושא שלך</li><li>שאלת הלוג-ליין</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">02</div><div class="module-icon">🗺️</div><div class="module-title">תכנון ומבנה</div><div class="module-desc">שיטות לתכנן את הספר מ-outline חופשי ועד פלוט מדוקדק.</div><ul class="module-lessons"><li>Plotters vs Pantsers</li><li>מבנה שלושת הפרקים</li><li>ניהול פרקים</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">03</div><div class="module-icon">🧍</div><div class="module-title">דמויות</div><div class="module-desc">בניית דמויות שקוראים אוהבים, שונאים, ולא שוכחים.</div><ul class="module-lessons"><li>גיליון הדמות המלא</li><li>פגמים ורצונות</li><li>קול ייחודי לכל דמות</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">04</div><div class="module-icon">✍️</div><div class="module-title">הכתיבה עצמה</div><div class="module-desc">טכניקות כתיבה יומית והתמודדות עם הדף הלבן.</div><ul class="module-lessons"><li>שגרת כתיבה יומית</li><li>Show, Don't Tell</li><li>קצב ומתח</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">05</div><div class="module-icon">🌍</div><div class="module-title">עולם הספר</div><div class="module-desc">איך לבנות מקום ואווירה שמרגישים אמיתיים.</div><ul class="module-lessons"><li>World-building</li><li>תיאורי מקום</li><li>פרטים שמחיים את העולם</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">06</div><div class="module-icon">🔁</div><div class="module-title">עריכה</div><div class="module-desc">עריכה עצמית: לקרוא את העבודה שלך בעיניים של זר.</div><ul class="module-lessons"><li>עריכה ראשונה ושנייה</li><li>חיתוך</li><li>בטא-קוראים</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">07</div><div class="module-icon">🧠</div><div class="module-title">מיינדסט הכותב/ת</div><div class="module-desc">שמירה על מוטיבציה והתמודדות עם ביקורת.</div><ul class="module-lessons"><li>חסימת כותב/ת</li><li>ביקורת פנימית</li><li>לסיים מה שהתחלת</li></ul></div>
+      <div class="module-card fade-in"><div class="module-num">08</div><div class="module-icon">📚</div><div class="module-title">לאחר הכתיבה</div><div class="module-desc">מה עושים עם ספר שנכתב: הוצאה לאור ושיווק.</div><ul class="module-lessons"><li>הוצאות לאור</li><li>Self-publishing</li><li>שיווק ומיתוג</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSONS ACCORDION -->
+<div id="content">
+  <div class="wrap">
+    <div class="fade-in">
+      <div class="section-label">תכנית מפורטת</div>
+      <h2 class="section-title">כל השיעורים</h2>
+      <p style="color:rgba(253,248,240,0.4);font-size:0.85rem;">לחץ/י על כל שיעור לפתיחת התוכן המלא</p>
+    </div>
+
+    <div class="lessons-list fade-in">
+
+      <!-- מודול 1 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">💡</div>
+          <div>
+            <div class="module-group-num">מודול 1</div>
+            <div class="module-group-title">הרעיון והזרע</div>
+          </div>
+        </div>
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">01</div>
+          <div><div class="acc-name">מה זה בכלל ספר?</div><div class="acc-sub">הגדרות, סוגים, ומה ההבדל בין ספרות לז'אנר</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מבוא · 15 דק׳</div>
+          <p>לפני שמתחילים לכתוב, כדאי להבין: מה בדיוק ספר? ספר הוא לא סתם מסמך ארוך. ספר הוא מבנה. יש לו פתיחה שמציגה עולם, אמצע שיוצר קונפליקט, וסוף שמשנה משהו, בדמות, בקורא/ת, או בשניהם.</p>
+          <h4>סוגי ספרים</h4>
+          <ul>
+            <li><strong>ספרות יפה (Fiction)</strong>: סיפורים שהומצאו, גם אם מבוססים על מציאות. כוללת רומן, נובלה, סיפורים קצרים.</li>
+            <li><strong>Non-fiction</strong>: ספרי עיון, ביוגרפיה, מדריכים, זיכרונות.</li>
+            <li><strong>ספרות ז'אנרית</strong>: מתח, פנטזיה, רומנטיקה, מדע בדיוני. לכל ז'אנר יש כללים משלו שכדאי להכיר.</li>
+            <li><strong>ספרות ספרותית</strong>: שמה דגש על שפה, דמויות ורעיונות יותר מאשר על עלילה.</li>
+          </ul>
+          <h4>כמה מילים צריך ספר?</h4>
+          <ul>
+            <li>נובלה: 20,000–40,000 מילים</li>
+            <li>רומן ממוצע: 70,000–100,000 מילים</li>
+            <li>ספר ז'אנרי: 80,000–120,000 מילים</li>
+            <li>ספר ילדים ונוער: 20,000–60,000 מילים</li>
+          </ul>
+          <div class="highlight">"ספר הוא לא המילים שכתבת, אלא החוויה שהקורא/ת חי/ה בזמן שקרא/ה אותן."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י 3–5 משפטים: איזה סוג ספר אתה/את רוצה לכתוב, ולמה? מה מושך אותך לז'אנר או לסוג הזה?</p></div>
+        </div></div>
+      </div>
+
+      <!-- 02 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">02</div>
+          <div><div class="acc-name">מציאת הרעיון שלך</div><div class="acc-sub">מאיפה מגיעים רעיונות ואיך מפתחים אותם</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 1 · 20 דק׳</div>
+          <p>רעיונות לא מגיעים מהאוויר. הם מגיעים מחיים שחיים בתשומת לב. מתחביב, מזיכרון, משאלה שמציקה, מחדשות שהרגיזו, מאנשים שנפגשנו.</p>
+          <h4>4 מקורות לרעיונות</h4>
+          <ul>
+            <li><strong>שאלות "מה אם"</strong>: מה אם אדם מתעורר ומגלה שכולם שכחו שהוא קיים? מה אם שתי אחיות מחליפות זהויות לשבוע? השאלה "מה אם" היא הגרעין של כל סיפור.</li>
+            <li><strong>חוויות אישיות</strong>: לא צריך לכתוב אוטוביוגרפיה, אבל הרגשות האמיתיים שחווית הם הדלק הכי טוב לכתיבה.</li>
+            <li><strong>חדשות ועולם</strong>: כותרת שהפריעה לך, אדם שראית ברחוב, שיחה שהאזנת לה בשוגג.</li>
+            <li><strong>ז'אנר שאוהב/ת</strong>: מה חסר לך בספרים שקראת? מה היית רוצה שמישהו יכתוב? כתוב/י את זה בעצמך.</li>
+          </ul>
+          <h4>פנקס הרעיונות</h4>
+          <p>כלי אחד שכל כותב/ת מקצועי/ת משתמש/ת בו: פנקס. פיזי או דיגיטלי, לא משנה. כל רעיון, כל קטע שיחה מעניין, כל תמונה שעברה בראש, נכנסים לפנקס. לא שופטים. לא מוחקים. רק רושמים.</p>
+          <div class="highlight">"הרעיון הטוב ביותר לספר שלך כנראה כבר קיים בראש שלך. הוא פשוט מחכה שתשים/י לב אליו."</div>
+          <div class="exercise"><strong>תרגיל: 10 רעיונות ב-10 דקות</strong><p>קבע/י טיימר ל-10 דקות. כתוב/י 10 רעיונות לספר, כל אחד בשורה אחת. אל תשפוט/י. אל תמחק/י. כמות היא המטרה, לא איכות. בסוף, עגל/י את זה שמצית בך משהו.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 03 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">03</div>
+          <div><div class="acc-name">שאלת הלוג-ליין</div><div class="acc-sub">לסכם את הספר שלך בשורה אחת</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 1 · 12 דק׳</div>
+          <p>לוג-ליין (Log line) הוא משפט אחד שמסכם את הסיפור שלך. זה לא תקציר. זה הבטחה. הוא אומר: מי הגיבור/ה, מה הוא/היא רוצה, ומה עומד בדרכו/ה.</p>
+          <h4>הנוסחה</h4>
+          <p style="background:rgba(201,168,76,0.08);padding:1rem;border-right:2px solid var(--gold);color:rgba(253,248,240,0.75);font-size:0.88rem;line-height:1.8;">[גיבור/ה עם תכונה בולטת] חייב/ת [להשיג משהו ספציפי] לפני ש[ההשלכה אם ייכשל/תיכשל], אבל [העיכוב הגדול].</p>
+          <h4>דוגמאות</h4>
+          <ul>
+            <li>"ילד שגדל בצל אח מבריק מגלה שיש לו כישרון נסתר, ושהעולם שסביבו בנוי על שקר שמשפחתו חסמה ממנו."</li>
+            <li>"אישה שמעולם לא יצאה מהכפר שלה נאלצת לחצות מדינה שלמה כדי להציל את אחיה, עם מדריך שיש לה סיבות טובות לא לסמוך עליו."</li>
+          </ul>
+          <p>הלוג-ליין עוזר לך להבין: האם לסיפור שלך יש קונפליקט? האם יש סיבה לדאוג לגיבור/ה? אם אתה/את מתקשה לכתוב לוג-ליין, כנראה שהסיפור עוד לא ברור מספיק לך.</p>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י לוג-ליין לרעיון שבחרת בשיעור הקודם. נסה/י 3 גרסאות שונות. בחר/י את הטובה ביותר ושמור/י אותה.</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 2 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">🗺️</div>
+          <div>
+            <div class="module-group-num">מודול 2</div>
+            <div class="module-group-title">תכנון ומבנה</div>
+          </div>
+        </div>
+
+      <!-- 04 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">04</div>
+          <div><div class="acc-name">Pantser או Plotter?</div><div class="acc-sub">גלה/י את סגנון הכתיבה שמתאים לך</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 2 · 18 דק׳</div>
+          <p>אחת השאלות הראשונות שכותב/ת מתחיל/ה שואל/ת: האם לתכנן הכל מראש או לכתוב בזרימה? התשובה: תלוי בך.</p>
+          <h4>Plotter: המתכנן/ת</h4>
+          <p>מי שתכנן/ה לפני שכותב/ת. יודע/ת את ההתחלה, האמצע, והסוף לפני שכותב/ת מילה ראשונה. היתרון: לא נתקעים באמצע. החיסרון: לפעמים התכנון מחניק את הספונטניות.</p>
+          <h4>Pantser: הכותב/ת מהבטן</h4>
+          <p>כותב/ת "מהמכנסיים", בלי תכנון מוקדם. מגלה את הסיפור תוך כדי כתיבה. היתרון: חיות, הפתעות, אמינות. החיסרון: קל לאבד את הכיוון, לא לסיים, או לבזבז זמן על כיוונים שלא עובדים.</p>
+          <h4>Plantser: הדרך האמצעית</h4>
+          <p>רוב הכותבים/ות נמצאים/ות כאן. תכנון מינימלי: יודעים את תחילת הסיפור, יודעים לאן הוא הולך בגדול, ומשאירים מקום לגילויים בדרך.</p>
+          <div class="highlight">"אין שיטה נכונה. יש שיטה שעובדת בשבילך. נסה/י, טעה/י, ולמד/י."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י פסקה על איך אתה/את חושב/ת שאתה/את עובד/ת. האם אתה/את אוהב/ת לתכנן הכל? או מעדיף/ה לגלות בדרך? זה יעזור לך לבחור את הכלים הנכונים בשיעורים הבאים.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 05 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">05</div>
+          <div><div class="acc-name">מבנה שלושת הפרקים</div><div class="acc-sub">הכלי האוניברסלי לבניית סיפור</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 2 · 25 דק׳</div>
+          <p>מבנה שלושת הפרקים (Three-Act Structure) הוא הכלי הבסיסי ביותר לבניית סיפור. הוא לא כלל ברזל, הוא מפה. אפשר לסטות ממנו, אבל כדאי להכיר אותו לפני שעושים את זה.</p>
+          <h4>פרק ראשון: הקמת העולם (25%)</h4>
+          <ul>
+            <li>מציגים את הגיבור/ה ואת העולם הרגיל שלו/ה</li>
+            <li>מתרחש "אירוע מפנה" (Inciting Incident) שמשנה הכל</li>
+            <li>הגיבור/ה מקבל/ת החלטה שמשנה את הכיוון, ומגיעים לנקודת העלילה הראשונה</li>
+          </ul>
+          <h4>פרק שני: העימות (50%)</h4>
+          <ul>
+            <li>הגיבור/ה נאבק/ת עם מכשולים, נכשל/ת, לומד/ת</li>
+            <li>נקודת האמצע (Midpoint): משהו משתנה, הגיבור/ה מקבל/ת מידע חדש או נסיבות משתנות</li>
+            <li>הנקודה האפלה ביותר (Dark Night of the Soul): הגיבור/ה מרגיש/ה שהכל אבוד</li>
+          </ul>
+          <h4>פרק שלישי: הפתרון (25%)</h4>
+          <ul>
+            <li>הגיבור/ה מגייס/ת את כל מה שלמד/ה</li>
+            <li>קלימקס: עימות סופי</li>
+            <li>פתרון ואפילוג: העולם אחרי השינוי</li>
+          </ul>
+          <div class="highlight">"מבנה לא הורג יצירתיות. הוא נותן לה מסגרת שבתוכה היא יכולה לנשום."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>מפה את הרעיון שלך על פי מבנה שלושת הפרקים. כתוב/י 2–3 משפטים על כל פרק. לא צריך לדעת הכל, רק לקבל כיוון כללי.</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 3 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">🧍</div>
+          <div>
+            <div class="module-group-num">מודול 3</div>
+            <div class="module-group-title">דמויות</div>
+          </div>
+        </div>
+
+      <!-- 06 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">06</div>
+          <div><div class="acc-name">יצירת גיבור/ת</div><div class="acc-sub">רצון, פחד, פצע: שלושת מרכיבי הדמות החיה</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 3 · 30 דק׳</div>
+          <p>דמות טובה לא נבנית מתכונות, היא נבנית ממניעים. קוראים/ות לא אוהבים/ות דמויות כי הן "טובות", הם/ן אוהבים/ות דמויות כי הן אמיתיות, מורכבות, ורוצות משהו.</p>
+          <h4>שלושת שכבות הדמות</h4>
+          <ul>
+            <li><strong>הרצון החיצוני</strong>: מה הדמות רוצה להשיג בסיפור? (לנצח במשפט, למצוא אחיה, להינצל)</li>
+            <li><strong>הצורך הפנימי</strong>: מה הדמות צריכה כדי להיות שלמה? (לקבל את עצמה, לסלוח, ללמוד לסמוך)</li>
+            <li><strong>הפצע</strong>: מה קרה לה בעבר שמעצב אותה היום? פצע טוב הוא ספציפי, לא "ילדות קשה" אלא אירוע אחד שמסביר מי היא.</li>
+          </ul>
+          <h4>הפחד</h4>
+          <p>כל דמות מעניינת פועלת מתוך פחד. לא פחד גנרי אלא פחד ספציפי שמניע אותה. הפחד הוא מה שגורם לה לטעות, להגן על עצמה, ולפעמים לבצע את הדבר הגרוע ביותר.</p>
+          <h4>גיבור/ה לא חייב/ת להיות "אהוב/ה"</h4>
+          <p>גיבורות/ים מורכבות/ים, עם פגמים אמיתיים, תמיד מרתקים/ות יותר מגיבורות/ים מושלמות/ים. הכלל הוא לא שהדמות תהיה "טובה", אלא שתהיה מעניינת ושנבין אותה.</p>
+          <div class="highlight">"קוראים/ות לא אוהבים/ות גיבורות/ים כי הן מושלמות. הם/ן אוהבים/ות גיבורות/ים כי הן אמיתיות."</div>
+          <div class="exercise"><strong>תרגיל: גיליון הדמות</strong><p>כתוב/י על הגיבור/ת שלך: מה הוא/היא רוצה? מה הוא/היא צריך/ה? מה הפצע שלו/ה? מה הפחד שלו/ה? מה הפגם שלו/ה? מה האיכות שמושכת אנשים אליו/ה?</p></div>
+        </div></div>
+      </div>
+
+      <!-- 07 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">07</div>
+          <div><div class="acc-name">קול הדמות</div><div class="acc-sub">כיצד כל דמות מדברת, חושבת וזוכרת בצורה שונה</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 3 · 22 דק׳</div>
+          <p>אחד הדברים שמבחינים בין כותב/ת מתחיל/ה לכותב/ת מנוסה/ת: בספר טוב, אפשר לדעת מי מדבר בלי לקרוא את שמו/ה. לכל דמות יש קול.</p>
+          <h4>מה יוצר קול?</h4>
+          <ul>
+            <li><strong>אוצר מילים</strong>: אדם משכיל מדבר אחרת מאדם שגדל ברחוב. ילד מדבר אחרת ממבוגר. זה לא סטריאוטיפ, זה מציאות.</li>
+            <li><strong>קצב הדיבור</strong>: יש שמדברים במשפטים ארוכים ומפותלים. יש שמדברים קצר. חד. בלי מיותר.</li>
+            <li><strong>מה שהדמות שמה לב אליו</strong>: כשנכנסים לחדר, דמות אחת תשים לב לניחוח. אחרת לצבע הקירות. אחרת לאנשים ולהבעות פניהם.</li>
+            <li><strong>הומור וסרקזם</strong>: יש דמויות שמשתמשות בהומור כהגנה. יש שאין להן שמץ של הומור. שניהם לגיטימיים.</li>
+          </ul>
+          <h4>תרגיל הקול הקלאסי</h4>
+          <p>קח/י אירוע אחד פשוט (כניסה לחנות, ריב עם שכן, תור בסופר) וכתוב/י אותו מנקודת מבט של שלוש דמויות שונות. תראה/י כמה שונה הסצנה נראית.</p>
+          <div class="highlight">"כשכל הדמויות שלך נשמעות אותו דבר, הן כולן נשמעות כמוך. תן/י לכל אחת להיות אחרת."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י את אותה סצנה קצרה (5–7 שורות) מנקודת מבטן של שתי דמויות שונות בספר שלך. שים/י לב: מה כל אחת שמה לב אליו? אילו מילים היא משתמש/ת בהן?</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 4 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">✍️</div>
+          <div>
+            <div class="module-group-num">מודול 4</div>
+            <div class="module-group-title">הכתיבה עצמה</div>
+          </div>
+        </div>
+
+      <!-- 08 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">08</div>
+          <div><div class="acc-name">שגרת כתיבה יומית</div><div class="acc-sub">500 מילים ביום: הסוד לסיים ספר</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 4 · 15 דק׳</div>
+          <p>הסוד הגדול ביותר לכתיבת ספר הוא לא כישרון. הוא לא השראה. הוא ישיבה. כותבים/ות שמסיימים/ות ספרים כותבים/ות כמעט כל יום: גם כשלא בא להם/ן לכתוב, גם כשהכתיבה נוראה, גם כשהם/ן עייפים/ות.</p>
+          <h4>כמה לכתוב ביום?</h4>
+          <ul>
+            <li><strong>250 מילים</strong>: המינימום המוחלט. עמוד אחד. 10–15 דקות. אפשר לעשות את זה גם בזמן הקפה של הבוקר.</li>
+            <li><strong>500 מילים</strong>: היעד הריאלי. 20–30 דקות ביום. 500 x 180 ימים = 90,000 מילים. ספר שלם תוך שישה חודשים.</li>
+            <li><strong>1,000+ מילים</strong>: למי שיכול/ה להפריש שעה ביום לכתיבה.</li>
+          </ul>
+          <h4>איך יוצרים שגרה?</h4>
+          <ul>
+            <li>כתוב/י באותה שעה כל יום: המוח מתרגל ומתחיל לייצר בזמן הנכון</li>
+            <li>אל תסיים/י בסוף פסקה: הפסק/י באמצע משפט כדי שיהיה קל להתחיל מחר</li>
+            <li>לא מחקים/ות ביום הכתיבה: כותבים/ות קדימה בלבד</li>
+            <li>אם דילגת יום: לא מכפילים. ממשיכים/ות בקצב הרגיל</li>
+          </ul>
+          <div class="highlight">"ההשראה קיימת. אבל היא מגיעה לרוב *תוך כדי* כתיבה, לא לפניה."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>קבע/י לעצמך: מתי אתה/את כותב/ת? בבוקר? בצהריים? בלילה? כמה מילים ביום? כתוב/י את ההתחייבות בפנקס.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 09 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">09</div>
+          <div><div class="acc-name">Show, Don't Tell</div><div class="acc-sub">הכלל הגדול ביותר, ואיך לא להגזים בו</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 4 · 28 דק׳</div>
+          <p>"Show, Don't Tell" הוא הכלל שכל כותב/ת שמע/ה, אבל רוב הכותבים/ות המתחילים/ות לא ממש יודעים/ות מה הוא אומר. הוא לא אומר "אסור לפרש רגשות". הוא אומר: הראה לי, אל תגיד לי.</p>
+          <h4>ההבדל בפועל</h4>
+          <ul>
+            <li><span style="color:rgba(139,58,42,0.8)">Tell:</span> "היא הייתה עצובה."</li>
+            <li><span style="color:rgba(74,103,65,0.9)">Show:</span> "היא שטפה את הכוס שלוש פעמים. לא הייתה לה סיבה, פשוט לא רצתה לעמוד בחושך."</li>
+          </ul>
+          <ul>
+            <li><span style="color:rgba(139,58,42,0.8)">Tell:</span> "הוא היה כועס."</li>
+            <li><span style="color:rgba(74,103,65,0.9)">Show:</span> "הוא הניח את הכוס על השיש. שמע את הצליל. גבוה מדי. עצר."</li>
+          </ul>
+          <h4>מתי מותר לספר (Tell)?</h4>
+          <p>לא כל דבר צריך הדגמה. טרנזיציות, מידע רקע, פרטים שוליים: אפשר לספר. הכלל חל על רגעים חשובים רגשית, על אופי הדמויות, ועל קונפליקטים מרכזיים.</p>
+          <div class="highlight">"Show, Don't Tell לא אומר שאסור לך לכתוב 'הוא היה עצוב' לעולם. זה אומר שבסצנה החשובה: הראה/י לי שהוא עצוב."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>קח/י 5 משפטים מהסוג של "Tell" וכתוב/י אותם מחדש בסגנון "Show". לדוגמה: "הוא היה מפוחד", "היא שמחה", "המקום היה מפחיד".</p></div>
+        </div></div>
+      </div>
+
+      <!-- 10 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">10</div>
+          <div><div class="acc-name">דיאלוג אמין</div><div class="acc-sub">כיצד בני אדם באמת מדברים, ומה לשנות בכתיבה</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 4 · 24 דק׳</div>
+          <p>דיאלוג טוב הוא אחד הדברים הקשים ביותר לכתיבה, ואחד הדברים שמבדילים בין קורא/ת שממשיך/ה לזה שמניח/ה את הספר. דיאלוג טוב לא מחקה את המציאות, הוא מזקק אותה.</p>
+          <h4>כללי יסוד לדיאלוג</h4>
+          <ul>
+            <li><strong>אנשים לא מדברים בשלמות</strong>: "כן.", "אנחנו צריכים לדבר." קצר, עם חיתוכים, עם שתיקות.</li>
+            <li><strong>כל דמות מדברת אחרת</strong>: ראה/י שיעור 7 על קול הדמות.</li>
+            <li><strong>דיאלוג מעביר מידע בלי להרגיש כך</strong>: אל תכתוב/י שיחות "As you know, Bob" שבהן אנשים מסבירים זה לזה מה הם כבר יודעים.</li>
+            <li><strong>מה שלא נאמר חשוב לא פחות</strong>: שתיקה, שינוי נושא, פתאום "צריך ללכת". כל אלה הם דיאלוג.</li>
+          </ul>
+          <h4>טריק: קרא/י בקול רם</h4>
+          <p>לפני שאתה/את מגיש/ה טקסט לעריכה: קרא/י את הדיאלוג בקול רם. אם זה נשמע מוזר בפה, כנראה שלא עובד על הדף.</p>
+          <div class="highlight">"דיאלוג לא מתעד שיחה. הוא יוצר אשליה של שיחה, מזוקקת, עם כל מה שמיותר חתוך."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י סצנת דיאלוג של שתי דמויות שרבות על משהו, בלי להשתמש פעם אחת במילה "כעס", "צעק" או "כאב". תן/י לדיאלוג עצמו להעביר את הרגש.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 11 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">11</div>
+          <div><div class="acc-name">בניית מתח</div><div class="acc-sub">טכניקות לגרום לקורא/ת להמשיך לקרוא</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 4 · 20 דק׳</div>
+          <p>מתח הוא לא רק שיש מפלצת מאחורי הדלת. מתח הוא פער בין מה שהקורא/ת יודע/ת לבין מה שהדמות יודעת. מתח הוא שאלה שנשארת פתוחה. מתח הוא אהבה שלא הושלמה.</p>
+          <h4>כלים לבניית מתח</h4>
+          <ul>
+            <li><strong>Ticking Clock</strong>: שעון מתקתק. הגיבורה צריכה להציל מישהו עד שעת חצות. התחרות מתחילה מחר. הכסף ייגמר בסוף החודש. הגבלת זמן מייצרת דחיפות.</li>
+            <li><strong>פרדוקס האינפורמציה</strong>: אנחנו יודעים שיש מישהו מאחורי הדלת. הדמות לא יודעת. הפער הזה יוצר מתח עצום.</li>
+            <li><strong>סוף פרק תלוי</strong>: לסיים כל פרק עם שאלה פתוחה, גילוי, או עימות. הקורא/ת מוכרח/ת לפתוח את הפרק הבא.</li>
+            <li><strong>הכל יכול ללכת כל כך טוב, ואז</strong>: הרגע שבו הדמות הגיעה למקום טוב, ולפתע משהו מתהפך. זה "Beat" קלאסי.</li>
+          </ul>
+          <div class="highlight">"מתח לא מגיע מסכנה. הוא מגיע מדאגה. והקורא/ת דואג/ת רק לדמויות שכבר אוהב/ת."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>בחר/י סצנה שכתבת ועדיין מרגישה שטוחה. כיצד תוסיף/י לה אחד מהכלים האלה? כתוב/י את הגרסה המתוקנת.</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 5 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">🌍</div>
+          <div>
+            <div class="module-group-num">מודול 5</div>
+            <div class="module-group-title">עולם הספר</div>
+          </div>
+        </div>
+
+      <!-- 12 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">12</div>
+          <div><div class="acc-name">סצנת הפתיחה</div><div class="acc-sub">איך לפתוח ספר שלא ניתן לעצור</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 5 · 18 דק׳</div>
+          <p>הפסקה הראשונה של הספר שלך היא החוזה שלך עם הקורא/ת. היא אומרת: כך ייראה הקול. כך ייראה הטמפו. הנה מה שמחכה לך. אם הפסקה הראשונה לא עובדת, רוב הסיכויים שהקורא/ת לא ימשיך/ה.</p>
+          <h4>מה פתיחה טובה עושה?</h4>
+          <ul>
+            <li>מציגה קול: מה הסגנון של הספר הזה?</li>
+            <li>מעוררת שאלה: מה קורה? למה? מי זה?</li>
+            <li>מכניסה אותנו לאמצע משהו: in medias res</li>
+            <li>לא מתחילה בתיאור מזג אוויר, התעוררות, או זיכרון מילדות</li>
+          </ul>
+          <h4>פתיחות שעובדות</h4>
+          <ul>
+            <li>פתיחה בדיאלוג מסקרן</li>
+            <li>פתיחה בפעולה</li>
+            <li>פתיחה בשאלה או מחשבה מוזרה של הדמות</li>
+            <li>פתיחה בעובדה שמפתיעה</li>
+          </ul>
+          <div class="highlight">"הפסקה הראשונה לא מספרת על הספר. היא *היא* הספר."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י 3 פתיחות שונות לאותו ספר, סגנון אחד בכל פעם. אחד in medias res, אחד בדיאלוג, אחד בקול הדמות. בחר/י מה עובד הכי טוב.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 13 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">13</div>
+          <div><div class="acc-name">האמצע המסוכן</div><div class="acc-sub">איך לא לאבד את עצמך בחלק שכולם נתקעים בו</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 5 · 22 דק׳</div>
+          <p>הסטטיסטיקה עצובה: רוב הספרים שלא מסתיימים נזנחים באמצע. לא בהתחלה, לא בסוף. בדיוק באמצע. זה קורה לכולם/ן, וזה בגלל שהאמצע הוא המקום הקשה ביותר לכתוב.</p>
+          <h4>למה האמצע קשה?</h4>
+          <ul>
+            <li>ההתרגשות ההתחלתית נגמרה</li>
+            <li>עוד רחוק מהסוף: קשה לראות את קו הסיום</li>
+            <li>הסיפור מרגיש "תקוע"</li>
+            <li>מתפתים לחזור ולערוך את מה שכבר נכתב</li>
+          </ul>
+          <h4>אסטרטגיות להמשיך</h4>
+          <ul>
+            <li><strong>הוסף/י קומפליקציה</strong>: משהו שלא תכננת קורה. דמות חדשה, גילוי מפתיע, אסון.</li>
+            <li><strong>כתוב/י קדימה</strong>: אם תקוע/ה, דלג/י לסצנה שאתה/את מתלהב/ת לכתוב. אפשר למלא פערים אחר כך.</li>
+            <li><strong>שאל/י: מה הדבר הגרוע ביותר שיכול לקרות לדמות עכשיו?</strong>: כנראה זה מה שצריך לקרות.</li>
+            <li><strong>קרא/י מה כתבת מהתחלה</strong>: לא לעריכה, אלא לזכור למה התחלת.</li>
+          </ul>
+          <div class="highlight">"האמצע לא דורש השראה. הוא דורש עקשנות."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>אם אתה/את כבר כותב/ת: איפה אתה/את נמצא/ת? כתוב/י 3 "קומפליקציות" שיכולות לקרות לדמות שלך עכשיו, שישנו את הכיוון. בחר/י אחת.</p></div>
+        </div></div>
+      </div>
+
+      <!-- 14 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">14</div>
+          <div><div class="acc-name">הסוף שמשאיר חותם</div><div class="acc-sub">סיומים פתוחים, סגורים, ואירוניים</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 5 · 20 דק׳</div>
+          <p>הסוף הוא מה שנשאר. שבוע אחרי שסיימו לקרוא, הסוף הוא מה שהקורא/ת זוכר/ת. הוא לא חייב להיות שמח. הוא חייב להיות נכון.</p>
+          <h4>סוגי סיומים</h4>
+          <ul>
+            <li><strong>סיום סגור</strong>: כל השאלות מקבלות תשובה, הקונפליקט נפתר. מרגיש שלם. מתאים לז'אנר, לרומנטיקה, לספרי ילדים.</li>
+            <li><strong>סיום פתוח</strong>: נשארת שאלה. הקורא/ת ממשיך/ה לחשוב אחרי שסגר/ה את הספר. מתאים לספרות ספרותית.</li>
+            <li><strong>סיום אירוני</strong>: הדמות השיגה את מה שרצתה, ומגלה שזה לא מה שהיא צריכה. או להפך.</li>
+            <li><strong>סיום מעגלי</strong>: חוזרים לאותה נקודת התחלה, אבל הכל השתנה.</li>
+          </ul>
+          <h4>מה הסוף חייב לעשות?</h4>
+          <p>לא משנה איזה סוג, הסוף חייב לתת לדמות הגיבור/ת שינוי. מי שאנחנו פוגשים בסוף הוא/היא לא אותה דמות מההתחלה. אם הדמות לא השתנתה: לא הייתה עלילה.</p>
+          <div class="highlight">"הסוף הטוב הוא לא זה שמפתיע. הוא זה שנראה בלתי נמנע בדיעבד."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י את הסוף האידיאלי של הספר שלך, ב-3 גרסאות שונות. לא צריך לכתוב את כל הסצנה. רק את העיקרון: מה קורה לדמות? מה האמירה האחרונה של הסיפור?</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 6 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">🔁</div>
+          <div>
+            <div class="module-group-num">מודול 6</div>
+            <div class="module-group-title">עריכה</div>
+          </div>
+        </div>
+
+      <!-- 15 -->
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">15</div>
+          <div><div class="acc-name">עריכה ראשונה: ה-Vomit Draft</div><div class="acc-sub">הכתיבה הגסה כצעד הכרחי ביצירה</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 6 · 16 דק׳</div>
+          <p>ה-Vomit Draft הוא השם הלא מחמיא לטיוטה הראשונה, הגרסה שנכתבת כשפשוט מוציאים הכל. לא לעריכה, לא לביקורת, לא לקוראים. רק להוציא.</p>
+          <h4>למה הטיוטה הראשונה חייבת להיות גרועה?</h4>
+          <p>כי מי שמנסה לכתוב טיוטה מושלמת, לא מסיים. הביקורת הפנימית שלנו מהירה יותר מהעט. אם כל משפט צריך להיות מושלם לפני שממשיכים, לעולם לא מגיעים לדף הבא.</p>
+          <h4>כללי ה-Vomit Draft</h4>
+          <ul>
+            <li>לא מוחקים, כותבים קדימה בלבד</li>
+            <li>לא עורכים, אפילו לא שגיאות כתיב</li>
+            <li>לא קוראים מחדש, לא לפני שסיימת</li>
+            <li>מותר לכתוב [כאן יש סצנה שעוד לא כתבתי] ולהמשיך</li>
+            <li>המטרה: להגיע לסוף. כל השאר, בסיבוב השני</li>
+          </ul>
+          <h4>אחרי ה-Vomit Draft</h4>
+          <p>לוקחים הפסקה של שבוע לפחות. ואז חוזרים עם עיניים רעננות. בשלב הזה מתחיל הקסם האמיתי: העריכה.</p>
+          <div class="highlight">"אי אפשר לערוך דף ריק. אבל אפשר לערוך דף גרוע. כתוב/י משהו גרוע, ואז תתקן/י."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>קבע/י תאריך לסיום הטיוטה הראשונה שלך. לא יעד מילים, תאריך. כתוב/י אותו בגדול. זה ההתחייבות שלך.</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 7 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">🧠</div>
+          <div>
+            <div class="module-group-num">מודול 7</div>
+            <div class="module-group-title">מיינדסט הכותב/ת</div>
+          </div>
+        </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">16</div>
+          <div><div class="acc-name">חסימת כותב/ת</div><div class="acc-sub">מה עושים כשהמילים לא באות</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 7 · 18 דק׳</div>
+          <p>חסימת כותב/ת היא לא חוסר כישרון. היא פחד. פחד שמה שיצא לא יהיה טוב מספיק, פחד מביקורת, פחד מהחשיפה שכרוכה בכתיבה אמיתית. כולם/ן נתקעים/ות. השאלה היא איך יוצאים.</p>
+          <h4>סיבות נפוצות לחסימה</h4>
+          <ul>
+            <li><strong>פרפקציוניזם</strong>: הציפייה שכל משפט יהיה מושלם עוצרת את הכתיבה לגמרי.</li>
+            <li><strong>פחד מביקורת</strong>: מי יקרא את זה? מה יגידו? המוח מגן על עצמו בכך שלא כותב.</li>
+            <li><strong>עייפות יצירתית</strong>: כתיבה מרוקנת. צריך למלא את הבאר מחדש.</li>
+            <li><strong>קושי עם הסצנה הספציפית</strong>: לפעמים הבעיה היא לא הכתיבה בכלל, אלא סצנה אחת שלא עובדת.</li>
+          </ul>
+          <h4>כלים לפריצת החסימה</h4>
+          <ul>
+            <li>כתוב/י כל דבר, גם אם זה "אני לא יודע/ת מה לכתוב עכשיו", 5 דקות ברצף</li>
+            <li>דלג/י על הסצנה הבעייתית וכתוב/י סצנה אחרת</li>
+            <li>שנה/י מקום כתיבה, שעה, או כלי כתיבה</li>
+            <li>קרא/י ספר שאוהבים/ות, צפה/י בסרט שמעורר</li>
+            <li>הורד/י את הציפיות: הטיוטה הבאה יכולה להיות גרועה</li>
+          </ul>
+          <div class="highlight">"חסימת כותב/ת היא לא סימן שאין לך מה לומר. זה סימן שיש לך הרבה מה לומר ואתה/את מפחד/ת."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י ברצף 10 דקות בלי לעצור. אל תערוך/י, אל תקרא/י מחדש. כל מה שעולה, גם אם לא קשור לספר.</p></div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">17</div>
+          <div><div class="acc-name">לקבל ביקורת</div><div class="acc-sub">איך להפריד בין עצמך ליצירה</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 7 · 15 דק׳</div>
+          <p>ביקורת על הכתיבה שלך היא לא ביקורת עלייך. זה אחד הדברים הקשים ביותר להפנמה, ואחד החשובים ביותר לפתח כדי להתקדם.</p>
+          <h4>שני סוגי ביקורת</h4>
+          <ul>
+            <li><strong>ביקורת פנימית</strong>: הקול הפנימי שאומר "זה גרוע, מה אתה/את חושב/ת שאתה/את". צריך ללמוד לדחות אותו בזמן הכתיבה ולהזמין אותו רק בזמן העריכה.</li>
+            <li><strong>ביקורת חיצונית</strong>: מה שאנשים אחרים אומרים על הכתיבה שלך. יש ביקורת שעוזרת ויש שלא.</li>
+          </ul>
+          <h4>איך לקבל ביקורת בונה</h4>
+          <ul>
+            <li>האזן/י קודם כל, לפני שמגיבים</li>
+            <li>אל תסביר/י ותצדיק/י בזמן שמבקרים</li>
+            <li>שאל/י שאלות הבהרה: "מה הרגשת בסצנה הזאת?"</li>
+            <li>קח/י את מה שעוזר, השאר/י את השאר</li>
+          </ul>
+          <div class="highlight">"הספר שלך הוא לא אתה/את. הוא משהו שיצרת. ואת/ה יכול/ה לשנות אותו."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>תן/י קטע מהכתיבה שלך לאדם שסומכים עליו/ה. בקש/י ממנו/ה לומר מה עבד ומה לא עבד. האזן/י בלי להגיב.</p></div>
+        </div></div>
+      </div>
+
+      </div>
+
+      <!-- מודול 8 -->
+      <div class="module-group">
+        <div class="module-group-header">
+          <div class="module-group-icon">📚</div>
+          <div>
+            <div class="module-group-num">מודול 8</div>
+            <div class="module-group-title">לאחר הכתיבה</div>
+          </div>
+        </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">18</div>
+          <div><div class="acc-name">הוצאה לאור מסורתית</div><div class="acc-sub">סוכנים ספרותיים, הצעת ספר, והתהליך</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 8 · 20 דק׳</div>
+          <p>הוצאה לאור מסורתית היא הדרך הקלאסית: הסופר/ת כותב/ת, שולח/ת לסוכן/ת ספרותי/ת, הסוכן/ת מוצא/ת הוצאה לאור, וההוצאה מפיצה את הספר.</p>
+          <h4>השלבים</h4>
+          <ul>
+            <li><strong>כתיבת Query Letter</strong>: מכתב קצר (עמוד אחד) שמציג את הספר, הז'אנר, קהל היעד, ועיקרי הביוגרפיה שלך.</li>
+            <li><strong>מציאת סוכן/ת</strong>: מחקר על סוכנים שמייצגים את הז'אנר שלך ושליחת פנייה.</li>
+            <li><strong>תהליך ההגשה</strong>: ממשיכים לכתוב ולשלוח בזמן ההמתנה לתגובות.</li>
+            <li><strong>חוזה עם הוצאה</strong>: אם סוכן/ת מתעניין/ת, הם/ן מייצגים/ות אותך מול ההוצאות.</li>
+          </ul>
+          <div class="highlight">"דחייה היא לא כישלון. כמעט כל ספר מצליח נדחה עשרות פעמים לפני שמצא בית."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>כתוב/י Query Letter לספר שלך: פסקה על העלילה, פסקה על הז'אנר וקהל היעד, פסקה קצרה עליך.</p></div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">19</div>
+          <div><div class="acc-name">Self-Publishing</div><div class="acc-sub">הוצאה עצמאית: יתרונות, חסרונות, ואיך עושים</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 8 · 22 דק׳</div>
+          <p>Self-publishing אומר שאתה/את האחראי/ת על הכל: עריכה, עיצוב, הפצה, שיווק. זה יותר עבודה, אבל גם יותר שליטה ויותר אחוזים מכל מכירה.</p>
+          <h4>יתרונות</h4>
+          <ul>
+            <li>שליטה מלאה על התוכן, העיצוב והמחיר</li>
+            <li>70% מהמכירות ב-Amazon Kindle לעומת 10–15% בהוצאה מסורתית</li>
+            <li>זמן קצר בין כתיבה להוצאה לאור</li>
+            <li>אפשרות להוציא כמה ספרים ולבנות קהל קוראים</li>
+          </ul>
+          <h4>חסרונות</h4>
+          <ul>
+            <li>כל העלויות (עריכה, עיצוב, שיווק) על חשבונך</li>
+            <li>קשה להיכנס לחנויות ספרים פיזיות</li>
+            <li>אתה/את צריך/ה לנהל הכל בעצמך</li>
+          </ul>
+          <div class="highlight">"השאלה היא לא איזו דרך טובה יותר בכלל, אלא איזו דרך מתאימה לספר שלך ולמטרות שלך."</div>
+          <div class="exercise"><strong>תרגיל</strong><p>רשום/י יתרונות וחסרונות של כל דרך עבורך אישית. איזו דרך מתאימה לספר שלך?</p></div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-num">20</div>
+          <div><div class="acc-name">להיפרד מהספר</div><div class="acc-sub">מכתב תודה ומכתב פרידה | תרגיל סיכום</div></div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body"><div class="acc-inner">
+          <div class="acc-tag">מודול 8 · שיעור אחרון</div>
+
+          <p>יש רגע שבו הספר כבר לא שלך. לא כשהוא יוצא לאור, לא כשמישהו קורא אותו. הרגע הוא רגע הפרידה הפנימית: כשאתה/את בוחר/ת לשחרר אותו.</p>
+
+          <p>כתיבת ספר היא מערכת יחסים. עם הסיפור, עם הדמויות, עם הגרסה של עצמך שישבה וכתבה בלילות. ומערכות יחסים, גם הטובות ביותר, מגיעות לרגע שבו אומרים: תודה. ומשחררים.</p>
+
+          <h4>למה זה קשה</h4>
+          <p>הרבה כותבים/ות לא מסיימים/ות, לא כי הם/ן לא יכולים/ות לכתוב עוד. אלא כי הפרידה מהספר מפחידה. כל עוד הוא "עוד בעבודה", הוא עדיין שלך ואי אפשר לשפוט אותו. לשחרר אותו לעולם הוא מעשה אומץ.</p>
+
+          <h4>מכתב התודה</h4>
+          <p>כתוב/י מכתב אל הספר שלך. לא מכתב שיווקי, לא סיכום. מכתב אמיתי. תודה על מה שלימד אותך. על מה שהוציא ממך שלא ידעת שיש. על הרגעים שישבת וכתבת גם כשהיה קשה.</p>
+          <p>כתוב/י על הדמויות שנכנסו לחייך. על הסצנה שבכית כשכתבת אותה. על הרגע שבו הבנת שהסיפור גדול ממך.</p>
+
+          <h4>מכתב הפרידה</h4>
+          <p>עכשיו כתוב/י מכתב פרידה. לא עצוב בהכרח, אלא מכוון. מכתב שאומר: עשיתי מה שיכולתי. נתתי לך את מה שיש לי. עכשיו אני משחרר/ת אותך לעולם, לקוראים/ות, למי שיצטרך/תצטרך אותך.</p>
+          <p>הפרידה לא אומרת שהסיפור נגמר. היא אומרת שהחלק שלך בו הסתיים. עכשיו הוא מתחיל את החיים שלו.</p>
+
+          <div class="highlight">"ספר שנכתב ומשוחרר שווה אינסוף ספרים מושלמים שנשארו במגירה."</div>
+
+          <div class="exercise">
+            <strong>תרגיל סיכום: שני מכתבים</strong>
+            <p>שב/י במקום שקט. הנח/י את הספר לידך, פיזית או מטאפורית.</p>
+            <p><strong>מכתב ראשון: תודה.</strong> כתוב/י לספר שלך מכתב תודה. מינימום 10 משפטים. אל תחשוב/י יותר מדי, רק כתוב/י מה עולה.</p>
+            <p><strong>מכתב שני: פרידה.</strong> כתוב/י מכתב פרידה. לא "להתראות" אלא "לך לעולם". שחרר/י אותו.</p>
+            <p style="margin-top:0.8rem;font-style:italic;color:rgba(253,248,240,0.4)">אלה המכתבים שרק אתה/את יכול/ה לכתוב. אין נכון ואין לא נכון. יש רק אמיתי.</p>
+          </div>
+
+        </div></div>
+      </div>
+
+      </div><!-- סוף מודול 8 -->
+
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div id="process">
+  <div class="wrap">
+    <div class="fade-in">
+      <div class="section-label">תהליך הכתיבה</div>
+      <h2 class="section-title">מרעיון לספר:<br>5 שלבים</h2>
+    </div>
+    <div class="timeline fade-in">
+      <div class="t-item"><div class="t-dot"></div><div class="t-phase">שלב א׳</div><div class="t-title">גילוי הרעיון</div><div class="t-text">רעיון טוב לספר לא נופל מהשמים. הוא מגיע מחיים שחיים בתשומת לב. פנקס, שאלות, ותצפית על העולם הם הכלים. בשלב הזה כותבים הכל בלי לשפוט.</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-phase">שלב ב׳</div><div class="t-title">תכנון ובנייה</div><div class="t-text">גם אם כותבים בספונטניות, תכנון בסיסי מציל חיים. לדעת איפה הסיפור מתחיל, מה הקונפליקט המרכזי, ואיך הוא נגמר. זה המינימום ההכרחי לפני שמתחילים.</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-phase">שלב ג׳</div><div class="t-title">הטיוטה הראשונה</div><div class="t-text">הטיוטה הראשונה לא צריכה להיות טובה. היא צריכה להיות קיימת. כותבים קדימה, לא מסתכלים אחורה, לא עורכים. רק מסיימים.</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-phase">שלב ד׳</div><div class="t-title">עריכה עצמית</div><div class="t-text">אחרי הפסקה של לפחות שבוע, חוזרים לטיוטה עם עיניים רעננות. עורכים שלוש פעמים לפחות: פעם לעלילה ולמבנה, פעם לדמויות, ופעם לשפה.</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-phase">שלב ה׳</div><div class="t-title">הוצאה לאור</div><div class="t-text">בין אם בוחרים בהוצאה מסורתית או עצמאית: לספר מגיע לצאת לעולם. לומדים על הכנת קובץ, עיצוב עטיפה, ושיווק.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div id="tips">
+  <div class="wrap">
+    <div class="fade-in">
+      <div class="section-label">כללי זהב</div>
+      <h2 class="section-title">10 עצות<br>שלא ישכחו אתכם/ן</h2>
+    </div>
+    <div class="tips-grid fade-in">
+      <div class="tip-card"><div class="tip-num">1</div><div class="tip-title">קרא/י הרבה</div><div class="tip-text">כל ספר שקוראים הוא שיעור. קוראים בז'אנר שרוצים לכתוב, ומחוצה לו.</div></div>
+      <div class="tip-card"><div class="tip-num">2</div><div class="tip-title">כתוב/י כל יום</div><div class="tip-text">500 מילים ביום = ספר בשישה חודשים. ההתמדה חשובה יותר מהכמות.</div></div>
+      <div class="tip-card"><div class="tip-num">3</div><div class="tip-title">אל תעצור/י לעריכה</div><div class="tip-text">בטיוטה הראשונה: קדימה תמיד. הביקורת הפנימית ממתינה לסבב השני.</div></div>
+      <div class="tip-card"><div class="tip-num">4</div><div class="tip-title">הכר/י את הדמויות</div><div class="tip-text">מה הדמות אוכלת לארוחת בוקר? מה היא פוחדת ממנו? הפרטים הקטנים מחיים אותה.</div></div>
+      <div class="tip-card"><div class="tip-num">5</div><div class="tip-title">הקונפליקט הוא הכל</div><div class="tip-text">בלי קונפליקט, אין סיפור. מה הדמות רוצה? מה עוצר אותה?</div></div>
+      <div class="tip-card"><div class="tip-num">6</div><div class="tip-title">חסוך/י בתיאורים</div><div class="tip-text">שלושה פרטים מדויקים שווים עשרה פסקאות כלליות. פחות הוא יותר.</div></div>
+      <div class="tip-card"><div class="tip-num">7</div><div class="tip-title">הקשב/י לטיוטה</div><div class="tip-text">לפעמים הדמויות לוקחות פיקוד. לפעמים הן צודקות יותר ממה שתכננת.</div></div>
+      <div class="tip-card"><div class="tip-num">8</div><div class="tip-title">מצא/י קהל קריאה</div><div class="tip-text">בטא-קוראים הם לא מותרות, הם הכרח. חברים שמעזים לומר את האמת.</div></div>
+      <div class="tip-card"><div class="tip-num">9</div><div class="tip-title">קבל/י ביקורת</div><div class="tip-text">ביקורת על הספר היא לא ביקורת עלייך. הפרד/י בין עצמך ליצירה.</div></div>
+      <div class="tip-card"><div class="tip-num">10</div><div class="tip-title">סיים/י את הספר</div><div class="tip-text">הספר הגרוע שסיימת שווה יותר ממאה ספרים מושלמים שנשארו בראש.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXERCISE -->
+<div id="exercise">
+  <div class="wrap">
+    <div class="fade-in">
+      <div class="section-label">תרגיל כתיבה ראשון</div>
+      <h2 class="section-title">כתיבה חופשית:<br>5 דקות</h2>
+    </div>
+    <div class="exercise-box fade-in">
+      <div class="exercise-prompt">"הייתי ברגע שבו הכל השתנה. לא ידעתי עדיין שזה קורה. רק אחר כך הבנתי. תארו/י את הרגע הזה..."</div>
+      <textarea placeholder="כתבו כאן. אין טוב או רע. אין שגיאות. פשוט כתבו 5 דקות בלי לעצור." rows="6"></textarea>
+<p style="font-size:0.78rem;color:rgba(253,248,240,0.4);margin-top:0.4rem;font-style:italic;">✏️ אפשר גם לכתוב במחברת אישית</p>
+      <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+        <button class="btn" onclick="startTimer()">⏱ התחל/י טיימר של 5 דקות</button>
+        <span id="timer-display" style="color:rgba(253,248,240,0.5);font-size:0.9rem;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COACHING -->
+<div id="coaching" style="background:var(--ink); border-top:1px solid rgba(201,168,76,0.2);">
+  <div class="wrap" style="text-align:center;">
+    <div class="fade-in">
+      <div class="section-label">ליווי אישי</div>
+      <h2 class="section-title" style="color:var(--cream);">רוצה ללכת<br><span style="color:var(--gold);">לא לבד?</span></h2>
+    </div>
+    <div class="fade-in" style="max-width:580px; margin:0 auto;">
+      <p style="font-size:1rem; line-height:1.9; color:rgba(253,248,240,0.6); margin-bottom:1rem;">
+        ניתן לעבור את הקורס עם ליווי אישי: פגישות אחד על אחד, משוב על הכתיבה שלך, ותמיכה בכל שלב במסע מהרעיון ועד הדף האחרון.
+      </p>
+      <p style="font-size:1rem; line-height:1.9; color:rgba(253,248,240,0.6); margin-bottom:3rem;">
+        מעוניין/ת? צרו קשר ונראה יחד מה מתאים לך.
+      </p>
+      <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+        <a href="https://wa.me/972533559015" target="_blank" style="display:inline-flex; align-items:center; gap:0.7rem; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.4); color:var(--gold); text-decoration:none; padding:0.9rem 2rem; font-size:0.85rem; letter-spacing:2px; transition:background 0.3s;" onmouseover="this.style.background='rgba(201,168,76,0.2)'" onmouseout="this.style.background='rgba(201,168,76,0.1)'">
+          <span style="font-size:1.2rem;">💬</span> וואטסאפ
+        </a>
+        <a href="/cdn-cgi/l/email-protection#214f4e4743444f46484055131361464c40484d0f424e4c" style="display:inline-flex; align-items:center; gap:0.7rem; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.4); color:var(--gold); text-decoration:none; padding:0.9rem 2rem; font-size:0.85rem; letter-spacing:2px; transition:background 0.3s;" onmouseover="this.style.background='rgba(201,168,76,0.2)'" onmouseout="this.style.background='rgba(201,168,76,0.1)'">
+          <span style="font-size:1.2rem;">✉️</span> אימייל
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">✍ כותב/ת</div>
+  <p>קורס דיגיטלי לכתיבת ספר | כל הזכויות שמורות</p>
+  <p style="margin-top:0.5rem;color:rgba(253,248,240,0.12)">כי כל סיפור ראוי שייכתב.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Accordion
+document.querySelectorAll('.acc-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const item = header.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Timer
+let timerInterval = null;
+function startTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  let seconds = 300;
+  const display = document.getElementById('timer-display');
+  display.textContent = '5:00';
+  timerInterval = setInterval(() => {
+    seconds--;
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    display.textContent = m + ':' + String(s).padStart(2,'0');
+    if (seconds <= 0) { clearInterval(timerInterval); display.textContent = '✓ זמן!'; }
+  }, 1000);
+}
+
+// Smooth scroll
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault(    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+
+<!-- EXPORT -->
+<section id="export-section" style="background:#1a1208;padding:4rem 1.5rem;text-align:center;border-top:1px solid rgba(201,168,76,0.15);">
+  <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:3rem 2.5rem;max-width:560px;margin:0 auto;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📄</div>
+    <h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;color:#c9a84c;margin-bottom:0.6rem;">ייצוא הכתיבה שלכם</h3>
+    <p style="color:rgba(253,248,240,0.7);font-size:0.97rem;line-height:1.85;margin-bottom:1.8rem;">כל תרגילי הכתיבה שמילאתם לאורך הקורס — מוכנים לקובץ PDF אישי שתוכלו לשמור.</p>
+    <button onclick="exportToPDF()" style="padding:1rem 2.5rem;background:#c9a84c;color:#1a1208;border:none;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;">הורידו את הכתיבה שלכם ✦</button>
+    <p style="font-size:0.82rem;color:rgba(201,168,76,0.4);margin-top:1rem;">הקובץ נשמר אצלכם בלבד.</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW=210, pageH=297, margin=20, usableW=pageW-margin*2;
+  let y = margin;
+  function checkPage(n) { if (y+n > pageH-margin) { doc.addPage(); y=margin; } }
+  doc.setFillColor(26,18,8); doc.rect(0,0,pageW,45,'F');
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(201,168,76);
+  doc.text('הספר שלי', pageW/2, 21, {align:'center'});
+  doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(220,205,175);
+  doc.text('תרגילי הכתיבה שלי מהקורס', pageW/2, 32, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(155,135,100);
+  doc.text(new Date().toLocaleDateString('he-IL'), pageW/2, 41, {align:'center'});
+  y = 58;
+  let hasContent = false;
+  document.querySelectorAll('textarea').forEach(ta => {
+    const val = ta.value.trim();
+    if (!val) return;
+    hasContent = true;
+    const label = ta.dataset.label || ta.placeholder?.substring(0,60) || 'כתיבה';
+    checkPage(28);
+    doc.setFillColor(40,28,10); doc.rect(margin, y-4, usableW, 10, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(201,168,76);
+    doc.text(label, pageW-margin, y+3, {align:'right'}); y += 13;
+    doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(50,38,20);
+    const lines = doc.splitTextToSize(val, usableW);
+    lines.forEach(line => { checkPage(7); doc.text(line, pageW-margin, y, {align:'right'}); y+=6; });
+    y+=4; doc.setDrawColor(201,168,76); checkPage(4); doc.line(margin,y,pageW-margin,y); y+=8;
+  });
+  if (!hasContent) {
+    doc.setFontSize(12); doc.setTextColor(139,110,90);
+    doc.text('עדיין לא מילאתם תרגילים. התחילו לכתוב!', pageW/2, y+10, {align:'center'});
+  }
+  const total = doc.internal.getNumberOfPages();
+  for (let i=1;i<=total;i++) {
+    doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150,130,100);
+    doc.text('nofbengiat.com | קורס כתיבת ספר', pageW/2, pageH-8, {align:'center'});
+    doc.text(i+' / '+total, margin, pageH-8);
+  }
+  doc.save('הספר-שלי-תרגילי-כתיבה.pdf');
+}
+</script>
+</body>
+</html>
