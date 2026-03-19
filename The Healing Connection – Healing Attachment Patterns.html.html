@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הקשר המרפא — קורס דפוסי היקשרות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5efe8; --bg2: #ede4d8; --bg3: #e6d9c9;
+    --text: #3a2e28; --text-soft: #6b5a50;
+    --rose: #b06070; --rose-light: #d4929f; --rose-pale: #f2dde1;
+    --earth: #8b6e5a; --earth-light: #c4a48a;
+    --beige: #d9c8b4; --gold: #c4956a;
+    --white: #fdfaf6; --shadow: rgba(80,50,35,0.12);
+    --radius: 18px;
+    --font-body: 'Noto Serif Hebrew', serif;
+    --font-display: 'Playfair Display', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.85; direction: rtl; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(245,239,232,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--beige); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--rose); font-style: italic; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; font-size: 0.88rem; color: var(--text-soft); }
+  .nav-links a { text-decoration: none; color: inherit; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+
+  .hero { min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; background: linear-gradient(160deg, #f5efe8 0%, #ede4d8 40%, #e6d9c9 100%); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 20% 30%, rgba(176,96,112,0.08) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 80% 70%, rgba(139,110,90,0.07) 0%, transparent 70%); }
+  .hero-eyebrow { font-size: 0.85rem; letter-spacing: 0.18em; color: var(--rose); text-transform: uppercase; margin-bottom: 1.5rem; position: relative; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.15; color: var(--text); margin-bottom: 1rem; position: relative; }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+  .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--text-soft); max-width: 560px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
+  .hero-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--rose-light), var(--earth-light)); margin: 0 auto 2.5rem; position: relative; }
+  .hero-desc { max-width: 580px; color: var(--text-soft); font-size: 1.05rem; line-height: 1.9; margin: 0 auto 3rem; position: relative; }
+  .btn-primary { display: inline-block; padding: 1rem 2.5rem; background: var(--rose); color: white; border-radius: 50px; text-decoration: none; font-size: 1rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.03em; transition: all 0.3s; position: relative; box-shadow: 0 8px 24px rgba(176,96,112,0.25); }
+  .btn-primary:hover { background: #9d5565; transform: translateY(-2px); }
+
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 820px; margin: 0 auto; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--text); margin-bottom: 0.5rem; text-align: center; }
+  .section-title em { color: var(--rose); font-style: italic; }
+  .section-intro { text-align: center; color: var(--text-soft); font-size: 1.05rem; max-width: 600px; margin: 0 auto 3rem; line-height: 1.9; }
+
+  .about-strip { background: var(--white); border-radius: var(--radius); padding: 3rem; box-shadow: 0 4px 24px var(--shadow); display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  @media(max-width:640px){ .about-strip { grid-template-columns: 1fr; } }
+  .about-block h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--rose); margin-bottom: 0.8rem; }
+  .about-block p { color: var(--text-soft); font-size: 0.97rem; line-height: 1.85; }
+  .theory-box { background: linear-gradient(135deg, var(--rose-pale) 0%, #f7ece5 100%); border-radius: var(--radius); padding: 2.5rem; border: 1px solid rgba(176,96,112,0.2); margin-top: 2rem; text-align: center; }
+  .theory-box h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--rose); margin-bottom: 1rem; }
+  .theory-box p { color: var(--text-soft); font-size: 0.98rem; line-height: 1.9; max-width: 600px; margin: 0 auto; }
+
+  .features-section { background: var(--white); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .feature-item { background: var(--bg); border-radius: var(--radius); padding: 1.8rem 1.5rem; text-align: center; border: 1px solid var(--beige); }
+  .feature-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .feature-item h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem; }
+  .feature-item p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.75; }
+
+  .chapters-section { background: var(--bg2); }
+  .timeline { position: relative; padding-right: 2rem; }
+  .timeline::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--rose-light) 0%, var(--earth-light) 100%); border-radius: 2px; }
+
+  .chapter-card { background: var(--white); border-radius: var(--radius); margin-bottom: 1.5rem; box-shadow: 0 2px 16px var(--shadow); overflow: hidden; position: relative; transition: box-shadow 0.3s; }
+  .chapter-card:hover { box-shadow: 0 6px 28px rgba(80,50,35,0.16); }
+  .chapter-card::before { content: ''; position: absolute; right: -2.25rem; top: 2.2rem; width: 14px; height: 14px; border-radius: 50%; background: var(--rose-light); border: 3px solid var(--bg2); }
+
+  .chapter-header { display: flex; align-items: center; gap: 1rem; padding: 1.4rem 1.8rem; user-select: none; }
+  .chapter-num { min-width: 42px; height: 42px; background: linear-gradient(135deg, var(--rose-pale), var(--beige)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; color: var(--rose); font-weight: 600; }
+  .chapter-meta { flex: 1; }
+  .chapter-tag { display: inline-block; font-size: 0.72rem; background: var(--rose-pale); color: var(--rose); padding: 0.15rem 0.6rem; border-radius: 20px; margin-bottom: 0.25rem; letter-spacing: 0.04em; }
+  .chapter-title-text { font-family: var(--font-display); font-size: 1.15rem; color: var(--text); }
+  .chapter-arrow { color: var(--rose-light); font-size: 1.2rem; transition: transform 0.3s; margin-right: auto; }
+  .chapter-card.open .chapter-arrow { transform: rotate(90deg); }
+
+  .chapter-body { display: none; padding: 0 1.8rem 1.8rem; border-top: 1px solid var(--bg3); padding-top: 1.5rem; }
+  .chapter-card.open .chapter-body { display: block; }
+
+  .chapter-theory { font-size: 1rem; color: var(--text-soft); line-height: 1.9; margin-bottom: 1.5rem; padding: 1rem 1.2rem; background: linear-gradient(135deg, rgba(176,96,112,0.06), rgba(196,148,106,0.05)); border-right: 3px solid var(--rose-light); border-radius: 0 8px 8px 0; }
+  .chapter-theory strong { color: var(--rose); font-weight: 600; }
+
+  .writing-block { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--bg3); }
+  .writing-label { font-size: 0.78rem; color: var(--rose); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .writing-prompt { font-size: 0.97rem; color: var(--text-soft); font-style: italic; line-height: 1.85; margin-bottom: 0.8rem; }
+  .writing-textarea { width: 100%; margin-top: 0.5rem; padding: 0.8rem 1rem; border: 1.5px solid var(--beige); border-radius: 10px; background: var(--white); font-family: var(--font-body); font-size: 0.9rem; color: var(--text); line-height: 1.8; resize: vertical; min-height: 130px; direction: rtl; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .writing-textarea:focus { border-color: var(--rose-light); box-shadow: 0 0 0 3px rgba(176,96,112,0.1); }
+  .writing-textarea::placeholder { color: var(--earth-light); font-style: italic; }
+  .notebook-note { font-size: 0.78rem; color: var(--text-soft); margin-top: 0.4rem; font-style: italic; opacity: 0.75; }
+
+  .cta-section { background: linear-gradient(135deg, var(--text) 0%, #5a3d32 100%); color: white; text-align: center; padding: 5rem 2rem; }
+  .cta-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; color: white; }
+  .cta-section p { color: rgba(255,255,255,0.75); font-size: 1.05rem; margin-bottom: 2.5rem; }
+  .btn-white { display: inline-block; padding: 1rem 2.8rem; background: white; color: var(--rose); border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .btn-white:hover { transform: translateY(-2px); }
+
+  footer { background: var(--bg2); text-align: center; padding: 2rem; font-size: 0.88rem; color: var(--text-soft); border-top: 1px solid var(--beige); }
+  footer a { color: var(--rose); text-decoration: none; }
+
+  .export-section { background: var(--bg2); padding: 4rem 1.5rem; text-align: center; }
+  .export-box { background: var(--white); border-radius: var(--radius); padding: 3rem 2.5rem; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 24px var(--shadow); border: 1px solid var(--beige); }
+  .export-box h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); margin-bottom: 0.6rem; }
+  .export-box p { color: var(--text-soft); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.8rem; }
+  .btn-export { display: inline-block; padding: 1rem 2.5rem; background: var(--rose); color: white; border: none; border-radius: 50px; font-size: 1rem; font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 24px rgba(176,96,112,0.25); }
+  .btn-export:hover { background: #9d5565; transform: translateY(-2px); }
+  .export-note { margin-top: 1rem; font-size: 0.82rem; color: var(--earth-light); }
+
+  @media(max-width:640px) {
+    .nav-links { display: none; }
+    .timeline { padding-right: 1rem; }
+    .chapter-header { padding: 1rem; }
+    .chapter-body { padding: 0 1rem 1.5rem; padding-top: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">הקשר המרפא</div>
+  <ul class="nav-links">
+    <li><a href="#about">על הקורס</a></li>
+    <li><a href="#features">מה תקבלו</a></li>
+    <li><a href="#chapters">פרקים</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">קורס דיגיטלי לדפוסי היקשרות</div>
+  <h1>הקשר <em>המרפא</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-subtitle">להבין את הדפוס — ולהתחיל לשבור אותו</p>
+  <p class="hero-desc">
+    כל אחד מאיתנו נושא דפוס היקשרות שנוצר בילדות — ומשפיע על כל קשר שאנחנו יוצרים.
+    הקורס הזה מזמין אתכם להכיר את הדפוס שלכם, להבין את האנשים שאתם מושכים,
+    ולבנות בהדרגה את הקשר שתמיד רציתם.
+  </p>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">על <em>הקורס</em></h2>
+    <p class="section-intro">תיאוריית ההיקשרות היא אחת התגליות הפסיכולוגיות המשמעותיות ביותר של המאה ה-20 — ואתם יכולים להשתמש בה כדי לשנות את חייכם.</p>
+    <div class="about-strip">
+      <div class="about-block">
+        <h3>מה זה דפוס היקשרות?</h3>
+        <p>דפוסי ההיקשרות נוצרים בשנים הראשונות לחיינו — מתוך הקשר עם ההורים והמטפלים. הם מכתיבים כיצד אנחנו אוהבים, כיצד אנחנו מגיבים לקרבה ולריחוק, ואיזה אנשים אנחנו מושכים אלינו — שוב ושוב.</p>
+      </div>
+      <div class="about-block">
+        <h3>למי הקורס מיועד?</h3>
+        <p>לכל מי שמרגיש שהוא חוזר על אותם דפוסים בקשרים, שמושך אותו סוג של אנשים שוב ושוב, או שרוצה להבין מדוע קשה לו עם קרבה, מחויבות, או ביטחון בקשר.</p>
+      </div>
+    </div>
+    <div class="theory-box">
+      <h3>כל דפוס שנוצר — יכול להשתנות. זו בחירה, לא גורל.</h3>
+      <p>מחקרים מראים שניתן לעבור מהיקשרות חרדתית או נמנעת לבטוחה — בתהליך מודע של הכרה, הבנה ושינוי. זה לא קורה מהר, אבל זה קורה.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section id="features" class="features-section">
+  <div class="container">
+    <h2 class="section-title">מה <em>תקבלו</em> בקורס</h2>
+    <p class="section-intro">כל מה שצריך כדי להכיר את הדפוס שלכם — ולהתחיל לשנות אותו.</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🧠</div>
+        <h4>10 פרקים עם עיגון תיאורטי</h4>
+        <p>כל פרק מסביר מושג מרכזי מתיאוריית ההיקשרות בשפה נגישה וחמה.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✍️</div>
+        <h4>תרגילי כתיבה לכל פרק</h4>
+        <p>שאלות שמגיעות למקומות האמיתיים ומאפשרות עיבוד אישי עמוק.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔍</div>
+        <h4>זיהוי הדפוס שלכם</h4>
+        <p>לזהות את סגנון ההיקשרות שלכם — בטוח, חרדתי, נמנע או לא מאורגן.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💞</div>
+        <h4>הבנה את מי אתם מושכים</h4>
+        <p>לזהות את האיכויות והדפוסים של האנשים שחוזרים בחייכם.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌱</div>
+        <h4>כלים לשינוי</h4>
+        <p>פרקטיקות מעשיות לפיתוח היקשרות בטוחה יותר — בקצב שלכם.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌸</div>
+        <h4>בקצב שלכם</h4>
+        <p>קורס דיגיטלי עצמאי לחלוטין. אין לחץ, אין דדליין — רק אתם והתהליך.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section id="chapters" class="chapters-section">
+  <div class="container">
+    <h2 class="section-title">מסע ב<em>עשרה פרקים</em></h2>
+    <p class="section-intro">כל פרק פותח שכבה נוספת של הבנה — על עצמכם, על הקשרים שלכם, ועל הדרך קדימה.</p>
+    <div class="timeline">
+
+      <!-- Chapter 1 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">א׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">יסודות</div>
+            <div class="chapter-title-text">מה זה היקשרות — ולמה זה חשוב לנו</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            <strong>תיאוריית ההיקשרות</strong> פותחה על ידי ג'ון בולבי וסטוארט אינסוורת' בשנות ה-60. הם גילו שהדרך שבה ילד לומד להיקשר לדמות מטפלת — הורה, מטפל, או כל דמות משמעותית — מכתיבה כיצד הוא יתנהל בקשרים לאורך כל חייו: עם בני זוג, חברים, וכל מי שקרוב. ישנם ארבעה סגנונות עיקריים: בטוח, חרדתי, נמנע ולא מאורגן. ההיכרות עם הסגנון שלנו היא הצעד הראשון לשינוי.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">כשאתם חושבים על הקשרים הקרובים בחייכם — מה מרגיש טבעי ונעים? מה מרגיש מאתגר או לא נוח? איפה אתם מרגישים בריאים ומחוברים, ואיפה אתם מרגישים שמשהו לא עובד? כתבו בחופשיות, בלי לנסות לנתח.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק א׳ · מה זה היקשרות"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 2 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ב׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הדפוסים</div>
+            <div class="chapter-title-text">ארבעת סגנונות ההיקשרות — אני מי?</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            <strong>היקשרות בטוחה</strong> — נוח עם קרבה וגם עם עצמאות. יכולים לבקש עזרה, לתת מרחב, ולהאמין שהאחר יחזור. מרגישים ערך עצמי יציב גם כשיש קונפליקט.
+            <br><br>
+            <strong>היקשרות חרדתית</strong> — תשוקה עצומה לקרבה לצד פחד גדול מנטישה. נוטים לבדוק, לחפש אישור, להרגיש לא בטוחים בקשר גם כשהכל תקין. הפחד "שיעזבו" מנהל הרבה החלטות.
+            <br><br>
+            <strong>היקשרות נמנעת</strong> — קושי עם קרבה רגשית, העדפת עצמאות, הרגשה שאחרים עלולים להכביד או לאכזב. נראים חזקים מבחוץ אך בורחים מעומק. לא תמיד מודעים לכמה הם מתרחקים.
+            <br><br>
+            <strong>היקשרות הלא מאורגנת</strong> — תערובת של חרדה ונמנעות: רוצים קרבה ובו-זמנית נמלטים ממנה. לרוב נוצרת מתוך טראומה או חוסר עקביות משמעותי בילדות. הקשר עצמו מרגיש גם כמקור לביטחון וגם כאיום.
+            <br><br>
+            רוב האנשים מזדהים עם יותר מסגנון אחד — וזה לגמרי נורמלי.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">איזה מהתיאורים הרגיש הכי מוכר? מה הרגשתם כשזיהיתם את עצמכם? כתבו את הרגע שבו "ראיתם את עצמכם".</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ב׳ · ארבעת סגנונות ההיקשרות"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 3 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ג׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">השורשים</div>
+            <div class="chapter-title-text">איך נוצר הדפוס שלי — הילדות שעיצבה אותי</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            הדפוס שלנו לא נוצר מרוע לב — הוא נוצר כפתרון. כשילד לא יכול לסמוך על הזמינות הרגשית של ההורה או המטפל, הוא מפתח אסטרטגיה: לקרוא יותר, לצעוק יותר, להפסיק לבקש. בבגרות, אותה אסטרטגיה ממשיכה לפעול — גם מול בני זוג, גם מול חברים. אין דפוס "רע" — כולם הגיוניים בהקשרם. השאלה היא האם הם עדיין משרתים אתכם היום.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">מה למדתם על אהבה בבית שגדלתם בו? האם אהבה הייתה מותנית? זמינה? לא בטוחה? כתבו זיכרון אחד שמדגים את זה.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ג׳ · איך נוצר הדפוס שלי"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 4 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ד׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">המגנט</div>
+            <div class="chapter-title-text">את מי אני מושכת — ולמה זה לא מקרי</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            אנחנו לא מושכים אנשים אקראיים — אנחנו מושכים אנשים שמפעילים את הדפוס המוכר שלנו. <strong>חרדתיים</strong> נוטים למשוך נמנעים. <strong>נמנעים</strong> נוטים למשוך חרדתיים. יש בזה היגיון עמוק: הלא-מוכר מרגיש לא בטוח, והמוכר — גם אם כואב — מרגיש כמו "בית". עד שמזהים את הדינמיקה, קשה לצאת ממנה.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">חשבו על 2-3 אנשים משמעותיים שהיו בחייכם רומנטית. מה משותף להם? אילו איכויות חוזרות? מה האיכות שתמיד משכה אתכם?</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ד׳ · את מי אני מושכת"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 5 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ה׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הטריגרים</div>
+            <div class="chapter-title-text">הרגעים שמפעילים אותי — להכיר את הכפתורים</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            טריגרים של היקשרות הם הרגעים שבהם אנחנו מגיבים לא למה שקורה עכשיו — אלא לפחד ישן. כשמישהו לא עונה להודעה ואנחנו מרגישים פאניקה, זה לא על ההודעה. כשמישהו מתקרב מדי ואנחנו בורחים, זה לא על אותו אדם. ההכרה בטריגר — בזמן שהוא קורה — היא כלי שינוי עצום.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">מה כואב לכם בקשר? מה מכווץ אתכם, מטריד, מעורר חרדה — גם כשאין "סיבה הגיונית"? (למשל: שתיקה של האחר, קרבה פיזית, ביטול, ציפייה לתגובה שלא מגיעה). בחרו דבר אחד שחוזר אצלכם וכתבו מה קורה בגוף ובראש כשזה קורה.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ה׳ · הרגעים שמפעילים אותי"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 6 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ו׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הצל</div>
+            <div class="chapter-title-text">מה אני עושה כשכואב לי — דפוסי ההתמודדות</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            לכל סגנון היקשרות יש דפוסי התמודדות אופייניים כשמרגישים כאב בקשר. <strong>חרדתיים</strong> נוטים להתקרב, לבדוק, להתחנן, לשלוח הודעות. <strong>נמנעים</strong> נוטים להתרחק, להתעסק בעבודה, לסגת. <strong>לא מאורגן</strong> — עושים את שניהם בו-זמנית — מה שמבלבל גם אותם וגם את האחר. ההכרה בדפוס ההתמודדות שלנו מאפשרת לבחור אחרת.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">כשכואב לכם בקשר — מה אתם עושים? כתבו את 3 הדברים הראשונים שקורים. לא מה אתם חושבים שצריכים לעשות — מה אתם באמת עושים. למשל: נסגרים, מבקשים מרחק, עולה בכם חרדה, רוצים להיפרד, שולחים הודעות, בוכים, נעלמים.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ו׳ · דפוסי ההתמודדות שלי"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 7 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ז׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הצורך</div>
+            <div class="chapter-title-text">מה אני באמת צריכה מקשר — לא מה שאמרו לי</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            אחת הסיבות לכך שהקשרים שלנו לא מספקים אותנו היא שלא תמיד ידועות לנו הצרכים האמיתיים שלנו — רק הצרכים שלמדנו שמותר לבקש. <strong>ביטחון, ראייה, קרבה פיזית, עצמאות, עקביות</strong> — כל אחד צריך משהו שונה. ולפעמים הצורך האמיתי נגנז כי פעם הוא לא נענה.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">אם הייתם יכולים לבקש מאדם אהוב דבר אחד שמעולם לא ביקשתם — מה זה היה? מדוע לא ביקשתם אותו עד עכשיו?</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ז׳ · מה אני באמת צריכה"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 8 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ח׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הריפוי</div>
+            <div class="chapter-title-text">היקשרות מחדש — כיצד מתפתחת בטחון פנימי</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            <strong>Earned Secure Attachment</strong> — היקשרות בטוחה נרכשת — היא מה שקורה כאשר מישהו שגדל עם היקשרות לא בטוחה, עובד על עצמו ומגיע לביטחון פנימי. זה קורה דרך: <strong>קשרים מתקנים</strong> (אנשים שנוכחים עבורנו בצורה עקבית), <strong>עיבוד עצמי</strong> (כמו שאנחנו עושים כאן), ו<strong>חמלה עצמית</strong> — לא מחיקת הכאב, אלא ישיבה איתו.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">האם יש בחייכם אדם שנוכח עבורכם בצורה עקבית? כיצד הנוכחות שלו/ה משפיעה עליכם? אם לא — מה תרצו שיהיה שונה?</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ח׳ · היקשרות מחדש"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 9 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ט׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הגבולות</div>
+            <div class="chapter-title-text">גבולות מתוך אהבה — לא מתוך פחד</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            אנשים עם היקשרות לא בטוחה מתקשים לרוב עם גבולות — בשני הכיוונים. <strong>חרדתיים</strong> נוטים לוותר על גבולות מפחד שהאחר יעזוב. <strong>נמנעים</strong> נוטים לגבולות נוקשים שמרחיקים אנשים. גבול אמיתי — בריא — הוא לא חומה ולא ויתור. הוא ביטוי של מה שחשוב לי, מתוך כבוד לעצמי ולאחר.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">האם קל לכם לומר "לא" בקשר? האם קל לכם לבקש מה שאתם צריכים? כתבו גבול אחד שתמיד קשה לכם לשמור — ומה הפחד שמאחוריו. למשל: קשה לכם לומר שאתם עצובים, לבקש זמן לעצמכם, לסרב לבקשה, לומר שמשהו פגע בכם, להגיד שאתם צריכים יותר.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק ט׳ · גבולות מתוך אהבה"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter 10 -->
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">י׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הקשר שרציתי</div>
+            <div class="chapter-title-text">לבנות קשר מרפא — מה נראה שונה מעכשיו</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-theory">
+            הגעתם לפרק האחרון — לא כי הכל נגמר, אלא כי אתם מוכנים להתחיל מחדש בעיניים פקוחות יותר. הקשר המרפא לא מחכה לאדם המושלם — הוא נבנה בתוך קשרים לא מושלמים, עם מודעות, סבלנות, ומוכנות לראות את עצמנו. אתם כבר בדרך.
+          </div>
+          <div class="writing-block">
+            <div class="writing-label">✍️ תרגיל כתיבה</div>
+            <div class="writing-prompt">איך ייראה הקשר שאתם רוצים — לא מי יהיה בן הזוג, אלא איך תרגישו ותתנהגו בתוכו? למשל: תוכלו לבקש עזרה בלי להרגיש חלש, תוכלו להיות לבד בלי לפחד שהקשר נגמר, תדברו על כאב בלי לפוצץ הכל, תרגישו בטוחים גם כשיש מרחק, תקבלו אהבה בלי לדחות אותה. כתבו 3 דברים שייראו שונה — בכם, לא באחר.</div>
+            <textarea class="writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="פרק י׳ · הקשר שרציתי"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-section">
+  <div class="container">
+    <h2>מוכנים להתחיל?</h2>
+    <p>הצעד הראשון הוא הכי קשה — ואתם כבר כאן.</p>
+  </div>
+</section>
+
+<!-- CLOSING SECTION -->
+<section style="background: var(--white); padding: 5rem 1.5rem; text-align: center;">
+  <div class="container" style="max-width: 660px;">
+    <div style="font-size: 1.8rem; margin-bottom: 1.5rem;">🌸</div>
+    <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text); margin-bottom: 1.5rem;">הגעתם לכאן.</h3>
+    <p style="color: var(--text-soft); font-size: 1.05rem; line-height: 2; margin-bottom: 1.5rem;">
+      זה לא דבר קטן. להסתכל על הדפוסים שלנו — על מה שכאב, על מה שחזר שוב ושוב, על מה שלמדנו לעשות כדי לשרוד — דורש אומץ אמיתי. לא כולם מוכנים ללכת לשם.
+    </p>
+    <p style="color: var(--text-soft); font-size: 1.05rem; line-height: 2; margin-bottom: 1.5rem;">
+      הדפוסים שלכם לא נוצרו כי משהו שבור בכם. הם נוצרו כי הייתם ילד או ילדה שניסה להסתגל לעולם שלא תמיד היה בטוח. אתם עשיתם את הטוב ביותר שיכולתם — עם מה שהיה לכם.
+    </p>
+    <p style="color: var(--text-soft); font-size: 1.05rem; line-height: 2; margin-bottom: 3rem;">
+      והיום אתם כאן, מוכנים ללמוד אחרת. זה כבר שינוי.
+    </p>
+
+    <div style="background: var(--rose-pale); border-radius: var(--radius); padding: 2.5rem; text-align: right; margin-bottom: 2.5rem; border: 1px solid rgba(176,96,112,0.15);">
+      <div style="font-family: var(--font-display); font-size: 1.1rem; color: var(--rose); margin-bottom: 1rem;">✨ תרגיל אחרון — אהבה עצמית</div>
+      <p style="color: var(--text-soft); font-size: 0.97rem; line-height: 1.9; margin-bottom: 1.2rem;">
+        שבו בנוחות. עצמו עיניים. שימו יד אחת על הלב.
+      </p>
+      <p style="color: var(--text-soft); font-size: 0.97rem; line-height: 1.9; margin-bottom: 1.2rem;">
+        קחו שלוש נשימות איטיות — שאיפה עמוקה דרך האף, נשיפה ארוכה דרך הפה. עם כל נשיפה — שחררו קצת מהמשקל.
+      </p>
+      <p style="color: var(--text-soft); font-size: 0.97rem; line-height: 1.9; margin-bottom: 1.2rem;">
+        ואז אמרו לעצמכם — בשקט, בלב:
+      </p>
+      <p style="font-family: var(--font-display); font-size: 1.1rem; color: var(--text); line-height: 2.2; font-style: italic; padding: 1rem 1.2rem; border-right: 3px solid var(--rose-light); margin-bottom: 1.2rem;">
+        "אני רואה אותך.<br>
+        עשית את הטוב ביותר שיכולת.<br>
+        מותר לך ללמוד אחרת.<br>
+        מותר לך לאהוב ולהיות אהוב."
+      </p>
+      <p style="color: var(--text-soft); font-size: 0.97rem; line-height: 1.9;">
+        שבו עם זה כמה רגעים. בלי למהר לשום מקום.
+      </p>
+    </div>
+
+    <p style="color: var(--earth); font-size: 0.97rem; line-height: 1.9; font-style: italic;">
+      הקורס הזה הוא רק התחלה. התהליך האמיתי קורה בחיים עצמם — בבחירות הקטנות, ברגעים שבהם אתם מוצאים את עצמכם עושים שוב את אותו דפוס, ועוצרים. ושואלים: "האם אני יכול לבחור אחרת עכשיו?"
+    </p>
+  </div>
+</section>
+
+<!-- EXPORT -->
+<section class="export-section">
+  <div class="export-box">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📄</div>
+    <h3>ייצוא היומן שלכם</h3>
+    <p>כל מה שכתבתם לאורך הקורס — התובנות, הכתיבה, הגילויים — מוכן לייצוא לקובץ PDF אישי.</p>
+    <button class="btn-export" onclick="exportToPDF()">הורידו את היומן שלכם ✦</button>
+    <p class="export-note">הקובץ נשמר אצלכם בלבד — אף תוכן לא נשלח לשום מקום.</p>
+  </div>
+</section>
+
+<!-- PROFESSIONAL RECOMMENDATION -->
+<section style="background: var(--white); padding: 4rem 1.5rem; text-align: center; border-top: 1px solid var(--beige);">
+  <div class="container" style="max-width: 640px;">
+    <div style="font-size: 1.8rem; margin-bottom: 1rem;">🌿</div>
+    <h3 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text); margin-bottom: 1rem;">המלצה אישית</h3>
+    <p style="color: var(--text-soft); font-size: 1rem; line-height: 1.9;">
+      הקורס הזה הוא כלי להכרה ועיבוד עצמי — ואני מאמינה בכוחה של העבודה הפנימית האישית.
+      יחד עם זאת, דפוסי היקשרות וטראומת ילדות הם עמוקים, ולפעמים הדרך הנכונה ביותר היא ללכת אליהם בליווי של מישהו מוסמך.
+    </p>
+    <p style="color: var(--text-soft); font-size: 1rem; line-height: 1.9; margin-top: 1rem;">
+      <strong style="color: var(--rose);">אני ממליצה לפנות למטפלים מקצועיים ומוסמכים</strong> המתמחים בדפוסי היקשרות ובטראומת ילדות.
+      עבודה עם מטפל יכולה להעמיק ולהאיץ את התהליך — ולהחזיק אתכם בצורה שקורס דיגיטלי לא יכול לעשות.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>נוף בן גיאת | <a href="https://nofbengiat.com" target="_blank">nofbengiat.com</a> | כל הזכויות שמורות</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function toggleChapter(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.chapter-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW = 210, pageH = 297, margin = 20, usableW = pageW - margin * 2;
+  let y = margin;
+
+  function checkPage(n) {
+    if (y + n > pageH - margin) { doc.addPage(); y = margin; }
+  }
+
+  doc.setFillColor(176, 96, 112);
+  doc.rect(0, 0, pageW, 45, 'F');
+  doc.setFontSize(26); doc.setFont('helvetica', 'bold'); doc.setTextColor(255, 255, 255);
+  doc.text('הקשר המרפא', pageW / 2, 22, { align: 'center' });
+  doc.setFontSize(12); doc.setFont('helvetica', 'normal');
+  doc.text('היומן שלי — תרגילי כתיבה מהקורס', pageW / 2, 33, { align: 'center' });
+  doc.setFontSize(9); doc.setTextColor(255, 220, 220);
+  doc.text(new Date().toLocaleDateString('he-IL'), pageW / 2, 41, { align: 'center' });
+  y = 58;
+
+  let hasContent = false;
+  document.querySelectorAll('.writing-textarea').forEach(ta => {
+    const val = ta.value.trim();
+    if (!val) return;
+    hasContent = true;
+    const label = ta.dataset.label || '';
+    checkPage(30);
+    doc.setFillColor(242, 221, 225);
+    doc.rect(margin, y - 4, usableW, 10, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(176, 96, 112);
+    doc.text(label, pageW - margin, y + 3, { align: 'right' });
+    y += 13;
+    doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.setTextColor(58, 46, 40);
+    const lines = doc.splitTextToSize(val, usableW);
+    lines.forEach(line => { checkPage(7); doc.text(line, pageW - margin, y, { align: 'right' }); y += 6; });
+    y += 4;
+    doc.setDrawColor(220, 200, 190); checkPage(4);
+    doc.line(margin, y, pageW - margin, y); y += 8;
+  });
+
+  if (!hasContent) {
+    doc.setFontSize(12); doc.setTextColor(139, 110, 90);
+    doc.text('עדיין לא מילאתם תרגילים. התחילו לכתוב!', pageW / 2, y + 10, { align: 'center' });
+  }
+
+  const total = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= total; i++) {
+    doc.setPage(i); doc.setFontSize(8); doc.setTextColor(180, 150, 140);
+    doc.text('nofbengiat.com | הקשר המרפא', pageW / 2, pageH - 8, { align: 'center' });
+    doc.text(i + ' / ' + total, margin, pageH - 8);
+  }
+
+  doc.save('הקשר-המרפא-היומן-שלי.pdf');
+}
+</script>
+
+</body>
+</html>
