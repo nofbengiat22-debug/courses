@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הגוף זוכר — קורס ריפוי רגשי דרך הגוף</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5efe8;
+    --bg2: #ede4d8;
+    --bg3: #e6d9c9;
+    --text: #3a2e28;
+    --text-soft: #6b5a50;
+    --rose: #b06070;
+    --rose-light: #d4929f;
+    --rose-pale: #f2dde1;
+    --earth: #8b6e5a;
+    --earth-light: #c4a48a;
+    --beige: #d9c8b4;
+    --white: #fdfaf6;
+    --shadow: rgba(80,50,35,0.12);
+    --radius: 18px;
+    --font-body: 'Noto Serif Hebrew', serif;
+    --font-display: 'Playfair Display', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.85; direction: rtl; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(245,239,232,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--beige); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--rose); font-style: italic; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; font-size: 0.88rem; color: var(--text-soft); }
+  .nav-links a { text-decoration: none; color: inherit; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+
+  .hero { min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; background: linear-gradient(160deg, #f5efe8 0%, #ede4d8 40%, #e6d9c9 100%); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 20% 30%, rgba(176,96,112,0.08) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 80% 70%, rgba(139,110,90,0.07) 0%, transparent 70%); }
+  .hero-eyebrow { font-size: 0.85rem; letter-spacing: 0.18em; color: var(--rose); text-transform: uppercase; margin-bottom: 1.5rem; position: relative; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.15; color: var(--text); margin-bottom: 1rem; position: relative; }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+  .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--text-soft); max-width: 560px; margin: 0 auto 2.5rem; font-weight: 300; position: relative; }
+  .hero-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--rose-light), var(--earth-light)); margin: 0 auto 2.5rem; position: relative; }
+  .hero-desc { max-width: 580px; color: var(--text-soft); font-size: 1.05rem; line-height: 1.9; margin: 0 auto 3rem; position: relative; }
+  .btn-primary { display: inline-block; padding: 1rem 2.5rem; background: var(--rose); color: white; border-radius: 50px; text-decoration: none; font-size: 1rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.03em; transition: all 0.3s; position: relative; box-shadow: 0 8px 24px rgba(176,96,112,0.25); }
+  .btn-primary:hover { background: #9d5565; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(176,96,112,0.35); }
+  .hero-deco { position: absolute; font-size: 6rem; opacity: 0.06; user-select: none; pointer-events: none; }
+  .hero-deco.d1 { top: 5%; right: 5%; }
+  .hero-deco.d2 { bottom: 8%; left: 4%; transform: rotate(30deg); }
+
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 820px; margin: 0 auto; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--text); margin-bottom: 0.5rem; text-align: center; }
+  .section-title em { color: var(--rose); font-style: italic; }
+  .section-intro { text-align: center; color: var(--text-soft); font-size: 1.05rem; max-width: 600px; margin: 0 auto 3rem; line-height: 1.9; }
+
+  .about-strip { background: var(--white); border-radius: var(--radius); padding: 3rem; box-shadow: 0 4px 24px var(--shadow); display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  @media(max-width:640px){ .about-strip { grid-template-columns: 1fr; } }
+  .about-block h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--rose); margin-bottom: 0.8rem; }
+  .about-block p { color: var(--text-soft); font-size: 0.97rem; line-height: 1.85; }
+
+  .highlight-box { background: linear-gradient(135deg, var(--rose-pale) 0%, #f7ece5 100%); border-radius: var(--radius); padding: 2.5rem; border: 1px solid rgba(176,96,112,0.2); margin-top: 2rem; text-align: center; }
+  .highlight-box h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--rose); margin-bottom: 1rem; }
+  .highlight-box p { color: var(--text-soft); font-size: 0.98rem; line-height: 1.9; max-width: 600px; margin: 0 auto; }
+
+  .chapters-section { background: var(--bg2); }
+  .timeline { position: relative; padding-right: 2rem; }
+  .timeline::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--rose-light) 0%, var(--earth-light) 100%); border-radius: 2px; }
+
+  .chapter-card { background: var(--white); border-radius: var(--radius); margin-bottom: 1.5rem; box-shadow: 0 2px 16px var(--shadow); overflow: hidden; position: relative; transition: box-shadow 0.3s; }
+  .chapter-card:hover { box-shadow: 0 6px 28px rgba(80,50,35,0.16); }
+  .chapter-card::before { content: ''; position: absolute; right: -2.25rem; top: 2.2rem; width: 14px; height: 14px; border-radius: 50%; background: var(--rose-light); border: 3px solid var(--bg2); }
+
+  .chapter-header { display: flex; align-items: center; gap: 1rem; padding: 1.4rem 1.8rem; cursor: pointer; user-select: none; }
+  .chapter-num { min-width: 42px; height: 42px; background: linear-gradient(135deg, var(--rose-pale), var(--beige)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; color: var(--rose); font-weight: 600; }
+  .chapter-meta { flex: 1; }
+  .chapter-tag { display: inline-block; font-size: 0.72rem; background: var(--rose-pale); color: var(--rose); padding: 0.15rem 0.6rem; border-radius: 20px; margin-bottom: 0.25rem; letter-spacing: 0.04em; }
+  .chapter-title-text { font-family: var(--font-display); font-size: 1.15rem; color: var(--text); }
+  .chapter-arrow { color: var(--rose-light); font-size: 1.2rem; transition: transform 0.3s; margin-right: auto; }
+  .chapter-card.open .chapter-arrow { transform: rotate(90deg); }
+
+  .chapter-body { display: none; padding: 1.5rem 1.8rem 1.8rem; border-top: 1px solid var(--bg3); }
+  .chapter-card.open .chapter-body { display: block; }
+
+  .chapter-intro { font-size: 1rem; color: var(--text-soft); line-height: 1.9; margin-bottom: 1.5rem; padding: 1rem 1.2rem; background: linear-gradient(135deg, rgba(176,96,112,0.06), rgba(196,148,106,0.05)); border-right: 3px solid var(--rose-light); border-radius: 0 8px 8px 0; }
+
+  .exercises-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+  .exercise-card { background: var(--bg); border-radius: 12px; padding: 1rem 1.1rem; border: 1px solid var(--beige); }
+  .exercise-type { font-size: 0.75rem; color: var(--earth); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.4rem; }
+  .exercise-card h4 { font-size: 0.95rem; color: var(--text); margin-bottom: 0.4rem; }
+  .exercise-card p { font-size: 0.88rem; color: var(--text-soft); line-height: 1.7; }
+
+  .features-section { background: var(--white); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .feature-item { background: var(--bg); border-radius: var(--radius); padding: 1.8rem 1.5rem; text-align: center; border: 1px solid var(--beige); }
+  .feature-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .feature-item h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--text); margin-bottom: 0.5rem; }
+  .feature-item p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.75; }
+
+  footer { background: var(--bg2); text-align: center; padding: 2rem; font-size: 0.88rem; color: var(--text-soft); border-top: 1px solid var(--beige); }
+  footer a { color: var(--rose); text-decoration: none; }
+
+  .notebook-note {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    margin-top: 0.4rem;
+    font-style: italic;
+    opacity: 0.75;
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">הגוף זוכר</div>
+  <ul class="nav-links">
+    <li><a href="#about">על הקורס</a></li>
+    <li><a href="#features">מה תקבלו</a></li>
+    <li><a href="#chapters">פרקים</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-deco d1">🌿</div>
+  <div class="hero-deco d2">🫧</div>
+  <div class="hero-eyebrow">קורס דיגיטלי לריפוי רגשי דרך הגוף</div>
+  <h1>הגוף <em>זוכר</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-subtitle">הגוף לא שוכח — הוא מחכה שתקשיבו לו</p>
+  <p class="hero-desc">
+    טראומה ורגשות כבדים לא חיים רק בראש.
+    הם חיים בכתפיים שנדחסו, בגרון שנחסם, בבטן שנעולה.
+    הקורס הזה מזמין אתכם לפגוש את הגוף מחדש — בעדינות, בסקרנות, ובלי שיפוט.
+  </p>
+  <a href="#chapters" class="btn-primary">להתחיל להקשיב לגוף</a>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">על <em>הקורס</em></h2>
+    <p class="section-intro">הגוף הוא לא האויב — הוא השותף הנאמן ביותר בדרך לריפוי.</p>
+    <div class="about-strip">
+      <div class="about-block">
+        <h3>למה הגוף?</h3>
+        <p>מחקרים בתחום הטראומה מראים שרגשות שלא עובדו מאוחסנים בגוף — כמתח שרירי, כחסימות נשימה, כתחושות פיזיות שחוזרות. עבודה עם הגוף, לא רק עם המחשבה, פותחת דרכי ריפוי שקשה להגיע אליהן בדרך אחרת.</p>
+      </div>
+      <div class="about-block">
+        <h3>למי הקורס מיועד?</h3>
+        <p>לכל מי שמרגיש שהגוף "מגיב" — מתוח, עייף, כבד — בלי שתמיד יש סיבה ברורה. לאנשים שרוצים ללמוד לשהות עם תחושות גופניות מבלי לברוח מהן, ולפתח שפה פנימית חדשה בין הנפש לגוף.</p>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <h3>הגוף לא בוגד בכם — הוא מגן עליכם</h3>
+      <p>כל תגובה גופנית שאי פעם הרגשתם — קיפאון, מתח, בריחה — הייתה ניסיון של הגוף לשמור עליכם. הקורס הזה מזמין אתכם לפגוש את התגובות האלה בהכרת תודה, לא בביקורת.</p>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features-section">
+  <div class="container">
+    <h2 class="section-title">מה <em>תקבלו</em> בקורס</h2>
+    <p class="section-intro">כלים פשוטים שניתן לשלב בכל יום — בלי ציוד, בלי ניסיון קודם.</p>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🌿</div>
+        <h4>8 פרקים מעמיקים</h4>
+        <p>כל פרק מתמקד בחלק אחר של הגוף ובמה שהוא נושא רגשית.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤲</div>
+        <h4>תרגילי מגע עצמי ועצירה</h4>
+        <p>למידה לשהות עם הגוף — לא לנהל אותו.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌬️</div>
+        <h4>עבודה עם נשימה</h4>
+        <p>כלי הנשימה הפשוטים והעמוקים ביותר לוויסות מערכת העצבים.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💃</div>
+        <h4>תנועה חופשית</h4>
+        <p>לתת לגוף לדבר בשפה שלו — בלי שיפוט, בלי "נכון" ו"לא נכון".</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌱</div>
+        <h4>גישה עדינה</h4>
+        <p>רק נכונות להקשיב לגוף — זה כל מה שצריך.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌸</div>
+        <h4>בקצב שלכם</h4>
+        <p>הקורס דיגיטלי ועצמאי לחלוטין. אין לחץ, אין דדליין.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chapters" class="chapters-section">
+  <div class="container">
+    <h2 class="section-title">מסע ב<em>שמונה פרקים</em></h2>
+    <p class="section-intro">כל פרק מתמקד בחלק אחר של הגוף ובשפה הרגשית שהוא נושא.</p>
+    <div class="timeline">
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">א׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">היכרות עם הגוף</div>
+            <div class="chapter-title-text">להיפגש עם הגוף — בלי ציפיות</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            אנחנו עוברים את רוב היום בלי לשים לב לגוף — עד שהוא מכריח אותנו לשים לב. הפרק הזה הוא הצעד הראשון: להיפגש עם הגוף כמו שהוא עכשיו, בלי לתקן, בלי לשפוט. רק לשים לב.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>יד על לב</h4>
+              <p>שימו יד ימין על הלב. עצרו. חושו את חום כף היד. שאלו בשקט: "מה אתה מרגיש עכשיו?"</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימת היכרות</h4>
+              <p>נשמו באיטיות ושימו לב: היכן הנשימה מגיעה? לחזה? לבטן? לשניהם? אל תשנו — רק צפו.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>נענוע עדין</h4>
+              <p>עמדו ונענעו את הגוף לאט — כמו עץ ברוח קלה. הניחו לגוף למצוא את הקצב שלו.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ב׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">מערכת העצבים</div>
+            <div class="chapter-title-text">הרגל הישרדות — להבין את תגובות הגוף</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            הגוף למד להגן עליכם — לקפוא, לברוח, להילחם — כשהרגיש בסכנה. אפילו כשהסכנה כבר עברה, הגוף עדיין זוכר. הפרק הזה מזמין אתכם להכיר את התגובות האלה לא כחולשה, אלא כחוכמה ישנה שמגיעה לה הכרת תודה.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>עצירה מכוונת</h4>
+              <p>באמצע יום רגיל — עצרו לחמש שניות. שימו יד על הבטן. שאלו: "מה הגוף מרגיש עכשיו?"</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימה מאריכת נשיפה</h4>
+              <p>שאפו ל-4 שניות, נשפו ל-8. הנשיפה הארוכה מפעילה את מערכת הרגיעה. חזרו 6 פעמים.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>רגליים על הקרקע</h4>
+              <p>עמדו יחפים על הרצפה. הרגישו את הקרקע מתחתיכם. לחצו את כפות הרגליים מטה ושחררו.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ג׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הנשימה</div>
+            <div class="chapter-title-text">הנשימה שנחסמה — לפתוח את הדרך</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            אחד הדברים הראשונים שקורים בזמן לחץ הוא שהנשימה נעצרת — או הופכת שטוחה, קצרה, גבוהה. הנשימה היא הגשר הישיר בין הגוף לנפש. הפרק הזה מזמין אתכם לפגוש מחדש את הנשימה הטבעית שלכם.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>ידיים על בטן וחזה</h4>
+              <p>שכבו. יד אחת על החזה, יד שנייה על הבטן. נשמו ושימו לב מה זז קודם. אל תכוונו — רק צפו.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימת בטן עמוקה</h4>
+              <p>נשמו לבטן — הניחו לה להתנפח כמו בלון. עצרו רגע, ואז שחררו לאט. 10 מחזורים בקצב שלכם.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>פתיחת חזה</h4>
+              <p>עמדו. פרשו ידיים הצידה ושאפו עמוק — כאילו הלב רוצה מקום. נשפו ואפו ידיים קדימה. חזרו 5 פעמים.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ד׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הכתפיים והצוואר</div>
+            <div class="chapter-title-text">הנטל שנשאתם — לשחרר את הכתפיים</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            כמה אנשים מגלים שהכתפיים שלהם נמצאות קרוב לאוזניים — כמעט תמיד. הכתפיים נושאות מטענים: אחריות, פחד, מה שרצינו שאף אחד לא יראה. הפרק הזה מזמין אתכם לשים לב למה הכתפיים מחזיקות — ולהתחיל, לאט, להניח.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>מגע על הכתף</h4>
+              <p>שימו יד שמאל על כתף ימין. לחצו בעדינות ושחררו. אמרו בשקט: "אפשר להניח קצת."</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשיפה עם הורדת כתפיים</h4>
+              <p>שאפו ובמכוון הרימו כתפיים לאוזניים. עצרו שנייה. נשפו וזרקו אותן מטה. חזרו 8 פעמים.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>גלגול כתפיים איטי</h4>
+              <p>גלגלו כתפיים לאחור לאיטכם — מעגלים גדולים, איטיים. הניחו לכל מקום נוקשה לנוע בקצב שלו.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ה׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הבטן והמעיים</div>
+            <div class="chapter-title-text">המוח השני — להקשיב לבטן</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            הבטן נקראת "המוח השני" — היא מכילה יותר תאי עצב ממה שנהוג לחשוב, והיא מגיבה לרגשות לפעמים לפני הראש. "בטן חסומה", "מעיים שנהפכים", "תחושת גוש" — אלה לא רק מטאפורות. הפרק הזה מזמין אתכם לפגוש את חוכמת הבטן.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>יד חמה על הבטן</h4>
+              <p>שכבו. שימו יד על הבטן. חושו את החום. שאלו: "מה יש כאן?" — ורק הקשיבו, בלי לתקן.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימה עגולה לבטן</h4>
+              <p>נשמו לבטן כך שהיא מתעגלת לכל הכיוונים — קדימה, לצדדים, לגב. דמיינו אוויר ממלא כדור.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>תנועת אגן עדינה</h4>
+              <p>בישיבה או עמידה — נעו את האגן לאיטכם בעיגולים. הניחו לבטן להיות רכה ולא מוחזקת.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ו׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">הלסת והפה</div>
+            <div class="chapter-title-text">מה לא נאמר — לשחרר את הלסת</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            הלסת היא אחד המקומות שהגוף אוחז בהם הכי חזק את מה שלא הוצא. מילים שלא נאמרו, בכי שנעצר, כעס שנבלע — הלסת זוכרת הכל. הפרק הזה מזמין אתכם לפגוש את המקום הזה — ולאפשר לו לשחרר.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>מגע עדין על הלסת</h4>
+              <p>שימו אצבעות על הלסת משני הצדדים. לחצו בעדינות ושחררו. שימו לב היכן יש מתח.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשיפה דרך הפה הפתוח</h4>
+              <p>פתחו את הפה לרווחה ונשפו לאט — כאילו מאפשרים לאוויר לצאת דרך הלסת. תנו לה להיות רפויה.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>פתיחה וסגירה איטית</h4>
+              <p>פתחו את הפה לאט ככל האפשר — עצרו — וסגרו לאט. חזרו 5 פעמים. הניחו ללסת לנוע בחופשיות.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ז׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">תנועה חופשית</div>
+            <div class="chapter-title-text">לתת לגוף לדבר — תנועה ללא כיוון</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            לגוף יש שפה משלו — אבל רוב הזמן אנחנו לא נותנים לו לדבר. הפרק הזה מזמין אתכם לצאת מהשליטה לרגע — לא לכוון, לא לתקן, לא לזוז "נכון". רק לתת לגוף לנוע כמו שהוא צריך.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>עצירה לפני התנועה</h4>
+              <p>לפני שמתחילים — עמדו, עצמו עיניים, הניחו יד על הלב. שאלו: "מה הגוף רוצה לעשות עכשיו?"</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימה תוך כדי תנועה</h4>
+              <p>נשמו בחופשיות תוך כדי תנועה. אל תעצרו נשימה. תנו לנשימה ולתנועה לנוע יחד.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>5 דקות תנועה חופשית</h4>
+              <p>בחרו מוזיקה שאתם אוהבים. עצמו עיניים ותנו לגוף לנוע — בלי שיפוט, בלי כיוון. הגוף יודע.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="chapter-header" onclick="toggleChapter(this.closest('.chapter-card'))" style="cursor:pointer;">
+          <div class="chapter-num">ח׳</div>
+          <div class="chapter-meta">
+            <div class="chapter-tag">אינטגרציה</div>
+            <div class="chapter-title-text">גוף שמכיר את עצמו — לחיות מחובר</div>
+          </div>
+          <span class="chapter-arrow">›</span>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-intro">
+            הגעתם לסוף המסע — אבל לא לסוף הקשר עם הגוף שלכם. הפרק האחרון מזמין אתכם לקחת את מה שלמדתם ולשלב אותו בחיי היום-יום. הגוף הזה — שנשא אתכם דרך הכל — מגיע לתשומת לב גם כשהכל בסדר.
+          </div>
+          <div class="exercises-grid">
+            <div class="exercise-card">
+              <div class="exercise-type">🤲 מגע עצמי</div>
+              <h4>חיבוק עצמי</h4>
+              <p>חבקו את עצמכם — ידיים על זרועות. לחצו בעדינות. אמרו: "תודה שנשאת אותי עד הנה."</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌬️ נשימה</div>
+              <h4>נשימת שלמות</h4>
+              <p>שאפו עמוק — חושו את הגוף כולו מתמלא. נשפו לאט — חושו אותו מתרגע. חזרו 5 פעמים.</p>
+            </div>
+            <div class="exercise-card">
+              <div class="exercise-type">🌿 תנועה</div>
+              <h4>ריקוד תודה</h4>
+              <p>בחרו שיר אחד שמשמח אתכם — ורקדו. לבד. בחדר שלכם. כי הגוף הזה הוא הבית שלכם.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--bg3); padding: 4rem 1.5rem;">
+  <div class="container">
+    <h2 class="section-title">רוצים <em>ללכת עמוק יותר?</em></h2>
+    <p class="section-intro">הקורס הוא התחלה — לפעמים התהליך מזמין ליווי אישי.</p>
+    <div class="about-strip">
+      <div class="about-block">
+        <h3>ליווי אישי עם נוף</h3>
+        <p>אם הקורס הדליק בכם משהו ואתם מרגישים שתרצו להמשיך עם ליווי צמוד יותר — אני כאן. נוכל לעבוד יחד בקצב שלכם, על מה שעלה, על מה שעוד לא נגענו בו.</p>
+        <a href="https://www.nofbengiat.com/%D7%9C%D7%99%D7%95%D7%95%D7%99-%D7%A9%D7%99%D7%A7%D7%95%D7%9E%D7%99" target="_blank" style="display:inline-block; margin-top:1rem; padding: 0.7rem 1.8rem; background: var(--rose); color: white; border-radius: 50px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: all 0.3s;">לפרטים על ליווי אישי</a>
+      </div>
+      <div class="about-block">
+        <h3>טיפול אצל מטפלים מוסמכים בטראומה</h3>
+        <p>עבודה עם הגוף והטראומה יכולה לעורר חומרים עמוקים. אם אתם מרגישים שאתם זקוקים לתמיכה מקצועית — מומלץ לפנות למטפל או מטפלת מוסמכים בטראומה. זה צעד של עוצמה, לא של חולשה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>נוף בן גיאת | <a href="https://nofbengiat.com" target="_blank">nofbengiat.com</a> | כל הזכויות שמורות</p>
+</footer>
+
+<script>
+function toggleChapter(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.chapter-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+</script>
+
+<!-- EXPORT -->
+<section style="background:var(--bg2);padding:4rem 1.5rem;text-align:center;border-top:1px solid var(--beige);">
+  <div style="background:var(--white);border-radius:18px;padding:3rem 2.5rem;max-width:560px;margin:0 auto;box-shadow:0 4px 24px rgba(80,50,35,0.12);border:1px solid var(--beige);">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📄</div>
+    <h3 style="font-family:'Noto Serif Hebrew',serif;font-size:1.4rem;color:var(--text);margin-bottom:0.6rem;">ייצוא הרשימות שלכם</h3>
+    <p style="color:var(--text-soft);font-size:0.97rem;line-height:1.85;margin-bottom:1.8rem;">כל מה שכתבתם בתרגילי ההתבוננות — מוכן לייצוא לקובץ PDF.</p>
+    <button onclick="exportToPDF()" style="padding:1rem 2.5rem;background:var(--rose);color:white;border:none;border-radius:50px;font-size:1rem;font-family:'Noto Serif Hebrew',serif;font-weight:600;cursor:pointer;transition:all 0.3s;box-shadow:0 8px 24px rgba(176,96,112,0.25);">הורידו את הרשימות שלכם ✦</button>
+    <p style="font-size:0.82rem;color:var(--earth-light);margin-top:1rem;">הקובץ נשמר אצלכם בלבד.</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW=210, pageH=297, margin=20, usableW=pageW-margin*2;
+  let y = margin;
+  function checkPage(n) { if (y+n > pageH-margin) { doc.addPage(); y=margin; } }
+  doc.setFillColor(176,96,112);
+  doc.rect(0,0,pageW,45,'F');
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+  doc.text('הגוף זוכר', pageW/2, 21, {align:'center'});
+  doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(240,220,225);
+  doc.text('הרשימות שלי מהקורס', pageW/2, 32, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(220,190,200);
+  doc.text(new Date().toLocaleDateString('he-IL'), pageW/2, 41, {align:'center'});
+  y = 58;
+  let hasContent = false;
+  document.querySelectorAll('textarea').forEach(ta => {
+    const val = ta.value.trim();
+    if (!val) return;
+    hasContent = true;
+    const label = ta.dataset.label || '';
+    checkPage(28);
+    doc.setFillColor(245,221,225); doc.rect(margin, y-4, usableW, 10, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(176,96,112);
+    doc.text(label, pageW-margin, y+3, {align:'right'}); y += 13;
+    doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(58,46,40);
+    const lines = doc.splitTextToSize(val, usableW);
+    lines.forEach(line => { checkPage(7); doc.text(line, pageW-margin, y, {align:'right'}); y+=6; });
+    y+=4; doc.setDrawColor(176,96,112); checkPage(4); doc.line(margin,y,pageW-margin,y); y+=8;
+  });
+  if (!hasContent) {
+    doc.setFontSize(12); doc.setTextColor(139,110,90);
+    doc.text('עדיין לא מילאתם תרגילים.', pageW/2, y+10, {align:'center'});
+  }
+  const total = doc.internal.getNumberOfPages();
+  for (let i=1;i<=total;i++) {
+    doc.setPage(i); doc.setFontSize(8); doc.setTextColor(180,150,140);
+    doc.text('nofbengiat.com | הגוף זוכר', pageW/2, pageH-8, {align:'center'});
+    doc.text(i+' / '+total, margin, pageH-8);
+  }
+  doc.save('הגוף-זוכר-הרשימות-שלי.pdf');
+}
+</script>
+</body>
+</html>
