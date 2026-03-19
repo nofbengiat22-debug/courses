@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מסע הגיבור – שנו את הסיפור שלכם</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+Hebrew:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0e0b08; --dark: #1a1410; --brown-deep: #3d2b1f; --brown: #6b4226;
+    --brown-light: #b07d5a; --beige-dark: #c9a882; --beige: #d9c4a8;
+    --beige-light: #ede3d3; --cream: #f5efe4; --white: #fdfaf5;
+    --gold: #c8a45a; --gold-light: #e2c07a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Noto Serif Hebrew', serif; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.5; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,7,4,0.95), transparent); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 0.15em; color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--beige); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .hero { min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(107,66,38,0.4) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 30%, rgba(61,43,31,0.5) 0%, transparent 60%), linear-gradient(180deg, #0e0b08 0%, #1a1410 40%, #2a1d14 100%); }
+  .hero-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(200,164,90,0.12); animation: pulse-ring 6s ease-in-out infinite; }
+  .hero-circle:nth-child(1) { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .hero-circle:nth-child(2) { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1s; }
+  .hero-circle:nth-child(3) { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 2s; }
+  .hero-circle:nth-child(4) { width: 950px; height: 950px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 3s; }
+  @keyframes pulse-ring { 0%,100% { opacity: 0.12; } 50% { opacity: 0.32; } }
+  .hero-content { position: relative; z-index: 10; text-align: center; padding: 2rem; max-width: 900px; }
+  .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.3s; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.6s; }
+  .hero-title span { color: var(--gold); display: block; font-style: italic; font-weight: 400; font-size: 0.65em; }
+  .hero-subtitle { font-size: 1.1rem; line-height: 1.9; color: var(--beige); max-width: 580px; margin: 0 auto 3rem; font-weight: 300; opacity: 0; animation: fadeUp 1s ease forwards 0.9s; }
+  .hero-cta { display: inline-block; padding: 1rem 3rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Noto Serif Hebrew', serif; font-size: 1rem; letter-spacing: 0.1em; text-decoration: none; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; opacity: 0; animation: fadeUp 1s ease forwards 1.2s; }
+  .hero-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(100%); transition: transform 0.4s ease; }
+  .hero-cta:hover::before { transform: translateX(0); }
+  .hero-cta:hover { color: var(--black); }
+  .hero-cta span { position: relative; z-index: 1; }
+  .scroll-indicator { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--beige-dark); font-size: 0.75rem; letter-spacing: 0.2em; animation: bounce 2s ease infinite; }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  section { position: relative; padding: 7rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: var(--gold); letter-spacing: 0.35em; margin-bottom: 1rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.2; color: var(--white); margin-bottom: 1.5rem; }
+  .section-text { font-size: 1.05rem; line-height: 2; color: var(--beige); font-weight: 300; max-width: 680px; }
+  .divider { width: 80px; height: 1px; background: linear-gradient(to left, transparent, var(--gold), transparent); margin: 1.5rem 0; }
+  .philosophy { background: linear-gradient(180deg, var(--black) 0%, var(--dark) 50%, var(--black) 100%); }
+  .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; margin-top: 4rem; }
+  .philosophy-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; line-height: 1.7; color: var(--beige-light); border-right: 3px solid var(--gold); padding-right: 2.5rem; position: relative; }
+  .philosophy-quote::before { content: '"'; position: absolute; top: -1.5rem; right: 1rem; font-size: 5rem; color: var(--brown); line-height: 1; opacity: 0.5; }
+  .philosophy-author { margin-top: 1.5rem; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.15em; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .stages-section { background: var(--dark); }
+  .stages-intro { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+  .stages-intro .section-text { margin: 0 auto; text-align: center; }
+  .stages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,164,90,0.1); }
+  .stage-card { background: var(--dark); padding: 2.5rem 2rem; position: relative; overflow: hidden; cursor: default; transition: background 0.4s ease; }
+  .stage-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to left, transparent, var(--gold), transparent); transform: scaleX(0); transition: transform 0.4s ease; }
+  .stage-card:hover { background: rgba(61,43,31,0.5); }
+  .stage-card:hover::after { transform: scaleX(1); }
+  .stage-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: rgba(200,164,90,0.12); font-weight: 900; line-height: 1; margin-bottom: 0.8rem; transition: color 0.4s; }
+  .stage-card:hover .stage-number { color: rgba(200,164,90,0.38); }
+  .stage-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+  .stage-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--beige-light); margin-bottom: 0.6rem; font-weight: 600; }
+  .stage-desc { font-size: 0.87rem; line-height: 1.8; color: var(--beige-dark); font-weight: 300; }
+  .travel-section { background: linear-gradient(180deg, var(--black) 0%, rgba(61,43,31,0.2) 50%, var(--black) 100%); }
+  .travel-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; margin-top: 4rem; }
+  .travel-reasons { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2rem; }
+  .travel-reason { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1.3rem; border: 1px solid rgba(200,164,90,0.08); transition: border-color 0.3s; }
+  .travel-reason:hover { border-color: rgba(200,164,90,0.3); }
+  .travel-reason-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .travel-reason-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--beige-light); margin-bottom: 0.4rem; }
+  .travel-reason-text { font-size: 0.88rem; line-height: 1.85; color: var(--beige-dark); font-weight: 300; }
+  .travel-visual { position: sticky; top: 8rem; }
+  .travel-map-art { width: 100%; height: 140px; aspect-ratio: unset; background: radial-gradient(circle at 30% 40%, rgba(107,66,38,0.3) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(61,43,31,0.4) 0%, transparent 40%), linear-gradient(135deg, var(--brown-deep) 0%, var(--dark) 100%); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(200,164,90,0.15); }
+  .map-art-inner { text-align: center; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .compass { font-size: 2rem; animation: rotate-compass 20s linear infinite; display: block; margin-bottom: 0; flex-shrink: 0; }
+  @keyframes rotate-compass { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .map-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--beige); line-height: 1.7; }
+  .journal-section { background: var(--dark); }
+  .journal-preview { margin-top: 4rem; background: var(--brown-deep); border: 1px solid rgba(200,164,90,0.2); padding: 3rem; max-width: 750px; position: relative; }
+  .journal-preview::before { content: 'יומן המסע'; position: absolute; top: -1px; right: 2rem; background: var(--gold); color: var(--black); font-size: 0.75rem; letter-spacing: 0.2em; padding: 0.35rem 1rem; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .journal-prompt { border-bottom: 1px solid rgba(200,164,90,0.2); padding-bottom: 1.2rem; margin-bottom: 1.2rem; }
+  .journal-prompt:last-child { border-bottom: none; margin-bottom: 0; }
+  .journal-prompt-label { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.5rem; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .journal-prompt-text { font-size: 1rem; color: var(--beige-light); line-height: 1.7; font-style: italic; }
+
+  .journal-textarea {
+    width: 100%;
+    margin-top: 0.8rem;
+    padding: 0.9rem 1.1rem;
+    background: rgba(200,164,90,0.07);
+    border: 1px solid rgba(200,164,90,0.25);
+    border-radius: 8px;
+    color: var(--beige-light);
+    font-family: 'Noto Serif Hebrew', serif;
+    font-size: 0.93rem;
+    line-height: 1.8;
+    direction: rtl;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .journal-textarea:focus {
+    border-color: rgba(200,164,90,0.6);
+    background: rgba(200,164,90,0.12);
+  }
+  .journal-textarea::placeholder { color: rgba(200,164,90,0.35); font-style: italic; }
+
+  .journal-answer-line { height: 1px; background: rgba(200,164,90,0.15); margin: 0.5rem 0; }
+  .journal-benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .journal-benefit { padding: 1.5rem; background: rgba(107,66,38,0.1); border-right: 2px solid var(--brown); }
+  .journal-benefit-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--beige-light); margin-bottom: 0.5rem; }
+  .journal-benefit-text { font-size: 0.88rem; color: var(--beige-dark); line-height: 1.75; font-weight: 300; }
+  .tabs { display: flex; margin-top: 3rem; border-bottom: 1px solid rgba(200,164,90,0.2); }
+  .tab-btn { padding: 0.8rem 2rem; background: transparent; border: none; color: var(--beige-dark); font-family: 'Noto Serif Hebrew', serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-content { display: none; padding-top: 2.5rem; }
+  .tab-content.active { display: block; }
+  .curriculum-section { background: linear-gradient(180deg, var(--black) 0%, var(--dark) 100%); }
+
+  .module-writing-block {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,164,90,0.15);
+  }
+  .module-writing-label {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .module-writing-prompt {
+    font-size: 0.97rem;
+    color: var(--beige);
+    line-height: 1.85;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+  .module-writing-textarea {
+    width: 100%;
+    background: rgba(200,164,90,0.06);
+    border: 1px solid rgba(200,164,90,0.2);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    color: var(--beige-light);
+    font-family: 'Noto Serif Hebrew', serif;
+    font-size: 0.93rem;
+    line-height: 1.8;
+    direction: rtl;
+    resize: vertical;
+    min-height: 130px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .module-writing-textarea:focus {
+    border-color: rgba(200,164,90,0.5);
+    background: rgba(200,164,90,0.1);
+  }
+  .module-writing-textarea::placeholder { color: rgba(200,164,90,0.3); font-style: italic; }
+
+  .module-accordion { border-bottom: 1px solid rgba(200,164,90,0.12); }
+  .module-header { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 2rem; padding: 2rem 1.5rem; cursor: pointer; transition: background 0.3s; user-select: none; }
+  .module-header:hover { background: rgba(61,43,31,0.3); }
+  .module-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--brown); font-weight: 900; text-align: center; transition: color 0.3s; }
+  .module-header:hover .module-num { color: var(--gold); }
+  .module-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--beige-light); margin-bottom: 0.4rem; }
+  .module-desc { font-size: 0.87rem; color: var(--beige-dark); line-height: 1.6; font-weight: 300; }
+  .module-toggle { font-size: 1.2rem; color: var(--beige-dark); transition: transform 0.35s ease; flex-shrink: 0; }
+  .module-accordion.open .module-toggle { transform: rotate(45deg); color: var(--gold); }
+  .module-body { display: none; padding: 0 1.5rem 2.5rem calc(80px + 2rem + 1.5rem); }
+  .module-accordion.open .module-body { display: block; }
+  .module-activities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+  .activity-card { padding: 1.5rem; border: 1px solid rgba(200,164,90,0.15); background: rgba(26,20,16,0.6); }
+  .activity-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
+  .activity-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+  .activity-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--beige-light); margin-bottom: 0.6rem; }
+  .activity-text { font-size: 0.87rem; color: var(--beige-dark); line-height: 1.8; font-weight: 300; font-style: italic; }
+  .testimonials { background: var(--dark); padding: 7rem 2rem; }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+  .testimonial { padding: 2.5rem; background: rgba(26,20,16,0.8); border: 1px solid rgba(200,164,90,0.1); }
+  .testimonial-stars { color: var(--gold); margin-bottom: 1.5rem; font-size: 0.9rem; letter-spacing: 0.2em; }
+  .testimonial-text { font-style: italic; font-size: 1.05rem; line-height: 1.9; color: var(--beige); margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; }
+  .testimonial-author { font-size: 0.82rem; color: var(--brown-light); letter-spacing: 0.15em; }
+  footer { background: var(--black); border-top: 1px solid rgba(200,164,90,0.1); padding: 4rem 2rem; text-align: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1rem; }
+  .footer-text { font-size: 0.85rem; color: var(--brown-light); letter-spacing: 0.1em; }
+  @media (max-width: 768px) {
+    nav { padding: 1rem; } .nav-links { display: none; }
+    .philosophy-grid, .travel-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .stages-grid, .testimonial-grid { grid-template-columns: 1fr; }
+    .module-header { grid-template-columns: 50px 1fr auto; gap: 1rem; }
+    .module-body { padding-right: 1.5rem; }
+    .module-activities { grid-template-columns: 1fr; }
+    .journal-benefits { grid-template-columns: 1fr; }
+  }
+.export-section-hero { background: var(--dark); padding: 4rem 1.5rem; text-align: center; border-top: 1px solid rgba(200,164,90,0.15); }
+.export-box-hero { background: rgba(200,164,90,0.06); border: 1px solid rgba(200,164,90,0.2); border-radius: 16px; padding: 3rem 2.5rem; max-width: 560px; margin: 0 auto; }
+.export-box-hero h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 0.6rem; }
+.export-box-hero p { color: var(--beige-dark); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.8rem; }
+.btn-export-hero { padding: 1rem 2.5rem; background: var(--gold); color: var(--black); border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; letter-spacing: 0.03em; }
+.btn-export-hero:hover { opacity: 0.88; transform: translateY(-2px); }
+.export-note-hero { font-size: 0.82rem; color: rgba(200,164,90,0.45); margin-top: 1rem; margin-bottom: 0 !important; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">מסע הגיבור</div>
+  <ul class="nav-links">
+    <li><a href="#philosophy">הפילוסופיה</a></li>
+    <li><a href="#stages">שלבי המסע</a></li>
+    <li><a href="#map">המפה</a></li>
+    <li><a href="#curriculum">תרגילים</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-circle"></div><div class="hero-circle"></div>
+  <div class="hero-circle"></div><div class="hero-circle"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">joseph campbell · מסע הגיבור</p>
+    <h1 class="hero-title">
+      הגיבור\ה שאני
+    </h1>
+    <p class="hero-subtitle">
+      אנחנו הגיבורים הראשיים של הסיפור שלנו
+    </p>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>גללו</span>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="container">
+    <p class="section-label">הפילוסופיה שמאחורי הקורס</p>
+    <h2 class="section-title">כולנו חיים בתוך סיפור —<br>השאלה היא מי כותב אותו</h2>
+    <div class="divider"></div>
+    <div class="philosophy-grid">
+      <div>
+        <p class="section-text">ג'וזף קמפבל גילה שבכל התרבויות האנושיות, בכל הזמנים, אנשים מספרים את אותו סיפור: מי שיצא לדרך, עבר ניסיונות, ירד לתהומות — וחזר שונה ועמוק יותר.</p>
+        <br>
+        <p class="section-text">הסיפור הזה הוא לא רק מיתוס. הוא המבנה של החיים שלנו. כל משבר, כל אובדן, כל רגע שחשבנו שלא נעמוד בו — הוא שלב במסע. ובכל שלב כזה, קיבלנו מתנה. גם אם עדיין לא ראינו אותה.</p>
+        <br>
+        <p class="section-text">הקורס הזה ילמד אותנו לראות את הסיפור שלנו בעיניים חדשות — לא להמחיק את הכאב, אלא למצוא בו את המשמעות.</p>
+      </div>
+      <div>
+        <div class="philosophy-quote">
+          הגיבור עוזב את העולם שהוא מכיר, הולך למעמקים שם הוא מתמודד עם כוחות האפלה — וחוזר עם מתנה עבור עצמו ועבור אנשים סביבו
+          <div class="philosophy-author">— ג'וזף קמפבל, "הגיבור בעל אלף הפנים"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stages-section" id="stages">
+  <div class="container">
+    <div class="stages-intro">
+      <p class="section-label">12 שלבי המסע</p>
+      <h2 class="section-title">המפה של כל סיפור אנושי</h2>
+      <div class="divider" style="margin:1.5rem auto;"></div>
+      <p class="section-text">קמפבל זיהה 12 שלבים שחוזרים בכל מסע גיבור. בקורס נמפה יחד את חיינו על פי המפה הזו.</p>
+    </div>
+    <div class="stages-grid">
+      <div class="stage-card"><div class="stage-number">01</div><div class="stage-icon">🏡</div><div class="stage-title">העולם הרגיל</div><div class="stage-desc">מי היינו לפני שהכל השתנה? מה הייתה נקודת ההתחלה שלנו?</div></div>
+      <div class="stage-card"><div class="stage-number">02</div><div class="stage-icon">📢</div><div class="stage-title">קריאה להרפתקה</div><div class="stage-desc">הרגע שמשהו גדול קרא לנו לצאת מהנוחות שלנו — גם אם לא בחרנו בו.</div></div>
+      <div class="stage-card"><div class="stage-number">03</div><div class="stage-icon">🚪</div><div class="stage-title">סירוב לקריאה</div><div class="stage-desc">כולנו מסרבים תחילה. ההתנגדות היא חלק מהמסע, לא כישלון.</div></div>
+      <div class="stage-card"><div class="stage-number">04</div><div class="stage-icon">🧙</div><div class="stage-title">מפגש עם המורה</div><div class="stage-desc">מי היו המורים שהופיעו בחיינו? לא תמיד מי שחשבנו.</div></div>
+      <div class="stage-card"><div class="stage-number">05</div><div class="stage-icon">🌊</div><div class="stage-title">חציית הסף הראשון</div><div class="stage-desc">הצעד שאי אפשר לחזור ממנו. הרגע שהחיים שלנו השתנו לנצח.</div></div>
+      <div class="stage-card"><div class="stage-number">06</div><div class="stage-icon">⚔️</div><div class="stage-title">ניסיונות ואויבים</div><div class="stage-desc">כל ניסיון לימד אותנו משהו. מה למדנו בתוך הקשיים?</div></div>
+      <div class="stage-card"><div class="stage-number">07</div><div class="stage-icon">🕳️</div><div class="stage-title">הכניסה למערה הפנימית</div><div class="stage-desc">ההתמודדות עם הפחד הכי גדול, הכאב הכי עמוק.</div></div>
+      <div class="stage-card"><div class="stage-number">08</div><div class="stage-icon">🌑</div><div class="stage-title">המבחן הקשה</div><div class="stage-desc">התהום. הרגע שחשבנו שלא נשרוד. וכן, שרדנו.</div></div>
+      <div class="stage-card"><div class="stage-number">09</div><div class="stage-icon">🏆</div><div class="stage-title">הפרס</div><div class="stage-desc">מה קיבלנו מהמאבק? כוח, חוכמה, חמלה — מתנה שלא ידענו שנקבל.</div></div>
+      <div class="stage-card"><div class="stage-number">10</div><div class="stage-icon">🛤️</div><div class="stage-title">הדרך חזרה</div><div class="stage-desc">החיים שלאחר. איך אנחנו מחזירים את עצמנו לעולם עם מה שלמדנו?</div></div>
+      <div class="stage-card"><div class="stage-number">11</div><div class="stage-icon">🔥</div><div class="stage-title">התחייה</div><div class="stage-desc">הגיבורים שחוזרים אינם אותם אנשים שיצאו. מי אנחנו עכשיו?</div></div>
+      <div class="stage-card"><div class="stage-number">12</div><div class="stage-icon">🎁</div><div class="stage-title">החזרה עם המתנה</div><div class="stage-desc">כל מה שעברנו הוא מה שיכול לעזור לאחרים. מה יש לנו לתת לעולם?</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--black); padding:5rem 2rem; border-bottom:1px solid rgba(200,164,90,0.08);">
+  <div class="container" style="max-width:780px;">
+    <p class="section-label">איך עובדים עם המסע</p>
+    <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);">12 שבועות של התבוננות אמיתית</h2>
+    <div class="divider"></div>
+    <p class="section-text" style="max-width:100%; margin-top:1.5rem;">
+      המסע הזה מומלץ לעשות לאט — בכוונה ובסבלנות. שבוע אחד לכל שלב. 12 שלבים, 12 שבועות. לא מרוץ, אלא הליכה. בכל שבוע מתמקדים בשלב אחד בלבד: קוראים, מתבוננים, ושואלים את עצמנו איפה השלב הזה מופיע בחיינו — בעבר, בהווה, או אולי בשניהם. מומלץ מאוד לכתוב. לא לכתוב כדי לסיים, אלא כדי לגלות. מחברת מסודרת, יומן מסע, עמודים חופשיים — כל פורמט שמרגיש נכון. הכתיבה היא המקום שבו הסיפור מתחיל לקבל צורה חדשה.
+    </p>
+  </div>
+</section>
+
+<section style="background:var(--dark); padding:6rem 2rem;" id="map">
+  <div class="container" style="text-align:center;">
+    <p class="section-label">המפה הוויזואלית</p>
+    <h2 class="section-title">מסע הגיבור — 12 שלבים</h2>
+    <div class="divider" style="margin:1.5rem auto 3rem;"></div>
+    <div style="position:relative; max-width:700px; margin:0 auto;">
+
+      <svg viewBox="-10 -10 720 720" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;overflow:visible;">
+        <defs>
+          <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3d2b1f" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#0e0b08" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="rgba(200,164,90,0.5)"/>
+          </marker>
+        </defs>
+
+        <!-- Background circle glow -->
+        <circle cx="350" cy="350" r="310" fill="url(#bgGrad)"/>
+
+        <!-- Outer decorative rings -->
+        <circle cx="350" cy="350" r="300" fill="none" stroke="rgba(200,164,90,0.06)" stroke-width="1"/>
+        <circle cx="350" cy="350" r="260" fill="none" stroke="rgba(200,164,90,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+        <circle cx="350" cy="350" r="180" fill="none" stroke="rgba(200,164,90,0.08)" stroke-width="1"/>
+
+        <!-- Directional arc (clockwise arrow hint) -->
+        <path d="M 350,90 A 260,260 0 1,1 349,90" fill="none" stroke="rgba(200,164,90,0.15)" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+
+        <!-- Center emblem -->
+        <circle cx="350" cy="350" r="70" fill="rgba(26,20,16,0.95)" stroke="rgba(200,164,90,0.3)" stroke-width="1"/>
+        <circle cx="350" cy="350" r="55" fill="none" stroke="rgba(200,164,90,0.12)" stroke-width="1" stroke-dasharray="3 5"/>
+        <text x="350" y="338" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" fill="#c8a45a" font-style="italic">מסע</text>
+        <text x="350" y="358" text-anchor="middle" font-family="'Playfair Display',serif" font-size="13" fill="#c8a45a" font-style="italic">הגיבור</text>
+        <text x="350" y="376" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="11" fill="rgba(200,164,90,0.5)" font-style="italic">campbell</text>
+
+        <!-- THE 12 NODES — r=42 circles, text centered inside each node -->
+
+        <!-- Stage 1: top (350,90) -->
+        <g class="map-node" data-title="01 · העולם הרגיל" data-icon="🏡" data-text="נקודת ההתחלה. מי היינו לפני שהכל השתנה? הביטחון, הזהות, החיים שהכרנו — לפני הקריאה." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="350" cy="90" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="350" cy="90" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="350" y="80" text-anchor="middle" dominant-baseline="middle" font-size="18">🏡</text>
+          <text x="350" y="97" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">העולם</text>
+          <text x="350" y="112" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">הרגיל</text>
+        </g>
+
+        <!-- Stage 2: 30deg (480,127) -->
+        <g class="map-node" data-title="02 · קריאה להרפתקה" data-icon="📢" data-text="הרגע שבו החיים הזמינו אותנו לצאת מהנוחות. לא תמיד מוזמן — לפעמים זה פגע בנו." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="480" cy="127" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="480" cy="127" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="480" y="117" text-anchor="middle" dominant-baseline="middle" font-size="18">📢</text>
+          <text x="480" y="134" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">קריאה</text>
+          <text x="480" y="149" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">להרפתקה</text>
+        </g>
+
+        <!-- Stage 3: 60deg (574,220) -->
+        <g class="map-node" data-title="03 · סירוב לקריאה" data-icon="🚪" data-text="הפחד, ההתנגדות, הספק. כולנו מסרבים תחילה — זה לא חולשה, זה חלק בלתי נפרד מהמסע." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="574" cy="220" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="574" cy="220" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="574" y="210" text-anchor="middle" dominant-baseline="middle" font-size="18">🚪</text>
+          <text x="574" y="227" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">סירוב</text>
+          <text x="574" y="242" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">לקריאה</text>
+        </g>
+
+        <!-- Stage 4: 90deg right (610,350) -->
+        <g class="map-node" data-title="04 · מפגש עם המורה" data-icon="🧙" data-text="דמות שהופיעה בדיוק כשהיינו צריכים. מנטור, חבר, ספר, אירוע — לא תמיד מי שחשבנו." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="610" cy="350" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="610" cy="350" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="610" y="340" text-anchor="middle" dominant-baseline="middle" font-size="18">🧙</text>
+          <text x="610" y="357" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">מפגש עם</text>
+          <text x="610" y="372" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">המורה</text>
+        </g>
+
+        <!-- Stage 5: 120deg (574,480) -->
+        <g class="map-node" data-title="05 · חציית הסף הראשון" data-icon="🌊" data-text="הצעד שאי אפשר לחזור ממנו. הרגע שהחיים שלנו השתנו לנצח — ונכנסנו לעולם לא מוכר." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="574" cy="480" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="574" cy="480" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="574" y="470" text-anchor="middle" dominant-baseline="middle" font-size="18">🌊</text>
+          <text x="574" y="487" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">חציית</text>
+          <text x="574" y="502" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">הסף</text>
+        </g>
+
+        <!-- Stage 6: 150deg (480,573) -->
+        <g class="map-node" data-title="06 · ניסיונות ואויבים" data-icon="⚔️" data-text="כל מכשול, כל כישלון, כל מי שעמד נגדנו — לימד אותנו משהו שלא יכולנו ללמוד אחרת." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="480" cy="573" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="480" cy="573" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="480" y="563" text-anchor="middle" dominant-baseline="middle" font-size="18">⚔️</text>
+          <text x="480" y="580" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">ניסיונות</text>
+          <text x="480" y="595" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">ואויבים</text>
+        </g>
+
+        <!-- Stage 7: 180deg bottom (350,610) -->
+        <g class="map-node" data-title="07 · הכניסה למערה הפנימית" data-icon="🕳️" data-text="ההתמודדות עם הפחד הכי גדול, הכאב הכי עמוק. המקום שממנו לא רצינו להסתכל." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="350" cy="610" r="42" fill="rgba(61,43,31,0.95)" stroke="rgba(200,164,90,0.75)" stroke-width="2" class="node-circle"/>
+          <circle cx="350" cy="610" r="50" fill="none" stroke="rgba(200,164,90,0.22)" stroke-width="1" class="node-ring"/>
+          <text x="350" y="597" text-anchor="middle" dominant-baseline="middle" font-size="18">🕳️</text>
+          <text x="350" y="614" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="12" fill="#ede3d3">המערה</text>
+          <text x="350" y="629" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="12" fill="#ede3d3">הפנימית</text>
+        </g>
+
+        <!-- Stage 8: 210deg (220,573) -->
+        <g class="map-node" data-title="08 · המבחן הקשה" data-icon="🌑" data-text="התהום. הרגע שחשבנו שלא נשרוד. הלילה החשוך של הנפש — וכן, שרדנו." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="220" cy="573" r="42" fill="rgba(14,11,8,0.97)" stroke="rgba(200,164,90,0.75)" stroke-width="2" class="node-circle"/>
+          <circle cx="220" cy="573" r="50" fill="none" stroke="rgba(200,164,90,0.22)" stroke-width="1" class="node-ring"/>
+          <text x="220" y="563" text-anchor="middle" dominant-baseline="middle" font-size="18">🌑</text>
+          <text x="220" y="580" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">המבחן</text>
+          <text x="220" y="595" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">הקשה</text>
+        </g>
+
+        <!-- Stage 9: 240deg (126,480) -->
+        <g class="map-node" data-title="09 · הפרס" data-icon="🏆" data-text="מה קיבלנו מהמאבק? כוח, חוכמה, חמלה — מתנה שלא ידענו שנקבל. לפעמים רואים אותה רק בדיעבד." style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="126" cy="480" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="126" cy="480" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="126" y="467" text-anchor="middle" dominant-baseline="middle" font-size="18">🏆</text>
+          <text x="126" y="487" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="14" fill="#ede3d3">הפרס</text>
+        </g>
+
+        <!-- Stage 10: 270deg left (90,350) -->
+        <g class="map-node" data-title="10 · הדרך חזרה" data-icon="🛤️" data-text="החיים שלאחר. כיצד מחזירים את עצמנו לעולם הרגיל — עם כל מה שלמדנו בדרך?" style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="90" cy="350" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="90" cy="350" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="90" y="340" text-anchor="middle" dominant-baseline="middle" font-size="18">🛤️</text>
+          <text x="90" y="357" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">הדרך</text>
+          <text x="90" y="372" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="13" fill="#ede3d3">חזרה</text>
+        </g>
+
+        <!-- Stage 11: 300deg (126,220) -->
+        <g class="map-node" data-title="11 · התחייה" data-icon="🔥" data-text="הגיבורים שחוזרים אינם אותם אנשים שיצאו. משהו בנו מת ומשהו חדש נולד — מי אנחנו עכשיו?" style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="126" cy="220" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="126" cy="220" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="126" y="207" text-anchor="middle" dominant-baseline="middle" font-size="18">🔥</text>
+          <text x="126" y="227" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="14" fill="#ede3d3">התחייה</text>
+        </g>
+
+        <!-- Stage 12: 330deg (220,127) -->
+        <g class="map-node" data-title="12 · החזרה עם המתנה" data-icon="🎁" data-text="כל מה שעברנו הוא בדיוק מה שמאפשר לנו לעזור לאחרים. מה יש לנו לתת לעולם?" style="cursor:pointer;" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">
+          <circle cx="220" cy="127" r="42" fill="rgba(26,20,16,0.92)" stroke="rgba(200,164,90,0.55)" stroke-width="1.5" class="node-circle"/>
+          <circle cx="220" cy="127" r="50" fill="none" stroke="rgba(200,164,90,0.13)" stroke-width="1" class="node-ring"/>
+          <text x="220" y="114" text-anchor="middle" dominant-baseline="middle" font-size="18">🎁</text>
+          <text x="220" y="131" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="12" fill="#ede3d3">החזרה</text>
+          <text x="220" y="146" text-anchor="middle" dominant-baseline="middle" font-family="'Noto Serif Hebrew',serif" font-size="12" fill="#ede3d3">עם המתנה</text>
+        </g>
+
+      </svg>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.9rem; color:var(--beige-dark); margin-top:2rem; letter-spacing:0.1em;">עברו עם העכבר על כל שלב לפרטים נוספים</p>
+  </div>
+</section>
+
+<section class="travel-section" id="travel">
+  <div class="container">
+    <div class="travel-grid">
+      <div>
+        <p class="section-label">על טיולים ויציאה למסעות</p>
+        <h2 class="section-title">למה הגוף צריך<br>לצאת לדרך</h2>
+        <div class="divider"></div>
+        <p class="section-text">לא בכדי כל מסע גיבור מתחיל בעזיבת הבית. יש משהו בתנועה הפיזית בחלל שמאפשר לנפש לנשום.</p>
+        <div class="travel-reasons">
+          <div class="travel-reason">
+            <div class="travel-reason-icon">🧭</div>
+            <div>
+              <div class="travel-reason-title">שבירת הדפוסים</div>
+              <div class="travel-reason-text">כשאנחנו יוצאים מהשגרה, המוח מפסיק לפעול על "טייס אוטומטי". מקומות חדשים יוצרים מחשבות חדשות — ומאפשרים לנו לראות את עצמנו מזווית אחרת לגמרי.</div>
+            </div>
+          </div>
+          <div class="travel-reason">
+            <div class="travel-reason-icon">🌿</div>
+            <div>
+              <div class="travel-reason-title">הטבע כמראה</div>
+              <div class="travel-reason-text">הליכה בטבע, עמידה מול ים, עלייה להר — חוויות שמחברות אותנו חזרה לגוף, לנשימה, לרגע הנוכחי. הטבע לא שופט ולא מצפה — הוא פשוט קיים.</div>
+            </div>
+          </div>
+          <div class="travel-reason">
+            <div class="travel-reason-icon">🔄</div>
+            <div>
+              <div class="travel-reason-title">השהות עם עצמנו</div>
+              <div class="travel-reason-text">מסע הוא אחד מהמרחבים הנדירים שבהם אנחנו מרשים לעצמנו "לא לעשות". ובתוך הריק הזה מגיעות ההבנות הגדולות ביותר.</div>
+            </div>
+          </div>
+          <div class="travel-reason">
+            <div class="travel-reason-icon">🌍</div>
+            <div>
+              <div class="travel-reason-title">פגישה עם האחר</div>
+              <div class="travel-reason-text">כשפוגשים תרבויות שונות ואורחות חיים אחרות, מפסיקים להאמין שדרכנו היא "הדרך". זה מרחיב ומשחרר בו-זמנית.</div>
+            </div>
+          </div>
+          <div class="travel-reason">
+            <div class="travel-reason-icon">💪</div>
+            <div>
+              <div class="travel-reason-title">הוכחת הכוח העצמי</div>
+              <div class="travel-reason-text">כל מסע — גם קצר — מוכיח לנו שאנחנו מסוגלים. שאנחנו יכולים לנווט, להתמודד עם הבלתי צפוי, לסמוך על עצמנו. כל טיול הוא אימון לחיים.</div>
+            </div>
+          </div>
+          <div class="travel-reason">
+            <div class="travel-reason-icon">✨</div>
+            <div>
+              <div class="travel-reason-title">הגוף כפתח לנפש</div>
+              <div class="travel-reason-text">צעידה פיזית בדרך היא מטאפורה ממשית. ברגע שהגוף מתנועע קדימה, משהו בפנים מתנועע איתו. הגוף זוכר, גם כשהמוח שוכח.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="travel-visual">
+        <div class="travel-map-art">
+          <div class="map-art-inner">
+            <span class="compass">🧭</span>
+            <p class="map-quote">"לא ביתנו הוא האבוד — אלא את עצמנו אנחנו יוצאים לחפש"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="curriculum-section" id="curriculum">
+  <div class="container">
+    <p class="section-label">תרגילים</p>
+    <h2 class="section-title">8 מודולים · מסע שלם</h2>
+    <div class="divider"></div>
+    <p class="section-text">הקורס בנוי כמסע אישי — לא כרשימת שיעורים. כל מודול בונה על הקודם ומוביל אל הבא.</p>
+    <div style="margin-top:4rem;">
+
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">01</div>
+          <div class="module-info">
+            <div class="module-title">קריאת המפה — היכרות עם מסע הגיבור</div>
+            <div class="module-desc">הכרת מבנה המסע האוניברסלי של קמפבל ואיך הוא מתחבר לחיינו</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">ציר הזמן של חיינו</div>
+              <div class="activity-text">צייר/ו ציר זמן של 5 רגעי מפנה בחייכם. ליד כל אחד — כתבו מה השתנה בכם בגלל אותו רגע. אל תנסו לנתח, רק לתאר.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">מצאו את המסע בסיפור שאתם אוהבים</div>
+              <div class="activity-text">בחרו סרט, ספר או סדרה שאתם אוהבים. נסו לזהות בו את 12 השלבים של קמפבל. מה זה מגלה לכם על הסיפורים שמושכים אתכם?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">הגיבורים שלנו בשלוש מילים</div>
+              <div class="activity-text">אם הייתם צריכים לתאר את הגיבור של הסיפור שלכם בשלוש מילים בלבד — מה הייתם בוחרים? כתבו גם מה אתם מקווים שהגיבור יהיה בסוף המסע.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 01</div>
+            <div class="module-writing-prompt">אם הייתם צריכים לסמן על מפה את נקודת ההתחלה של המסע שלכם — היכן הייתם מציבים אותה? תארו את "העולם הרגיל" שלכם לפני השינוי הגדול.</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 01 · קריאת המפה — היכרות עם מסע הגיבור"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">02</div>
+          <div class="module-info">
+            <div class="module-title">הסיפור שאנחנו מספרים לעצמנו</div>
+            <div class="module-desc">זיהוי הנרטיב הפנימי הנוכחי — ומה הוא מאפשר ומה הוא חוסם</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">הסיפור הנוכחי</div>
+              <div class="activity-text">כתבו בגוף שלישי את הסיפור שאתם מספרים לעצמכם על מי אתם ולמה הגעתם למקום שאתם בו. שימו לב לאיזה תפקיד אתם מייחסים לעצמכם.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">שבוע של ביטויים פנימיים</div>
+              <div class="activity-text">שימו לב במשך שבוע לכל פעם שאתם אומרים לעצמכם "אני תמיד כך" או "זה מה שקורה לי". כתבו כל אחד. בסוף השבוע — מה חוזר הכי הרבה?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">הסיפור החלופי</div>
+              <div class="activity-text">קחו אחד מהנרטיבים שזיהיתם וכתבו אותו מחדש — כסיפור שבו אותם אירועים קורים, אבל אתם בוחרים בהם ולא נגררים אחריהם.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 02</div>
+            <div class="module-writing-prompt">מה הסיפור שאתם מספרים לעצמכם על מי אתם? כתבו אותו בגוף שלישי — ואז שאלו: האם הסיפור הזה משרת אתכם, או שומר אתכם קטנים?</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 02 · הסיפור שאנחנו מספרים לעצמנו"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">03</div>
+          <div class="module-info">
+            <div class="module-title">לרדת לתהום — הכוח שבפגיעות</div>
+            <div class="module-desc">הסתכלות ישירה על הנקודות הקשות ואיזה חוזק גידל בנו מתוכן</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">מכתב מהתהום</div>
+              <div class="activity-text">חשבו על הרגע הקשה ביותר שלכם. כתבו מכתב מתוך אותה נקודה — מה הייתם רוצים שמישהו ידע עליכם אז?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">מה ראיתם בעצמכם אז</div>
+              <div class="activity-text">כתבו מנקודת המבט של מישהו שאהב אתכם באותה תקופה — מה הוא היה רואה בכם? כתבו את המכתב הזה לעצמכם.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">הדבר שלא ידעתם שיצא מזה</div>
+              <div class="activity-text">כתבו 5 דברים שיש לכם היום — כישורים, ערכים, הבנות — שלא הייתם מקבלים אילולא עברתם את מה שעברתם.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 03</div>
+            <div class="module-writing-prompt">תארו את ה"תהום" האישית שלכם — הרגע הקשה ביותר, הפחד הגדול ביותר. מה גיליתם בעצמכם שם, שלא ידעתם שיש לכם?</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 03 · לרדת לתהום — הכוח שבפגיעות"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">04</div>
+          <div class="module-info">
+            <div class="module-title">המתנות בתוך הפצעים</div>
+            <div class="module-desc">גילוי הכוחות, הערכים והחכמה שצמחו מתוך הניסיון הקשה שלנו</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">מפת הכוחות שלנו</div>
+              <div class="activity-text">כתבו את 7 הכוחות החזקים ביותר שלכם — ולצד כל אחד, רשמו מאיזה ניסיון הוא צמח.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">ראיון עם עצמכם</div>
+              <div class="activity-text">הקליטו את עצמכם עונים על השאלה: "מה עברנו ומה זה לימד אותנו?" כאילו אתם מספרים לאדם שנמצא עכשיו בתוך קושי דומה.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">מכתב הכרת תודה</div>
+              <div class="activity-text">כתבו מכתב הכרת תודה לאחד הניסיונות הקשים שלכם — לא כי "הכל לטובה", אלא כי אתם מכירים את מה שקיבלתם ממנו.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 04</div>
+            <div class="module-writing-prompt">מה הפצע הכי גדול שלכם? ומה הוא לימד אתכם שאף ניסיון אחר לא היה יכול ללמד? כתבו כאילו אתם כותבים מכתב תודה לאותה חוויה קשה.</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 04 · המתנות בתוך הפצעים"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">05</div>
+          <div class="module-info">
+            <div class="module-title">שינוי הנרטיב — מקורבנות לגיבורים</div>
+            <div class="module-desc">כלים פרקטיים לכתיבה מחדש של הסיפור — בלי למחוק את הכאב</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">שתי גרסות לאותו אירוע</div>
+              <div class="activity-text">בחרו אירוע משמעותי. כתבו אותו פעמיים: גרסה ראשונה כפי שאתם בדרך כלל מספרים אותו, גרסה שנייה — כאילו אתם הגיבורים שבחרו ולמדו.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">שימו לב ל"בגלל" שלכם</div>
+              <div class="activity-text">במשך שבוע, שימו לב לכל פעם שאתם מסבירים את עצמכם ב"בגלל". רשמו. לא לשפוט — רק לראות.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">הנאום של הגיבורים שלנו</div>
+              <div class="activity-text">כתבו את הסיפור שלכם לאדם אחד שצריך לשמוע אותו. כתבו אותו כמי שעברו מסע — לא כמי שסבלו, כמי שלמדו.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 05</div>
+            <div class="module-writing-prompt">כתבו את אותה חוויה פעמיים: פעם מנקודת מבט של מי שזה קרה לו, ופעם מנקודת מבט של מי שבחר להמשיך למרות זאת. מה משתנה בכם בין הגרסאות?</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 05 · שינוי הנרטיב — מקורבנות לגיבורים"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">06</div>
+          <div class="module-info">
+            <div class="module-title">הגוף במסע — תנועה, טבע, יציאה לדרך</div>
+            <div class="module-desc">הקשר בין תנועה פיזית לשינוי פנימי — ואיך טיולים ומסעות הם כלי ריפוי</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">מסע שעשינו</div>
+              <div class="activity-text">כתבו על טיול או מסע שהשאיר בכם משהו. מה ראיתם? מה הרגשתם? מה חשבתם שם שלא הייתם חושבים בבית?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">צאו למסע מכוון</div>
+              <div class="activity-text">קבעו לעצמכם מסע קטן השבוע — הליכה לבד בטבע, ביקור במקום חדש. לכו בלי אוזניות ובלי טלפון.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">המסע שאתם רוצים לעשות</div>
+              <div class="activity-text">כתבו על מסע שאתם רוצים לעשות. לאן? עם מי? מה אתם מחפשים שם?</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 06</div>
+            <div class="module-writing-prompt">מתי לאחרונה הגוף שלכם הוביל אתכם לאיזשהו מקום — פיזי או פנימי? תארו את החוויה. מה הגוף יודע שהראש עדיין לא קיבל?</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 06 · הגוף במסע — תנועה, טבע, יציאה לדרך"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">07</div>
+          <div class="module-info">
+            <div class="module-title">החזרה עם המתנה</div>
+            <div class="module-desc">איך מה שעברנו הפך לכלי עבורנו ועבור אחרים — והמשמעות שצומחת מכאב</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">מה יש לנו לתת</div>
+              <div class="activity-text">כתבו: מה למדתם מהמסע שלכם שיכול לעזור למישהו אחר? לא חייב להיות גדול.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">העבירו את המתנה</div>
+              <div class="activity-text">כתבו ברשימה: מה יש לכם לתת לעולם מתוך מה שעברתם?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">מכתב למי שיבוא אחריכם</div>
+              <div class="activity-text">כתבו מכתב לאדם שנמצא עכשיו בנקודה שבה הייתם לפני שנים. מה הייתם רוצים שהוא ידע?</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 07</div>
+            <div class="module-writing-prompt">מה אתם רוצים להחזיר מהמסע שלכם לעולם? מה הלקח, הכוח, או החוכמה שצמחו מהקושי — ושאולי יכולים לעזור למישהו אחר?</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 07 · החזרה עם המתנה"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+      <div class="module-accordion">
+        <div class="module-header" onclick="toggleModule(this.closest('.module-accordion'))" style="cursor:pointer;">
+          <div class="module-num">08</div>
+          <div class="module-info">
+            <div class="module-title">כתיבת הפרק הבא</div>
+            <div class="module-desc">ממה שהיה למה שיהיה — בניית חזון מבוסס על הגיבורים שגילינו בעצמנו</div>
+          </div>
+          <div class="module-toggle">+</div>
+        </div>
+        <div class="module-body">
+          <div class="module-activities">
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה א׳</div>
+              <div class="activity-title">הפרק הבא בסיפור שלנו</div>
+              <div class="activity-text">כתבו את הפרק הבא בחייכם כאילו אתם כותבים ספר. מה קורה לגיבורים? לאן הם הולכים?</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">משימת השבוע</div>
+              <div class="activity-title">פעולה אחת שמתחילה את הפרק</div>
+              <div class="activity-text">בחרו פעולה אחת קטנה שמתחילה את הפרק הבא. עשו אותה השבוע.</div>
+            </div>
+            <div class="activity-card">
+              <div class="activity-tag">תרגיל כתיבה ב׳</div>
+              <div class="activity-title">המכתב מהעתיד</div>
+              <div class="activity-text">כתבו מכתב מגרסה עתידית שלכם — מהמקום שאתם רוצים להגיע אליו — אל הגרסה שלכם היום.</div>
+            </div>
+          </div>
+          <div class="module-writing-block">
+            <div class="module-writing-label">✍️ תרגיל כתיבה — מודול 08</div>
+            <div class="module-writing-prompt">כתבו בגוף ראשון את הפרק הבא בסיפור שלכם — לא מה שהיה, אלא מה שאתם בוחרים שיהיה. הגיבורים כותבים את המסע שלהם קדימה.</div>
+            <textarea class="module-writing-textarea" rows="6" placeholder="כתבו כאן..." data-label="מודול 08 · כתיבת הפרק הבא"></textarea>
+            <p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <p class="section-label" style="text-align:center">מה אומרים</p>
+    <h2 class="section-title" style="text-align:center">גיבורות וגיבורים שעשו את המסע</h2>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"לפני הקורס חשבתי שמה שעברתי שבר אותי. אחרי השיעור השלישי הבנתי שמה שעברתי הוא בדיוק מה שבנה אותי."</div>
+        <div class="testimonial-author">מיכל, 38 · ירושלים</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"יומן המסע שינה לי הכל. כל שבוע כתבתי, ובאיטיות ראיתי את הסיפור שלי מתחיל לקבל צורה אחרת — כזאת שאני בוחר אותה."</div>
+        <div class="testimonial-author">עמית, 44 · תל אביב</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"הלכתי למסע הליכה לאחר מודול 6 — שלושה ימים לבד בגליל. זה היה אחד מהדברים הכי חזקים שעשיתי לעצמי בחיים."</div>
+        <div class="testimonial-author">רון, 51 · חיפה</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--dark); padding:7rem 2rem; text-align:center;">
+  <div class="container">
+    <p class="section-label">הצטרפות לקורס</p>
+    <h2 class="section-title">הגיע הזמן שלנו</h2>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="section-text" style="margin:0 auto 3rem; text-align:center;">כל מה שצריך הוא להביא את הסיפור שלכם.</p>
+  </div>
+</section>
+
+<section class="export-section-hero">
+  <div class="export-box-hero">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📜</div>
+    <h3>ייצוא היומן שלכם</h3>
+    <p>כל מה שכתבתם לאורך המסע — שאלות העומק, ההתבוננות, התובנות — מוכן לקובץ PDF אישי.</p>
+    <button class="btn-export-hero" onclick="exportToPDF()">הורידו את יומן המסע ✦</button>
+    <p class="export-note-hero">הקובץ נשמר אצלכם בלבד.</p>
+  </div>
+</section>
+
+
+<div id="map-tooltip" style="position:fixed; background:linear-gradient(135deg, rgba(61,43,31,0.98), rgba(26,20,16,0.98)); border:1px solid rgba(200,164,90,0.5); padding:1.2rem 1.5rem; max-width:240px; pointer-events:none; opacity:0; transition:opacity 0.2s ease; z-index:9999; text-align:right; border-radius:3px; box-shadow:0 8px 32px rgba(0,0,0,0.6);">
+  <div id="tt-icon" style="font-size:1.4rem; margin-bottom:0.4rem;"></div>
+  <div id="tt-title" style="font-family:'Playfair Display',serif; font-size:0.9rem; color:#c8a45a; margin-bottom:0.5rem; line-height:1.3; border-bottom:1px solid rgba(200,164,90,0.2); padding-bottom:0.5rem;"></div>
+  <div id="tt-text" style="font-size:0.82rem; color:#d9c4a8; line-height:1.65; font-weight:300;"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function showTip(event, el) {
+  const tip = document.getElementById('map-tooltip');
+  tip.querySelector('#tt-icon').textContent = el.dataset.icon || '';
+  tip.querySelector('#tt-title').textContent = el.dataset.title;
+  tip.querySelector('#tt-text').textContent = el.dataset.text;
+  tip.style.opacity = '1';
+  moveTip(event);
+}
+function moveTip(event) {
+  const tip = document.getElementById('map-tooltip');
+  if (tip.style.opacity === '0') return;
+  const tipW = tip.offsetWidth || 240;
+  const tipH = tip.offsetHeight || 130;
+  let left = event.clientX + 16;
+  let top  = event.clientY - tipH / 2;
+  if (left + tipW > window.innerWidth - 8) left = event.clientX - tipW - 16;
+  if (top < 8) top = 8;
+  if (top + tipH > window.innerHeight - 8) top = window.innerHeight - tipH - 8;
+  tip.style.left = left + 'px';
+  tip.style.top  = top  + 'px';
+}
+function hideTip() {
+  document.getElementById('map-tooltip').style.opacity = '0';
+}
+document.addEventListener('mousemove', moveTip);
+
+function toggleModule(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.module-accordion').forEach(m => m.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+function switchTab(event, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.stage-card, .travel-reason, .testimonial').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW=210, pageH=297, margin=20, usableW=pageW-margin*2;
+  let y = margin;
+  function checkPage(n) { if (y+n > pageH-margin) { doc.addPage(); y=margin; } }
+
+  doc.setFillColor(61,43,31);
+  doc.rect(0,0,pageW,45,'F');
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(200,164,90);
+  doc.text('מסע הגיבור', pageW/2, 21, {align:'center'});
+  doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(210,190,160);
+  doc.text('יומן המסע האישי שלי', pageW/2, 32, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(160,140,110);
+  doc.text(new Date().toLocaleDateString('he-IL'), pageW/2, 41, {align:'center'});
+  y = 58;
+
+  let hasContent = false;
+  document.querySelectorAll('.journal-textarea, .module-writing-textarea').forEach(ta => {
+    const val = ta.value.trim();
+    if (!val) return;
+    hasContent = true;
+    const label = ta.dataset.label || '';
+    checkPage(28);
+    doc.setFillColor(61,43,31);
+    doc.rect(margin, y-4, usableW, 10, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(200,164,90);
+    doc.text(label, pageW-margin, y+3, {align:'right'});
+    y += 13;
+    doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(50,38,30);
+    const lines = doc.splitTextToSize(val, usableW);
+    lines.forEach(line => { checkPage(7); doc.text(line, pageW-margin, y, {align:'right'}); y+=6; });
+    y+=4; doc.setDrawColor(200,164,90); checkPage(4); doc.line(margin,y,pageW-margin,y); y+=8;
+  });
+
+  if (!hasContent) {
+    doc.setFontSize(12); doc.setTextColor(139,110,90);
+    doc.text('עדיין לא מילאתם שאלות. התחילו לכתוב!', pageW/2, y+10, {align:'center'});
+  }
+
+  const total = doc.internal.getNumberOfPages();
+  for (let i=1;i<=total;i++) {
+    doc.setPage(i); doc.setFontSize(8); doc.setTextColor(160,140,110);
+    doc.text('nofbengiat.com | מסע הגיבור', pageW/2, pageH-8, {align:'center'});
+    doc.text(i+' / '+total, margin, pageH-8);
+  }
+  doc.save('מסע-הגיבור-יומן-אישי.pdf');
+}
+</script>
+
+</body>
+</html>
