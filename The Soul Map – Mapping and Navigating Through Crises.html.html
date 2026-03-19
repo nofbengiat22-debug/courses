@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת הנפש | קורס מיפוי משברים</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F5EFE3;
+    --warm-white: #FAF7F2;
+    --clay: #C4956A;
+    --terracotta: #A0614A;
+    --sage: #7A9E7E;
+    --sage-light: #A8C5AC;
+    --deep: #2D2926;
+    --medium: #5C504A;
+    --light: #9B8E86;
+    --rose: #D4A5A0;
+    --sky: #8BB8C8;
+    --accent: #E8C98A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--warm-white);
+    color: var(--deep);
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #2D2926 0%, #3D3530 40%, #4A3D35 70%, #5C4A3F 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 40%, rgba(196,149,106,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 70%, rgba(122,158,126,0.1) 0%, transparent 50%);
+  }
+
+  .hero-badge {
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--clay);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 900;
+    color: var(--sand);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  .hero-title span {
+    color: var(--clay);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: rgba(245,239,227,0.7);
+    max-width: 500px;
+    margin: 24px auto 0;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--light);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--clay), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* INTRO SECTION */
+  .intro {
+    background: var(--sand);
+    padding: 100px 30px;
+    text-align: center;
+    position: relative;
+  }
+
+  .intro-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .intro h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+
+  .intro p {
+    font-size: 1.1rem;
+    color: var(--medium);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .intro p strong {
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+
+  /* HOW IT WORKS */
+  .how-it-works {
+    background: var(--warm-white);
+    padding: 80px 30px;
+  }
+
+  .how-it-works-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .how-it-works h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 60px;
+    color: var(--deep);
+  }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+  }
+
+  .step-item {
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--sand);
+    border: 2px solid var(--clay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    margin: 0 auto 20px;
+  }
+
+  .step-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 10px;
+  }
+
+  .step-item p {
+    font-size: 0.9rem;
+    color: var(--light);
+    font-weight: 300;
+  }
+
+  /* MODULES */
+  .modules {
+    padding: 80px 30px;
+    background: var(--deep);
+  }
+
+  .modules-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .modules-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .modules-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--sand);
+    margin-bottom: 16px;
+  }
+
+  .modules-header p {
+    color: rgba(245,239,227,0.55);
+    font-weight: 300;
+    font-size: 1rem;
+  }
+
+  .module-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(196,149,106,0.2);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+  }
+
+  .module-card:hover {
+    border-color: rgba(196,149,106,0.5);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .module-header {
+    cursor: pointer;
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .module-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .module-meta {
+    flex: 1;
+  }
+
+  .module-num {
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 6px;
+  }
+
+  .module-title {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sand);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .module-desc {
+    font-size: 0.9rem;
+    color: rgba(245,239,227,0.5);
+    font-weight: 300;
+  }
+
+  .module-toggle {
+    font-size: 1.2rem;
+    color: var(--clay);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .module-card.open .module-toggle {
+    transform: rotate(45deg);
+  }
+
+  .module-content {
+    display: none;
+    padding: 0 32px 28px;
+    border-top: 1px solid rgba(196,149,106,0.15);
+  }
+
+  .module-card.open .module-content {
+    display: block;
+  }
+
+  .module-content-inner {
+    padding-top: 24px;
+  }
+
+  .exercise-block {
+    background: rgba(196,149,106,0.08);
+    border-right: 3px solid var(--clay);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .exercise-block h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 10px;
+  }
+
+  .exercise-block p, .exercise-block li {
+    font-size: 0.92rem;
+    color: rgba(245,239,227,0.7);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .exercise-block ul {
+    padding-right: 18px;
+    margin-top: 8px;
+  }
+
+  .exercise-block li {
+    margin-bottom: 6px;
+  }
+
+  .textarea-sim {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(196,149,106,0.3);
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 12px;
+    color: rgba(245,239,227,0.4);
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    direction: rtl;
+  }
+
+  .textarea-sim:focus {
+    border-color: rgba(196,149,106,0.7);
+    color: rgba(245,239,227,0.85);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .textarea-sim::placeholder {
+    color: rgba(245,239,227,0.3);
+  }
+
+  .note-gentle {
+    font-size: 0.82rem;
+    color: rgba(245,239,227,0.35);
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  /* CALENDAR SECTION */
+  .calendar-section {
+    background: var(--sand);
+    padding: 100px 30px;
+  }
+
+  .calendar-inner {
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .calendar-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .calendar-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+
+  .calendar-header p {
+    color: var(--medium);
+    font-weight: 300;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .month-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .month-card:hover {
+    border-color: var(--clay);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(196,149,106,0.2);
+  }
+
+  .month-card.marked {
+    background: linear-gradient(135deg, #FDF0E8, #FAE8DC);
+    border-color: var(--terracotta);
+  }
+
+  .month-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--deep);
+    margin-bottom: 6px;
+  }
+
+  .month-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid var(--light);
+    margin: 0 auto;
+    transition: all 0.25s;
+  }
+
+  .month-card.marked .month-dot {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+
+  .calendar-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--medium);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  /* REMEDIES */
+  .remedies {
+    background: linear-gradient(160deg, #3D4A40, #2D3830);
+    padding: 100px 30px;
+  }
+
+  .remedies-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .remedies-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .remedies-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--sand);
+    margin-bottom: 16px;
+  }
+
+  .remedies-header p {
+    color: rgba(245,239,227,0.55);
+    font-weight: 300;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .remedy-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .remedy-cat {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(168,197,172,0.2);
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .remedy-cat-icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .remedy-cat h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--sage-light);
+    margin-bottom: 16px;
+  }
+
+  .remedy-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .remedy-tag {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(168,197,172,0.15);
+    color: var(--sage-light);
+    border: 1px solid rgba(168,197,172,0.25);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .remedy-tag:hover, .remedy-tag.active {
+    background: rgba(168,197,172,0.3);
+    border-color: var(--sage-light);
+  }
+
+  .remedy-cat textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(168,197,172,0.25);
+    border-radius: 8px;
+    padding: 14px;
+    color: rgba(245,239,227,0.6);
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.85rem;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    direction: rtl;
+    transition: all 0.25s;
+  }
+
+  .remedy-cat textarea:focus {
+    border-color: rgba(168,197,172,0.5);
+    color: rgba(245,239,227,0.85);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .remedy-cat textarea::placeholder {
+    color: rgba(245,239,227,0.25);
+  }
+
+  /* LETTER SECTION */
+  .letter-section {
+    background: var(--warm-white);
+    padding: 100px 30px;
+    text-align: center;
+  }
+
+  .letter-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .letter-inner h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 24px;
+  }
+
+  .letter-inner > p {
+    color: var(--medium);
+    font-weight: 300;
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+  }
+
+  .letter-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+    text-align: right;
+  }
+
+  .letter-greeting {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.3rem;
+    color: var(--terracotta);
+    margin-bottom: 20px;
+  }
+
+  .letter-box textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Heebo', sans-serif;
+    font-size: 1rem;
+    color: var(--medium);
+    font-weight: 300;
+    line-height: 1.9;
+    resize: none;
+    min-height: 200px;
+    background: transparent;
+    direction: rtl;
+  }
+
+  .letter-box textarea::placeholder {
+    color: rgba(92,80,74,0.3);
+  }
+
+  .letter-sign {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1rem;
+    color: var(--light);
+    text-align: left;
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* PROMISE */
+  .promise {
+    background: linear-gradient(135deg, var(--clay), var(--terracotta));
+    padding: 100px 30px;
+    text-align: center;
+  }
+
+  .promise-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .promise h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .promise p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.9;
+  }
+
+  .promise-divider {
+    width: 40px;
+    height: 2px;
+    background: rgba(255,255,255,0.4);
+    margin: 30px auto;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    padding: 40px 30px;
+    text-align: center;
+    color: rgba(245,239,227,0.3);
+    font-size: 0.82rem;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(45,41,38,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,149,106,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--sand);
+  }
+
+  .nav-logo span {
+    color: var(--clay);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    color: rgba(245,239,227,0.55);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--clay);
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 3px;
+    background: var(--clay);
+    z-index: 200;
+    transition: width 0.1s linear;
+    width: 0%;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* QUOTE CARDS */
+  .quote-strip {
+    background: var(--clay);
+    padding: 50px 30px;
+    text-align: center;
+  }
+
+  .quote-strip blockquote {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 400;
+    color: white;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .quote-strip cite {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    font-style: normal;
+    letter-spacing: 1px;
+  }
+
+  /* TAGS INPUT */
+  .tags-input-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(196,149,106,0.3);
+    border-radius: 10px;
+    padding: 14px;
+    min-height: 60px;
+    align-items: center;
+    cursor: text;
+    direction: rtl;
+  }
+
+  .tag-chip {
+    background: rgba(196,149,106,0.2);
+    color: var(--clay);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tag-chip button {
+    background: none;
+    border: none;
+    color: var(--clay);
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .tags-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(245,239,227,0.7);
+    min-width: 120px;
+    direction: rtl;
+  }
+
+  .tags-input::placeholder {
+    color: rgba(245,239,227,0.3);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 80px 24px 60px; }
+    .module-header {
+    cursor: pointer; padding: 20px; flex-wrap: wrap; }
+    .module-content { padding: 0 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo">מפת <span>הנפש</span></div>
+  <ul class="nav-links">
+    <li><a href="#modules">שלבים</a></li>
+    <li><a href="#calendar">לוח שנה</a></li>
+    <li><a href="#remedies">תרופות אישיות</a></li>
+    <li><a href="#letter">מכתב לעצמי</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">מדריך אישי למיפוי משברים</div>
+  <h1 class="hero-title">
+    מפת
+    <span>הנפש</span>
+  </h1>
+  <p class="hero-subtitle">
+    ללמוד להכיר את עצמכם בזמנים הקשים — כדי שתדעו לחזור אל עצמכם
+  </p>
+  <div class="hero-subtitle" style="font-size:0.82rem; margin-top:10px; opacity:0; animation: fadeUp 1s ease 1.1s forwards; color:rgba(245,239,227,0.4); letter-spacing:1px;">
+    נוף בן גיאת
+  </div>
+  <div class="hero-scroll">
+    <span>להמשיך</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-inner reveal">
+    <span class="section-label">לפני שמתחילים</span>
+    <h2>זה לא מה שאתם חושבים שזה</h2>
+    <p>
+      זה לא "תוכנית לשיפור עצמי". זה לא עוד דבר שצריך לעשות נכון.<br>
+      זהו <strong>מרחב להיות</strong> — לזהות, להבין, ולרכך את הדרך שבה אתם חיים עם עצמכם.
+    </p>
+    <p>
+      אפשר לעבור על הכל לפי הסדר. אפשר לפתוח רק את מה שמדבר אליכם היום.<br>
+      <strong>אין דרך נכונה אחת</strong>.
+    </p>
+    <p>
+      אם בשלב כלשהו משהו כאן מרגיש גדול מדי — אפשר לעצור.<br>
+      <strong>הקצב שלכם הוא הקצב הנכון.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-strip">
+  <blockquote>
+    "המשבר הוא לא הסוף של הסיפור. הוא התחלה של הכרות מחודשת עם עצמכם."
+    <cite>— נוף בן גיאת</cite>
+  </blockquote>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="how-it-works-inner reveal">
+    <h2>איך עובד המדריך</h2>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num">א</div>
+        <h3>לפני המשבר</h3>
+        <p>מיפוי הסימנים המוקדמים, הטריגרים והגוף</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">ב</div>
+        <h3>בתוך המשבר</h3>
+        <p>איך הוא נראה, מה קורה ביומיום, מה עוזר</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">ג</div>
+        <h3>אחרי הגל</h3>
+        <p>שיקום, חמלה עצמית, מה הגוף צריך</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">ד</div>
+        <h3>לוח שנה אישי</h3>
+        <p>ימים ועונות שרגישים במיוחד עבורכם</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">ה</div>
+        <h3>תרופות אישיות</h3>
+        <p>מה עוזר לכם לנשום ולהיות בתוך עצמכם</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">ו</div>
+        <h3>מכתב לעצמי</h3>
+        <p>מה תרצו לדעת כשיגיע הגל הבא</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section class="modules" id="modules">
+  <div class="modules-inner">
+    <div class="modules-header reveal">
+      <span class="section-label" style="color:var(--clay)">שישה שלבים</span>
+      <h2>המפה שלכם</h2>
+      <p>לחיצה על כל שלב תפתח אותו לעבודה</p>
+    </div>
+
+    <!-- MODULE 1 — לפני המשבר: סימנים מוקדמים -->
+    <div class="module-card">
+      <div class="module-header" onclick="toggleModule(this.closest('.module-card'))">
+        <div class="module-icon">🌊</div>
+        <div class="module-meta">
+          <div class="module-num">שלב א׳</div>
+          <div class="module-title">להכיר את הגל לפני שהוא מגיע</div>
+          <div class="module-desc">מיפוי הסימנים המוקדמים — הגוף, המחשבות, ההתנהגות</div>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-content">
+        <div class="module-content-inner">
+          <div class="exercise-block">
+            <h4>✦ רגע לפני הכל</h4>
+            <p>לא כולם מרגישים את הסימנים המוקדמים בבירור. לפעמים רק בדיעבד אנחנו מבינים — "הגל התחיל שם". זה בסדר גמור. המיפוי הוא תהליך, לא מבחן.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה מתרחש בגוף</h4>
+            <p>כשקושי מגיע — לפני שמבינים שהוא שם — הגוף לרוב יודע ראשון.</p>
+            <ul>
+              <li>איפה מרגישים את זה? (חזה, בטן, ראש, גרון, שרירים?)</li>
+              <li>מה השינוי הראשון ששמים לב אליו?</li>
+              <li>האם השינה משתנה? התיאבון? רמת האנרגיה?</li>
+              <li>האם הגוף "כבד" יותר? מהיר יותר? קפוא?</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="להכיר את הגל לפני שהוא מגיע" placeholder="כאן אפשר לכתוב — בחופשיות, בלי שיפוט. מה שיוצא..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+            <p class="note-gentle">✧ אפשר לכתוב כמה מילים, אפשר לכתוב הרבה. אין ציפייה.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה קורה למחשבות</h4>
+            <ul>
+              <li>האם יש מחשבות שחוזרות בתקופות קשות?</li>
+              <li>מה המחשבות אומרות? ("אני לא מסוגל/ת", "אין לזה סוף", "אני נטל", "כולם...")</li>
+              <li>האם הביקורת העצמית מתחזקת?</li>
+              <li>האם קשה יותר להחליט? להתרכז? לזכור?</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="להכיר את הגל לפני שהוא מגיע" placeholder="הכתיבה כאן היא רק עבורכם..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה משתנה בהתנהגות</h4>
+            <p>לפעמים אנחנו לא "מרגישים" — אנחנו פשוט מתנהגים אחרת, ורק אחר כך מבינים שמשהו היה.</p>
+            <ul>
+              <li>מה מפסיקים לעשות? (לענות להודעות, לאכול, לצאת מהבית, להתקלח?)</li>
+              <li>מה עושים יותר מדי? (לישון, לגלול, לעבוד, לאכול, לשתות?)</li>
+              <li>האם מתבודדים? מתרחקים מאנשים קרובים?</li>
+              <li>מה אנשים קרובים אומרים שהם שמים לב?</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="להכיר את הגל לפני שהוא מגיע" placeholder="בלי שיפוט — רק תצפית. אתם לא אשמים בתגובות שלכם." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2 — מיפוי טריגרים -->
+    <div class="module-card">
+      <div class="module-header" onclick="toggleModule(this.closest('.module-card'))">
+        <div class="module-icon">🧩</div>
+        <div class="module-meta">
+          <div class="module-num">שלב ב׳</div>
+          <div class="module-title">מה מדליק את הגל — הטריגרים שלי</div>
+          <div class="module-desc">זיהוי המצבים, הזמנים, האנשים והתחושות שמכניסים לתוך קושי</div>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-content">
+        <div class="module-content-inner">
+          <div class="exercise-block">
+            <h4>✦ הגנה ≠ הימנעות</h4>
+            <p>להכיר את הטריגרים שלנו זה לא כדי לברוח מכולם. זה כדי שנוכל לבחור — לפעמים להיכנס מוכנים יותר, לפעמים להגן על עצמנו, ולפעמים פשוט לדעת: "זה הגיוני שקשה לי עכשיו."</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ טריגרים של זמן ועונה</h4>
+            <p>הגוף זוכר תאריכים שהמוח עוד לא עיבד. סמנו מה מהפריטים האלה נוגע בכם:</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin:12px 0;">
+              <span class="remedy-tag" onclick="toggleTag(this)">שבתות</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">חגים</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ימי זיכרון לאומיים</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ה-7 באוקטובר</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">יום הזיכרון</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">יום השואה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ימי הולדת</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">אזכרות</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">שנת הנישואין</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ימי פרידה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ראש השנה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">סוף שנה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">עונת חורף</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">לילות ארוכים</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">מחזור וסת</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ערבי חג</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ימי שישי בלילה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">תחילת שנת לימודים</span>
+            </div>
+            <textarea class="textarea-sim" data-label="מה מדליק את הגל — הטריגרים שלי" placeholder="מה עוד? תאריכים, עונות, ימים בשבוע שמרגישים קשים יותר..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ טריגרים של מצב ואירוע</h4>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin:12px 0;">
+              <span class="remedy-tag" onclick="toggleTag(this)">דחייה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ביקורת</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">ויכוח</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">פרידה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">בדידות</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">הצלחה גדולה</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">שינוי פתאומי</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">חוסר ודאות</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">עומס</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">עייפות קיצונית</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">צפייה בחדשות</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">אירועי אבל</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">מפגש עם אדם מסוים</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">שינוי בטיפול תרופתי</span>
+              <span class="remedy-tag" onclick="toggleTag(this)">הפסקת טיפול פסיכולוגי</span>
+            </div>
+            <textarea class="textarea-sim" data-label="מה מדליק את הגל — הטריגרים שלי" placeholder="מה המצבים שמכניסים אתכם לקושי? אפשר לכתוב גם מה שלא מופיע כאן..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ טריגרים חושיים ועדינים</h4>
+            <p>לפעמים הדברים הקטנים ביותר — ריח, צליל, תמונה, שיר — מגיעים הכי עמוק.</p>
+            <textarea class="textarea-sim" data-label="מה מדליק את הגל — הטריגרים שלי" placeholder="ריח שמחזיר לתקופה קשה, שיר שפותח משהו, מקום שמרגיש מאיים, מזג אוויר שמשנה את מצב הרוח..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ כשיודעים שמגיע — מה עוזר להיכנס מוכנים</h4>
+            <textarea class="textarea-sim" data-label="מה מדליק את הגל — הטריגרים שלי" placeholder="לדוגמה: 'לדבר עם המטפל/ת לפני יום הזיכרון', 'לא להיות לבד/ה בשבת הקרובה', 'לבטל חובות ביום שאחרי', 'לישון טוב שבוע לפני'..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 3 — בלב המשבר -->
+    <div class="module-card">
+      <div class="module-header" onclick="toggleModule(this.closest('.module-card'))">
+        <div class="module-icon">🔥</div>
+        <div class="module-meta">
+          <div class="module-num">שלב ג׳</div>
+          <div class="module-title">איך נראה המשבר שלי</div>
+          <div class="module-desc">מה קורה ביומיום כשאני בתוכו — ומה כבר עזר</div>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-content">
+        <div class="module-content-inner">
+          <div class="exercise-block">
+            <h4>✦ ראשית — קצת ידע</h4>
+            <p>כשאנחנו במשבר, המוח עובר למצב "הישרדות". חלק ממנו מפסיק לתפקד כרגיל. זו לא חולשה — זה איך שמוח אנושי עובד תחת איום. הגוף מנסה להגן עלינו.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: איך אני מתנהל/ת כשאני בפנים</h4>
+            <p>לא קמים בבוקר? לא מתקלחים? לא אוכלים? לא עונים לטלפונים? לא יוצאים מהמיטה?<br>
+            זה לא עצלות. זה לא כישלון. זה משבר. מפנה לרוב משאבים מאוד מוגבלים.</p>
+            <ul>
+              <li>על מה מוותרים ביומיום? (לבשל, להתקלח, לצאת, לדבר?)</li>
+              <li>כמה שעות ביום קשה לצאת מהמיטה?</li>
+              <li>מה הדבר הראשון שנופל — ומה האחרון שנשאר?</li>
+              <li>האם יש "מצב מינימום" שאפשר לזהות?</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="איך נראה המשבר שלי" placeholder="תיאור פשוט וכן של מה קורה כשאתם בתוך זה. בלי בושה." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+            <p class="note-gentle">✧ לכתוב את זה כאן — זה כבר חמלה עצמית. להכיר ולא לשפוט.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ לפעמים — צריך פשוט לתת לגל לעבור</h4>
+            <p>לא כל גל צריך להילחם בו. לפעמים הפעולה הכי נכונה היא <strong>לשבת איתו</strong> — לדעת שהוא יעבור, לא להוסיף עליו ביקורת עצמית, ולתת לגוף את מה שהוא צריך עכשיו.</p>
+            <p style="margin-top:10px;">לפעמים "להחזיק" זה לשבת בבוקר עם כוס קפה. לצאת לאוויר פעם ביום. לאכול משהו קטן. זה מספיק.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה עזר בזמן אמת</h4>
+            <p>גם בתוך קושי — יש לרוב משהו קטן שעזר קצת. אולי אפילו מבלי לשים לב.</p>
+            <ul>
+              <li>מישהי או מישהו שאמר משהו</li>
+              <li>מקום שהרגיש בטוח</li>
+              <li>פעולה קטנה — צעד אחד בלבד</li>
+              <li>רגע של שקט, של טבע, של מגע</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="איך נראה המשבר שלי" placeholder="גם אם זה נראה מאוד קטן — כדאי לתעד אותו. הדברים הקטנים הם לא קטנים." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ מי יכול/ה לעזור לי שם?</h4>
+            <p>לא בכל משבר נוכל לפנות לאותם אנשים. לפעמים צריך מישהו שיבוא, לפעמים מישהו שישלח הודעה, לפעמים מישהו שיקשיב בלי לייעץ.</p>
+            <textarea class="textarea-sim" data-label="איך נראה המשבר שלי" placeholder="מי האנשים שאפשר לפנות אליהם? מה כל אחד מהם טוב לתת? (לשמוע, לבוא, לשלוח אוכל, לשלוח הודעה...)" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ כרטיס חירום — לרגעים קשים מאוד</h4>
+            <p>3 דברים שנרצה לדעת ברגע הכי קשה. זכרון, עובדה, שם של מישהו, או כל דבר שמחזיר אותנו לכאן.</p>
+            <textarea class="textarea-sim" data-label="איך נראה המשבר שלי" placeholder="לדוגמה: 'עברתי את ה-7 באוקטובר ואני עדיין כאן.' 'מיכל תמיד עונה לי.' 'זה לא ייקח לנצח — עבר בפעם שעברה.'" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4 — אחרי הגל -->
+    <div class="module-card">
+      <div class="module-header" onclick="toggleModule(this.closest('.module-card'))">
+        <div class="module-icon">🌅</div>
+        <div class="module-meta">
+          <div class="module-num">שלב ד׳</div>
+          <div class="module-title">אחרי הגל — חמלה ושיקום</div>
+          <div class="module-desc">השלב שאנחנו הכי מזלזלים בו — ולפעמים הכי חשוב לריפוי</div>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-content">
+        <div class="module-content-inner">
+          <div class="exercise-block">
+            <h4>✦ הזמן שאחרי</h4>
+            <p>אחרי שגל חולף, לפעמים יש תשישות עמוקה, ריקנות, ולעתים אפילו תחושת גיאות ("עכשיו אני בסדר!") שעשויה לדעוך שוב. הכל יכול להיות. זה חלק מהמחזור — לא פתולוגיה, לא כישלון.</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ חמלה עצמית — לא הלקאה עצמית</h4>
+            <p>הנטייה הראשונה אחרי משבר היא לפעמים לשפוט את עצמנו: "למה הייתי ככה?", "כולם רואים", "אני חלש/ה".<br>
+            אבל עברתם משהו קשה. הגוף והנפש שלכם עשו את מה שיכלו.</p>
+            <p style="margin-top:10px;">חמלה עצמית לא אומרת "הכל בסדר". היא אומרת — <strong>"מה שעברתי היה קשה, ואני ראוי/ה לעדינות."</strong></p>
+            <textarea class="textarea-sim" data-label="אחרי הגל — חמלה ושיקום" placeholder="מה הייתם אומרים לחבר/ה טוב שעבר/ה מה שעברתם? כתבו את זה לעצמכם." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה הגוף צריך עכשיו</h4>
+            <p>אחרי תקופה קשה — הגוף לרוב צריך שיקום. מה עוזר להתאושש?</p>
+            <ul>
+              <li>שינה / מנוחה שאינה "עצלות"</li>
+              <li>תנועה עדינה / אוויר / טבע</li>
+              <li>אכילה מזינה / חמימות / מגע</li>
+              <li>קשר עם אנשים בטוחים / בדידות מרפאה</li>
+            </ul>
+            <textarea class="textarea-sim" data-label="אחרי הגל — חמלה ושיקום" placeholder="מה הגוף שלכם מבקש אחרי קושי? מה עוזר לכם להתאושש?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה הייתם רוצים לשמוע</h4>
+            <p>לפעמים אנחנו יודעים בדיוק מה היינו צריכים לשמוע — ואיש לא אמר. אפשר לכתוב את זה לעצמנו עכשיו.</p>
+            <textarea class="textarea-sim" data-label="אחרי הגל — חמלה ושיקום" placeholder="מה הייתם רוצים לשמוע בזמן הקשה?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+
+          <div class="exercise-block">
+            <h4>✦ תרגיל: מה למדתי על עצמי</h4>
+            <p>לא כל משבר מלמד משהו — ולא חייב. אבל אם יש משהו שעולה, שווה לתעד אותו.</p>
+            <textarea class="textarea-sim" data-label="אחרי הגל — חמלה ושיקום" placeholder="לא חייב להיות תובנה גדולה. 'למדתי שצריך לישון יותר' — זה תובנה. 'למדתי שאני חזק/ה יותר ממה שחשבתי' — גם." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section class="calendar-section" id="calendar">
+  <div class="calendar-inner">
+    <div class="calendar-header reveal">
+      <span class="section-label">לוח שנה אישי</span>
+      <h2>הימים הרגישים שלכם</h2>
+      <p>בחיי כולנו יש תקופות ביולוגיות, אישיות ולאומיות שמשפיעות עלינו. לדעת אותן — זה כוח. סמנו ימים, הוסיפו הערות, ובנו תוכנית הכנה.</p>
+    </div>
+
+    <!-- FULL YEAR CALENDAR -->
+    <div class="reveal" id="yearCalendarWrap" style="margin-bottom:36px;">
+      <div style="background:white; border-radius:20px; padding:32px; box-shadow:0 4px 30px rgba(0,0,0,0.07);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px;">
+          <div style="font-size:0.75rem; letter-spacing:3px; font-weight:700; text-transform:uppercase; color:var(--clay);">לוח שנה — סמנו ימים רגישים</div>
+          <div style="display:flex; gap:16px; font-size:0.78rem; color:var(--light); flex-wrap:wrap;">
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--terracotta);display:inline-block;"></span>יום רגיש</span>
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--clay);opacity:0.5;display:inline-block;"></span>יום עם הערה</span>
+          </div>
+        </div>
+        <div id="fullCalendar" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;"></div>
+      </div>
+    </div>
+
+    <!-- NOTE POPUP -->
+    <div id="dayNotePopup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:500; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:white; border-radius:20px; padding:32px; max-width:440px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.2); position:relative;">
+        <div id="popupDateLabel" style="font-family:'Frank Ruhl Libre',serif; font-size:1.3rem; font-weight:700; color:var(--deep); margin-bottom:16px;"></div>
+        <p style="font-size:0.88rem; color:var(--light); margin-bottom:12px;">מה מיוחד ביום הזה? מה קורה בגוף? מה עוזר?</p>
+        <textarea id="popupNoteInput" style="width:100%; border:1px solid rgba(196,149,106,0.35); border-radius:10px; padding:14px; font-family:'Heebo',sans-serif; font-size:0.92rem; color:var(--medium); resize:vertical; min-height:120px; outline:none; direction:rtl; line-height:1.8;" placeholder="כתבו כאן..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+        <div style="display:flex; gap:10px; margin-top:16px; justify-content:flex-end;">
+          <button onclick="closePopup()" style="padding:10px 20px; border:1px solid rgba(0,0,0,0.12); border-radius:8px; background:white; color:var(--medium); font-family:'Heebo',sans-serif; font-size:0.88rem; cursor:pointer;">ביטול</button>
+          <button onclick="saveNote()" style="padding:10px 22px; border:none; border-radius:8px; background:var(--clay); color:white; font-family:'Heebo',sans-serif; font-size:0.88rem; cursor:pointer; font-weight:600;">שמירה</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SENSITIVE DATES NOTES -->
+    <div class="reveal" style="margin-bottom:32px;">
+      <div style="background:white; border-radius:16px; padding:32px; box-shadow:0 2px 20px rgba(0,0,0,0.05);">
+        <div style="font-size:0.78rem; letter-spacing:3px; font-weight:700; text-transform:uppercase; color:var(--clay); margin-bottom:16px;">תאריכים ואירועים שחשוב לציין</div>
+        <p style="font-size:0.88rem; color:var(--light); margin-bottom:14px; font-weight:300;">תאריכים שהגוף זוכר — לפעמים לפני שהראש מבין מדוע</p>
+        <textarea class="textarea-sim" data-label="תאריכים ואירועים רגישים" style="width:100%; border:none; outline:none; font-family:'Heebo',sans-serif; font-size:0.95rem; color:var(--medium); font-weight:300; line-height:1.9; resize:vertical; min-height:130px; background:transparent; direction:rtl;" placeholder="יום הזיכרון, ה-7 באוקטובר, יום הולדת של מישהו שאיננו, יום הנישואין, תחילת טיפול, תאריך פרידה..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+        <div style="font-size:0.8rem; color:var(--light); margin-top:8px; font-style:italic;">✧ הגוף זוכר תאריכים שהמוח "שכח"</div>
+      </div>
+    </div>
+
+    <!-- PREP PLAN -->
+    <div class="reveal" style="background:linear-gradient(135deg,#FDF4EC,#F9EDE3); border-radius:16px; padding:32px; border:1px solid rgba(196,149,106,0.2);">
+      <div style="font-size:0.78rem; letter-spacing:3px; font-weight:700; text-transform:uppercase; color:var(--clay); margin-bottom:12px;">תוכנית הכנה לזמנים רגישים</div>
+      <p style="font-size:0.92rem; color:var(--medium); margin-bottom:14px; font-weight:300;">כשיודעים שמגיעה תקופה רגישה — מה אפשר להכין מראש?</p>
+      <textarea class="textarea-sim" data-label="תוכנית הכנה לזמנים רגישים" style="width:100%; border:1px dashed rgba(196,149,106,0.4); border-radius:10px; padding:16px; outline:none; font-family:'Heebo',sans-serif; font-size:0.92rem; color:var(--medium); font-weight:300; resize:vertical; min-height:120px; background:rgba(255,255,255,0.7); direction:rtl;" placeholder="לדוגמה: 'לסגור פגישה עם המטפל/ת לפני אוקטובר', 'לא להיות לבד/ה בערב יום הזיכרון', 'לוודא שיש תרופות', 'לאכול טוב שבוע לפני'..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cal-day {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 400; color: var(--medium);
+    cursor: pointer; transition: all 0.18s; position: relative;
+    flex-shrink: 0;
+  }
+  .cal-day:hover { background: rgba(196,149,106,0.12); color: var(--terracotta); }
+  .cal-day.sensitive { background: var(--terracotta) !important; color: white !important; font-weight: 600; }
+  .cal-day.has-note::after {
+    content: ''; position: absolute; bottom: 2px; right: 2px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--clay);
+  }
+  .cal-day.sensitive.has-note::after { background: rgba(255,255,255,0.8); }
+  .cal-day.empty { cursor: default; }
+  .cal-month-block { }
+  .cal-month-title {
+    font-size: 0.8rem; font-weight: 700; color: var(--clay);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px; padding-bottom: 6px;
+    border-bottom: 1px solid rgba(196,149,106,0.2);
+  }
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7,32px);
+    gap: 2px; margin-bottom: 4px;
+  }
+  .cal-weekday {
+    width: 32px; text-align: center; font-size: 0.65rem;
+    font-weight: 600; color: var(--light); letter-spacing: 0.5px;
+  }
+  .cal-days-grid {
+    display: grid; grid-template-columns: repeat(7,32px); gap: 2px;
+  }
+</style>
+
+<script>
+(function() {
+  const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  const WEEKDAYS = ['א׳','ב׳','ג׳','ד׳','ה׳','ו׳','ש׳'];
+  const YEAR = 2025;
+
+  let sensitiveMap = {}; // "YYYY-MM-DD" -> true
+  let notesMap = {};     // "YYYY-MM-DD" -> string
+  let currentEditKey = null;
+
+  function dateKey(y, m, d) {
+    return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  }
+
+  function buildCalendar() {
+    const wrap = document.getElementById('fullCalendar');
+    wrap.innerHTML = '';
+    for (let m = 0; m < 12; m++) {
+      const block = document.createElement('div');
+      block.className = 'cal-month-block';
+
+      const title = document.createElement('div');
+      title.className = 'cal-month-title';
+      title.textContent = MONTHS[m];
+      block.appendChild(title);
+
+      const wdRow = document.createElement('div');
+      wdRow.className = 'cal-weekdays';
+      WEEKDAYS.forEach(wd => {
+        const w = document.createElement('div');
+        w.className = 'cal-weekday';
+        w.textContent = wd;
+        wdRow.appendChild(w);
+      });
+      block.appendChild(wdRow);
+
+      const grid = document.createElement('div');
+      grid.className = 'cal-days-grid';
+
+      const firstDay = new Date(YEAR, m, 1).getDay(); // 0=Sun
+      // In Israel week starts Sunday, so index is correct
+      for (let i = 0; i < firstDay; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'cal-day empty';
+        grid.appendChild(blank);
+      }
+
+      const daysInMonth = new Date(YEAR, m+1, 0).getDate();
+      for (let d = 1; d <= daysInMonth; d++) {
+        const key = dateKey(YEAR, m, d);
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        if (sensitiveMap[key]) cell.classList.add('sensitive');
+        if (notesMap[key]) cell.classList.add('has-note');
+        cell.textContent = d;
+        cell.dataset.key = key;
+        cell.dataset.label = `${d} ב${MONTHS[m]}`;
+
+        cell.addEventListener('click', function(e) {
+          if (e.target !== cell) return;
+          if (sensitiveMap[key]) {
+            // Already marked — open note or unmark on double mechanism
+            openPopup(key, cell.dataset.label);
+          } else {
+            sensitiveMap[key] = true;
+            cell.classList.add('sensitive');
+            openPopup(key, cell.dataset.label);
+          }
+        });
+
+        cell.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          delete sensitiveMap[key];
+          delete notesMap[key];
+          cell.classList.remove('sensitive', 'has-note');
+        });
+
+        grid.appendChild(cell);
+      }
+      block.appendChild(grid);
+      wrap.appendChild(block);
+    }
+  }
+
+  window.openPopup = function(key, label) {
+    currentEditKey = key;
+    document.getElementById('popupDateLabel').textContent = label;
+    document.getElementById('popupNoteInput').value = notesMap[key] || '';
+    const popup = document.getElementById('dayNotePopup');
+    popup.style.display = 'flex';
+    setTimeout(() => document.getElementById('popupNoteInput').focus(), 50);
+  };
+
+  window.closePopup = function() {
+    document.getElementById('dayNotePopup').style.display = 'none';
+    currentEditKey = null;
+  };
+
+  window.saveNote = function() {
+    if (!currentEditKey) return;
+    const val = document.getElementById('popupNoteInput').value.trim();
+    if (val) {
+      notesMap[currentEditKey] = val;
+    } else {
+      delete notesMap[currentEditKey];
+    }
+    // Update cell appearance
+    const cell = document.querySelector(`[data-key="${currentEditKey}"]`);
+    if (cell) {
+      if (notesMap[currentEditKey]) cell.classList.add('has-note');
+      else cell.classList.remove('has-note');
+    }
+    closePopup();
+  };
+
+  document.getElementById('dayNotePopup').addEventListener('click', function(e) {
+    if (e.target === this) closePopup();
+  });
+
+  buildCalendar();
+})();
+</script>
+
+<!-- PERSONAL MEDICINE INTRO -->
+<section style="background:var(--warm-white); padding:80px 30px;">
+  <div style="max-width:780px; margin:0 auto;" class="reveal">
+    <span class="section-label">רקע תיאורטי</span>
+    <h2 style="font-family:'Frank Ruhl Libre',serif; font-size:clamp(1.8rem,4vw,2.6rem); font-weight:700; color:var(--deep); margin-bottom:24px; line-height:1.3;">Personal Medicine — תרופות אישיות</h2>
+    <p style="font-size:1.05rem; color:var(--medium); font-weight:300; margin-bottom:18px; line-height:1.9;">
+      הפסיכיאטרית <strong style="color:var(--terracotta)">פטרישיה דיגן (Patricia Deegan)</strong> — חוקרת, פעילה ואדם שחי עם אבחנה פסיכיאטרית — פיתחה את מושג <em>"Personal Medicine"</em>:
+    </p>
+    <div style="background:var(--sand); border-radius:16px; padding:28px 32px; margin-bottom:24px; border-right:4px solid var(--clay);">
+      <p style="font-size:1.05rem; color:var(--deep); font-weight:400; line-height:1.9; font-family:'Frank Ruhl Libre',serif;">
+        "תרופות אישיות הן הדברים שאנשים עושים למען עצמם — לא כי מישהו אמר להם — אלא כי הם מרגישים שזה עוזר להם לנהל את חייהם, להתמודד עם תסמינים, ולהמשיך קדימה."
+      </p>
+      <p style="font-size:0.82rem; color:var(--light); margin-top:10px;">— Patricia Deegan, PhD</p>
+    </div>
+    <p style="font-size:1rem; color:var(--medium); font-weight:300; margin-bottom:14px; line-height:1.9;">
+      דיגן מבחינה בין <strong style="color:var(--deep)">תרופות רפואיות</strong> (שרופא/ה רושם/ת) לבין <strong style="color:var(--deep)">תרופות אישיות</strong> — הפעולות, ההרגלים, המקומות, האנשים והרגעים שמאפשרים לנו להרגיש יותר שלמים, יותר עצמנו.
+    </p>
+    <p style="font-size:1rem; color:var(--medium); font-weight:300; margin-bottom:14px; line-height:1.9;">
+      היא מצאה שאנשים שיודעים מה ה"תרופות האישיות" שלהם — מתמודדים טוב יותר עם משברים, שומרים על עצמם ומחלימים מהר יותר.
+    </p>
+    <div style="background:linear-gradient(135deg,#EEF4EF,#E5EFE6); border-radius:12px; padding:20px 24px; display:flex; gap:14px; align-items:flex-start;">
+      <span style="font-size:1.4rem; flex-shrink:0;">📖</span>
+      <div>
+        <p style="font-size:0.85rem; font-weight:600; color:var(--sage); margin-bottom:4px; letter-spacing:1px;">לקריאה נוספת</p>
+        <p style="font-size:0.88rem; color:var(--medium); font-weight:300; line-height:1.7;">
+          Deegan, P. (2005). <em>The importance of personal medicine: A qualitative study of resilience in people with psychiatric disabilities.</em> Scandinavian Journal of Public Health.<br><br>
+          Deegan, P. (1996). <em>Recovery as a journey of the heart.</em> Psychiatric Rehabilitation Journal.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REMEDIES -->
+<section class="remedies" id="remedies">
+  <div class="remedies-inner">
+    <div class="remedies-header reveal">
+      <span class="section-label" style="color:var(--sage-light)">תרופות אישיות</span>
+      <h2>מה עוזר לכם לנשום</h2>
+      <p>אלה לא "טיפים מהאינטרנט". אלה הדברים שכבר יודעים שעוזרים — רק עוד לא כתבנו אותם.<br>הפעולות, המקומות, האנשים, הרגעים — שמחזירים אתכם אל עצמכם.</p>
+    </div>
+
+    <div class="remedy-categories">
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">🌿</span>
+        <h3>גוף ותנועה</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">הליכה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">ריצה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">שחייה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">יוגה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">מתיחות</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">ריקוד</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">מנוחה מוחלטת</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="מה עוד? ואיזו תנועה עוזרת במיוחד?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">🫂</span>
+        <h3>קשר וחיבור</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">שיחת טלפון</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">להיות עם בעל חיים</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">חיבוק</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">פגישה עם חבר/ה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">בדידות מרצון</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="מי האנשים שעוזרים? מה קשר עושה טוב?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">🎵</span>
+        <h3>חושים ויצירה</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">מוזיקה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">ציור</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">כתיבה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">בישול</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">ריח טוב</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">אמבטיה חמה</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="מה פועל על החושים בצורה שמרגיעה?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">🌳</span>
+        <h3>טבע ומרחב</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">ים</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">הרים</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">גינה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">שקיעה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">אוויר לילה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">עצים</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="איזה מקום בטבע עושה טוב? מה מרגישים שם?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">🍵</span>
+        <h3>שגרה ויציבות</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">שעת שינה קבועה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">ארוחת בוקר</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">יומן</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">מדיטציה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">סדר יום גמיש</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="מה בשגרה עושה יציבות? מה קורה כשהשגרה נשברת?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+
+      <div class="remedy-cat">
+        <span class="remedy-cat-icon">💬</span>
+        <h3>עזרה מקצועית</h3>
+        <div class="remedy-tags">
+          <span class="remedy-tag" onclick="toggleTag(this)">טיפול פרטני</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">קבוצת תמיכה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">פסיכיאטריה</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">קו חירום</span>
+          <span class="remedy-tag" onclick="toggleTag(this)">רופא משפחה</span>
+        </div>
+        <textarea class="textarea-sim" data-label="תרופות אישיות" placeholder="מי הגורמים המקצועיים שאפשר לפנות אליהם? איך הכי קל ליצור איתם קשר?" rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:50px; background:rgba(168,197,172,0.1); border:1px solid rgba(168,197,172,0.25); border-radius:16px; padding:32px;">
+      <div style="font-size:0.8rem; letter-spacing:3px; font-weight:700; text-transform:uppercase; color:var(--sage-light); margin-bottom:16px;">המרשם האישי שלך</div>
+      <p style="font-size:0.95rem; color:rgba(245,239,227,0.6); margin-bottom:16px; font-weight:300;">בהסתמך על כל מה שכתבנו — לכתוב לעצמנו "מרשם" לתקופות קשות. רשימה קצרה שאפשר להחזיק.</p>
+      <textarea class="textarea-sim" data-label="המרשם האישי שלי" style="width:100%; background:rgba(255,255,255,0.04); border:1px dashed rgba(168,197,172,0.3); border-radius:10px; padding:16px; color:rgba(245,239,227,0.7); font-family:'Heebo',sans-serif; font-size:0.92rem; resize:vertical; min-height:160px; outline:none; direction:rtl; transition:all 0.25s;" placeholder="המרשם שלי לימים קשים:&#10;1.&#10;2.&#10;3.&#10;..." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+    </div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section class="letter-section" id="letter">
+  <div class="letter-inner">
+    <div class="reveal">
+      <span class="section-label">מכתב לעצמי</span>
+      <h2>לעצמי של הגל הבא</h2>
+      <p>
+        מכתב לאותו חלק בנו שיהיה בתוך קושי בעתיד. מתוך מה שיודעים עכשיו — בתקופה שאולי קצת יותר טובה.
+      </p>
+    </div>
+    <div class="letter-box reveal">
+      <div class="letter-greeting">לעצמי היקר/ה,</div>
+      <textarea class="textarea-sim" data-label="מכתב לעצמי" placeholder="לספר לעצמנו מה חשוב לדעת. מה בדרך כלל עוזר. מה תמיד חולף. מה נרצה לזכור כשיהיה קשה.&#10;&#10;אין כללים. זה בינינו לבין עצמנו." rows="6"></textarea>
+<p class="notebook-note">✏️ אפשר גם לכתוב במחברת אישית</p>
+      <div class="letter-sign">— אני, ברגע של ידיעה</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="promise-inner reveal">
+    <h2>לא צריך לעבור את זה לבד</h2>
+    <div class="promise-divider"></div>
+    <p>המשבר לא מגדיר מי אנחנו. הוא חלק מהסיפור — לא כולו.</p>
+    <p>העובדה שאתם כאן ועושים את זה — זה כבר משהו.</p>
+    <p style="font-size:0.92rem; color:rgba(255,255,255,0.55); margin-top:30px;">
+      אם את/ה בתוך משבר עכשיו ומרגיש/ה שזקוק/ה לעזרה מיידית —<br>
+      <strong style="color:white;">ער"ן: 1201 | סה"ר: 1202 | קו חירום נפשי 24/7</strong>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>מפת הנפש — מדריך אישי למיפוי משברים וצרכים</p>
+  <p style="margin-top:6px;">נוף בן גיאת | נבנה מתוך הבנה שכל אדם הוא עולם ומלואו</p>
+</footer>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scroll = window.scrollY;
+    const height = document.body.scrollHeight - window.innerHeight;
+    const progress = (scroll / height) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Module toggle
+  function toggleModule(card) {
+    card.classList.toggle('open');
+  }
+
+  // Month toggle
+  function toggleMonth(card) {
+    card.classList.toggle('marked');
+  }
+
+  // Remedy tag toggle
+  function toggleTag(tag) {
+    tag.classList.toggle('active');
+  }
+</script>
+
+
+<!-- EXPORT -->
+<section class="export-section-crisis">
+  <div class="export-box-crisis">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📄</div>
+    <h3>ייצוא המיפוי שלכם</h3>
+    <p>כל מה שכתבתם — מיפוי המשברים, התובנות, הכתיבה החופשית — מוכן לייצוא לקובץ PDF.</p>
+    <button class="btn-export-crisis" onclick="exportToPDF()">הורידו את המיפוי שלכם ✦</button>
+    <p class="export-note-crisis">הקובץ נשמר אצלכם בלבד.</p>
+  </div>
+</section>
+
+<style>
+.export-section-crisis { background: #1a1510; padding: 4rem 1.5rem; text-align: center; border-top: 1px solid rgba(196,149,106,0.15); }
+.export-box-crisis { background: rgba(196,149,106,0.06); border: 1px solid rgba(196,149,106,0.2); border-radius: 16px; padding: 3rem 2.5rem; max-width: 560px; margin: 0 auto; }
+.export-box-crisis h3 { font-family: 'Frank Ruhl Libre', serif; font-size: 1.5rem; color: #C4956A; margin-bottom: 0.6rem; }
+.export-box-crisis p { color: rgba(245,239,227,0.7); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.8rem; }
+.btn-export-crisis { padding: 1rem 2.5rem; background: #C4956A; color: #1a1208; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; letter-spacing: 0.03em; }
+.btn-export-crisis:hover { opacity: 0.88; transform: translateY(-2px); }
+.export-note-crisis { font-size: 0.82rem; color: rgba(196,149,106,0.45); margin-top: 1rem; margin-bottom: 0 !important; }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW=210, pageH=297, margin=20, usableW=pageW-margin*2;
+  let y = margin;
+  function checkPage(n) { if (y+n > pageH-margin) { doc.addPage(); y=margin; } }
+
+  doc.setFillColor(26,21,16);
+  doc.rect(0,0,pageW,45,'F');
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(196,149,106);
+  doc.text('מפת הנפש', pageW/2, 21, {align:'center'});
+  doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(210,195,170);
+  doc.text('מיפוי המשברים שלי', pageW/2, 32, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(150,130,105);
+  doc.text(new Date().toLocaleDateString('he-IL'), pageW/2, 41, {align:'center'});
+  y = 58;
+
+  let hasContent = false;
+  document.querySelectorAll('.textarea-sim').forEach(ta => {
+    const val = ta.value.trim();
+    if (!val) return;
+    hasContent = true;
+    const label = ta.dataset.label || 'כתיבה חופשית';
+    checkPage(28);
+    doc.setFillColor(40,30,20);
+    doc.rect(margin, y-4, usableW, 10, 'F');
+    doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(196,149,106);
+    doc.text(label, pageW-margin, y+3, {align:'right'});
+    y += 13;
+    doc.setFontSize(11); doc.setFont('helvetica','normal'); doc.setTextColor(55,45,35);
+    const lines = doc.splitTextToSize(val, usableW);
+    lines.forEach(line => { checkPage(7); doc.text(line, pageW-margin, y, {align:'right'}); y+=6; });
+    y+=4; doc.setDrawColor(196,149,106); checkPage(4); doc.line(margin,y,pageW-margin,y); y+=8;
+  });
+
+  if (!hasContent) {
+    doc.setFontSize(12); doc.setTextColor(139,110,90);
+    doc.text('עדיין לא מילאתם תרגילים. התחילו לכתוב!', pageW/2, y+10, {align:'center'});
+  }
+
+  const total = doc.internal.getNumberOfPages();
+  for (let i=1;i<=total;i++) {
+    doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150,130,105);
+    doc.text('nofbengiat.com | מפת הנפש', pageW/2, pageH-8, {align:'center'});
+    doc.text(i+' / '+total, margin, pageH-8);
+  }
+  doc.save('מפת-הנפש-המיפוי-שלי.pdf');
+}
+</script>
+
+</body>
+</html>
